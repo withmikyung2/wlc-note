@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>아하소풍 엔딩노트 WLC 2급 실습판</title>
+    <meta name="description" content="WLC 2급 수료생이 강의 후 직접 작성하고 가족과 나눌 수 있는 아하소풍 엔딩노트 실습 사이트입니다.">
+    <style>
+      :root {
+        --ink: #173128;
+        --muted: #53645b;
+        --green: #2f6b4f;
+        --gold: #c8903f;
+        --paper: #fffdf8;
+        --soft: #f2f7f1;
+        --warm: #f9efe1;
+        --line: rgba(23, 49, 40, 0.14);
+        --shadow: 0 18px 44px rgba(23, 49, 40, 0.1);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: "Noto Serif KR", "Malgun Gothic", serif;
+        line-height: 1.65;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .wrap {
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 253, 248, 0.94);
+      }
+
+      .topbar .wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        min-height: 76px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 900;
+        font-size: 22px;
+      }
+
+      .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--green);
+        color: #fff;
+        font-weight: 900;
+      }
+
+      .top-note {
+        color: var(--muted);
+        font-size: 17px;
+        font-weight: 800;
+      }
+
+      .hero {
+        padding: 82px 0 64px;
+        background: linear-gradient(135deg, var(--warm), var(--soft) 58%, #fff);
+      }
+
+      .badge {
+        display: inline-flex;
+        padding: 9px 15px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.8);
+        color: var(--green);
+        font-size: 18px;
+        font-weight: 900;
+      }
+
+      h1 {
+        max-width: 900px;
+        margin: 22px 0 18px;
+        font-size: clamp(42px, 6vw, 72px);
+        line-height: 1.14;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        max-width: 900px;
+        margin: 0;
+        color: #33483f;
+        font-size: clamp(22px, 2.5vw, 30px);
+        font-weight: 800;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 32px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 54px;
+        padding: 0 22px;
+        border: 1px solid var(--green);
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 19px;
+        font-weight: 900;
+      }
+
+      .btn.primary {
+        background: var(--green);
+        color: #fff;
+      }
+
+      .btn.secondary {
+        background: #fff;
+        color: var(--green);
+      }
+
+      section {
+        padding: 72px 0;
+      }
+
+      section.alt {
+        background: var(--soft);
+      }
+
+      .section-title {
+        max-width: 860px;
+        margin-bottom: 30px;
+      }
+
+      .label {
+        margin: 0 0 8px;
+        color: var(--gold);
+        font-size: 17px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: clamp(34px, 4vw, 50px);
+        line-height: 1.22;
+      }
+
+      .section-title p {
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 22px;
+        font-weight: 700;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .grid.four {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .card {
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: var(--shadow);
+      }
+
+      .card span {
+        color: var(--green);
+        font-size: 17px;
+        font-weight: 900;
+      }
+
+      .card h3 {
+        margin: 10px 0 10px;
+        font-size: 25px;
+        line-height: 1.3;
+      }
+
+      .card p,
+      .card li {
+        color: var(--muted);
+        font-size: 19px;
+      }
+
+      .card p {
+        margin: 0;
+      }
+
+      .roadmap {
+        display: grid;
+        gap: 12px;
+      }
+
+      .road {
+        display: grid;
+        grid-template-columns: 95px 1fr 1.2fr;
+        gap: 16px;
+        align-items: center;
+        padding: 18px 20px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .road strong {
+        color: var(--green);
+        font-size: 21px;
+      }
+
+      .road b {
+        font-size: 22px;
+      }
+
+      .road span {
+        color: var(--muted);
+        font-size: 18px;
+      }
+
+      .notice {
+        margin-top: 24px;
+        padding: 20px 22px;
+        border: 1px solid rgba(200, 144, 63, 0.35);
+        border-radius: 8px;
+        background: #fff8ec;
+        color: #4b3b26;
+        font-size: 19px;
+        font-weight: 800;
+      }
+
+      .footer {
+        padding: 36px 0;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 17px;
+        text-align: center;
+      }
+
+      @media (max-width: 900px) {
+        .topbar .wrap {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 16px 0;
+        }
+
+        .grid,
+        .grid.four,
+        .road {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap">
+        <div class="brand">
+          <div class="brand-mark">삶</div>
+          <span>아하소풍 엔딩노트 WLC 2급 실습판</span>
+        </div>
+        <div class="top-note">강의 배포용 독립 사이트</div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="wrap">
+          <span class="badge">WLC 2급 수료생용</span>
+          <h1>배운 내용을 삶의 기록으로 이어가는 엔딩노트</h1>
+          <p class="lead">강의장에서 바로 열고, 수강생에게 나누고, 가족과 함께 읽을 수 있도록 만든 독립형 실습 사이트임.</p>
+          <div class="actions">
+            <a class="btn primary" href="workbook-ending-note-wlc2.md">워크북 원문 열기</a>
+            <a class="btn secondary" href="content/ending-note-wlc2-plan.md">기획 문서 보기</a>
+            <a class="btn secondary" href="#roadmap">11주 로드맵</a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <div class="section-title">
+            <p class="label">Purpose</p>
+            <h2>죽음보다 삶의 의미, 존엄, 가족 배려, 실천을 먼저 다룸.</h2>
+            <p>이 엔딩노트는 법적 문서를 대신하는 자료가 아니라, 나의 마음을 정리하고 가족과 대화를 시작하기 위한 교육용 워크북임.</p>
+          </div>
+          <div class="grid four">
+            <article class="card">
+              <span>01</span>
+              <h3>삶의 의미</h3>
+              <p>내가 살아온 시간과 고마운 순간을 돌아봄.</p>
+            </article>
+            <article class="card">
+              <span>02</span>
+              <h3>존엄</h3>
+              <p>내가 중요하게 여기는 결정 기준을 정리함.</p>
+            </article>
+            <article class="card">
+              <span>03</span>
+              <h3>가족 배려</h3>
+              <p>가족이 덜 당황하도록 나의 생각을 미리 나눔.</p>
+            </article>
+            <article class="card">
+              <span>04</span>
+              <h3>오늘의 실천</h3>
+              <p>후회 없는 삶을 위해 지금 할 일을 정함.</p>
+            </article>
+          </div>
+          <div class="notice">이 양식은 법적 효력이 없으며, 정식 작성은 관련 기관 또는 전문가 상담이 필요함.</div>
+        </div>
+      </section>
+
+      <section class="alt" id="roadmap">
+        <div class="wrap">
+          <div class="section-title">
+            <p class="label">11 Week Roadmap</p>
+            <h2>WLC 2급 11주 작성 로드맵</h2>
+            <p>한 주에 한 장씩 작성하면, 수료 후에도 이어서 다듬을 수 있는 나만의 엔딩노트가 됨.</p>
+          </div>
+          <div class="roadmap">
+            <div class="road"><strong>1주차</strong><b>삶을 바라보는 첫 기록</b><span>내 삶을 소개하는 첫 문장을 씀.</span></div>
+            <div class="road"><strong>2주차</strong><b>내가 소중히 여기는 가치</b><span>중요한 선택의 기준을 정리함.</span></div>
+            <div class="road"><strong>3주차</strong><b>관계 지도와 감사 인사</b><span>고마운 사람과 화해의 대상을 떠올림.</span></div>
+            <div class="road"><strong>4주차</strong><b>가족에게 전하고 싶은 말</b><span>가족에게 남길 편지 초안을 씀.</span></div>
+            <div class="road"><strong>5주차</strong><b>건강과 돌봄 희망</b><span>내가 편안하게 느끼는 돌봄 방식을 적음.</span></div>
+            <div class="road"><strong>6주차</strong><b>사전연명의료의향서 예비 작성</b><span>의료 결정 기준을 예비로 정리함.</span></div>
+            <div class="road"><strong>7주차</strong><b>나의 장례 희망</b><span>가족이 참고할 장례 희망을 적음.</span></div>
+            <div class="road"><strong>8주차</strong><b>생전 장례식과 마지막 인사</b><span>살아 있을 때 전할 감사의 말을 준비함.</span></div>
+            <div class="road"><strong>9주차</strong><b>유언과 재산 정리 예비 점검</b><span>정식 상담 전 필요한 목록을 확인함.</span></div>
+            <div class="road"><strong>10주차</strong><b>나의 묘비명과 기억될 문장</b><span>나를 기억할 한 문장을 남김.</span></div>
+            <div class="road"><strong>11주차</strong><b>후회 없는 삶을 위한 실천</b><span>오늘 할 수 있는 작은 행동을 정함.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <div class="section-title">
+            <p class="label">Class Use</p>
+            <h2>강의 때 이렇게 활용함.</h2>
+          </div>
+          <div class="grid">
+            <article class="card">
+              <span>수강생 배포</span>
+              <h3>워크북 링크 공유</h3>
+              <p>강의 중 주소를 열어 보여주고, 워크북 원문을 내려받아 인쇄 자료로 사용할 수 있음.</p>
+            </article>
+            <article class="card">
+              <span>현장 실습</span>
+              <h3>한 장씩 작성</h3>
+              <p>한 번에 완성하지 않고, 매주 한 장씩 질문에 답하며 천천히 작성함.</p>
+            </article>
+            <article class="card">
+              <span>가족 대화</span>
+              <h3>공유 문장 활용</h3>
+              <p>수강생이 쓴 내용을 가족과 나눌 때 짧은 문장부터 시작할 수 있음.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">삶잇다협동조합 WLC 2급 교육자료 | 독립 배포용 엔딩노트 실습 사이트</div>
+    </footer>
+  </body>
+</html>
