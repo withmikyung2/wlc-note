@@ -12,7 +12,7 @@
 
 GitHub Pages 프로젝트 사이트로 배포할 경우:
 
-`https://withmikyung2.github.io/ending-note-wlc2/`
+`https://withmikyung2.github.io/wlc-note/`
 
 ## 운영 원칙
 
