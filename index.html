@@ -59,8 +59,13 @@
         display: flex;
         align-items: center;
         gap: 12px;
+        min-width: 0;
         font-size: 22px;
         font-weight: 900;
+      }
+
+      .brand span {
+        overflow-wrap: anywhere;
       }
 
       .brand-mark {
@@ -78,6 +83,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
+        max-width: 100%;
       }
 
       .nav a,
@@ -128,6 +134,8 @@
         font-size: clamp(42px, 6vw, 72px);
         line-height: 1.14;
         letter-spacing: 0;
+        word-break: keep-all;
+        overflow-wrap: anywhere;
       }
 
       .lead {
@@ -361,6 +369,53 @@
         font-weight: 900;
       }
 
+      .attachment-box {
+        margin-top: 24px;
+        padding: 18px;
+        border: 1px dashed rgba(47, 107, 79, 0.42);
+        border-radius: 8px;
+        background: #fbf8ef;
+      }
+
+      .attachment-box h4 {
+        margin: 0 0 8px;
+        font-size: 22px;
+      }
+
+      .attachment-box p {
+        margin: 0 0 12px;
+        color: var(--muted);
+        font-size: 17px;
+        font-weight: 700;
+      }
+
+      .attachment-box input[type="file"] {
+        width: 100%;
+        font-size: 17px;
+      }
+
+      .preview {
+        display: grid;
+        grid-template-columns: 140px 1fr;
+        gap: 14px;
+        align-items: start;
+        margin-top: 14px;
+      }
+
+      .preview img {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .preview small {
+        display: block;
+        color: var(--muted);
+        font-size: 15px;
+        font-weight: 800;
+      }
+
       .note-output {
         padding: 26px;
         min-height: 220px;
@@ -395,7 +450,67 @@
         .grid,
         .grid.four,
         .road,
-        .chapter summary {
+        .chapter summary,
+        .preview {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .wrap {
+          width: min(100% - 28px, 1160px);
+        }
+
+        .topbar .wrap {
+          gap: 12px;
+        }
+
+        .brand {
+          align-items: flex-start;
+          font-size: 18px;
+          line-height: 1.35;
+        }
+
+        .brand-mark {
+          flex: 0 0 40px;
+          width: 40px;
+          height: 40px;
+        }
+
+        .nav a,
+        .nav button,
+        .btn {
+          min-height: 46px;
+          padding: 0 15px;
+          font-size: 17px;
+        }
+
+        .nav {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          width: 100%;
+        }
+
+        .nav a,
+        .nav button {
+          width: 100%;
+        }
+
+        .hero {
+          padding: 56px 0 48px;
+        }
+
+        h1 {
+          font-size: 34px;
+          line-height: 1.24;
+        }
+
+        .lead {
+          font-size: 20px;
+        }
+
+        .actions {
+          display: grid;
           grid-template-columns: 1fr;
         }
       }
@@ -498,6 +613,7 @@
               <p>11장까지 쓴 뒤 나의 노트에서 전체 내용을 확인함.</p>
             </article>
           </div>
+          <div class="notice">사진은 이 브라우저 안에만 저장됨. PDF·한글·워드 자료는 파일명과 설명을 기록하는 방식으로 남김.</div>
           <div class="notice">이 양식은 법적 효력이 없으며, 정식 작성은 관련 기관 또는 전문가 상담이 필요함.</div>
         </div>
       </section>
@@ -757,6 +873,16 @@
                   <div class="family-box">${chapter.family}</div>
                   <textarea id="${fieldId(index, "family")}" placeholder="내 말로 다시 써 봄">${saved.family || ""}</textarea>
                 </div>
+                <div class="attachment-box">
+                  <h4>사진/자료 넣기</h4>
+                  <p>사진은 미리보기로 저장됨. PDF·문서 자료는 파일명과 설명을 남겨 두면 됨.</p>
+                  <input id="${fieldId(index, "file")}" type="file" accept="image/*,.pdf,.doc,.docx,.hwp,.hwpx">
+                  <div class="question">
+                    <label for="${fieldId(index, "fileNote")}">자료 설명</label>
+                    <textarea id="${fieldId(index, "fileNote")}" placeholder="예: 가족사진, 보험증권 위치, 의료 상담 자료 등">${saved.fileNote || ""}</textarea>
+                  </div>
+                  <div class="preview" id="${fieldId(index, "preview")}">${renderAttachmentPreview(saved)}</div>
+                </div>
                 <div class="chapter-actions">
                   <button class="btn primary" type="button" onclick="saveChapter(${index})">이 장 저장하기</button>
                   <a class="btn secondary" href="${index < chapters.length - 1 ? `#chapter-${index + 2}` : "#my-note"}">${index < chapters.length - 1 ? "다음 장으로" : "나의 노트 보기"}</a>
@@ -775,12 +901,82 @@
           chapterData[`q${qIndex}`] = document.getElementById(fieldId(index, `q${qIndex}`)).value.trim();
         });
         chapterData.family = document.getElementById(fieldId(index, "family")).value.trim();
+        chapterData.fileNote = document.getElementById(fieldId(index, "fileNote")).value.trim();
+
+        const existing = data[index] || {};
+        chapterData.attachment = existing.attachment || null;
+        const fileInput = document.getElementById(fieldId(index, "file"));
+        const file = fileInput.files && fileInput.files[0];
+
+        if (file) {
+          handleAttachment(file).then((attachment) => {
+            chapterData.attachment = attachment;
+            finishSave(index, chapterData);
+          });
+          return;
+        }
+
+        finishSave(index, chapterData);
+      }
+
+      function finishSave(index, chapterData) {
+        const data = readData();
         data[index] = chapterData;
         writeData(data);
+        document.getElementById(fieldId(index, "preview")).innerHTML = renderAttachmentPreview(chapterData);
         document.getElementById(fieldId(index, "status")).textContent = "저장됨";
         document.getElementById(fieldId(index, "savedText")).textContent = "저장 완료";
         renderRoadmap();
         renderNotebook();
+      }
+
+      function handleAttachment(file) {
+        if (!file.type.startsWith("image/")) {
+          return Promise.resolve({
+            kind: "file",
+            name: file.name,
+            type: file.type || "자료",
+            size: file.size
+          });
+        }
+
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const image = new Image();
+            image.onload = () => {
+              const maxWidth = 900;
+              const scale = Math.min(1, maxWidth / image.width);
+              const canvas = document.createElement("canvas");
+              canvas.width = Math.round(image.width * scale);
+              canvas.height = Math.round(image.height * scale);
+              const ctx = canvas.getContext("2d");
+              ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+              resolve({
+                kind: "image",
+                name: file.name,
+                type: file.type,
+                size: file.size,
+                dataUrl: canvas.toDataURL("image/jpeg", 0.78)
+              });
+            };
+            image.src = reader.result;
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function renderAttachmentPreview(saved) {
+        const attachment = saved?.attachment;
+        if (!attachment) {
+          return "<small>아직 넣은 사진/자료가 없음.</small>";
+        }
+
+        const info = `<div><strong>${escapeHtml(attachment.name)}</strong><small>${formatSize(attachment.size)}</small></div>`;
+        if (attachment.kind === "image") {
+          return `<img src="${attachment.dataUrl}" alt="첨부 사진 미리보기">${info}`;
+        }
+        return `<div class="family-box">자료 파일명 기록</div>${info}`;
       }
 
       function renderNotebook() {
@@ -799,11 +995,15 @@
             const answer = saved[`q${qIndex}`] || "아직 작성하지 않음";
             return `<p><strong>${question}</strong><br>${escapeHtml(answer)}</p>`;
           }).join("");
+          const attachment = saved.attachment
+            ? `<p><strong>사진/자료</strong><br>${escapeHtml(saved.attachment.name)}${saved.fileNote ? `<br>${escapeHtml(saved.fileNote)}` : ""}</p>${saved.attachment.kind === "image" ? `<img src="${saved.attachment.dataUrl}" alt="첨부 사진" style="max-width:260px;border:1px solid #ddd;border-radius:8px;">` : ""}`
+            : "";
           return `
             <article>
               <h3>${chapter.week} ${chapter.title}</h3>
               ${answers}
               <p><strong>가족과 공유할 문장</strong><br>${escapeHtml(saved.family || chapter.family)}</p>
+              ${attachment}
             </article>
           `;
         }).join("");
@@ -824,6 +1024,12 @@
           .replaceAll(">", "&gt;")
           .replaceAll('"', "&quot;")
           .replaceAll("'", "&#039;");
+      }
+
+      function formatSize(size) {
+        if (!size) return "";
+        if (size < 1024 * 1024) return `${Math.round(size / 1024)}KB`;
+        return `${(size / 1024 / 1024).toFixed(1)}MB`;
       }
 
       renderRoadmap();
