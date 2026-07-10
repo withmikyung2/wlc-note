@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>아하소풍 엔딩노트 WLC 2급 실습판</title>
-    <meta name="description" content="WLC 2급 수강생이 11주 과정에 맞춰 직접 작성하고 완성하는 아하소풍 엔딩노트 실습판입니다.">
+    <meta name="description" content="삶의 의미, 존엄, 가족 배려, 오늘의 실천을 기록하며 직접 완성하는 아하소풍 엔딩노트 실습판입니다.">
     <style>
       :root {
         --ink: #173128;
@@ -563,7 +563,7 @@
         </div>
         <nav class="nav" aria-label="주요 메뉴">
           <a href="#guide">작성 안내</a>
-          <a href="#chapters">주차별 작성</a>
+          <a href="#chapters">장별 작성</a>
           <a href="#my-note">나의 노트</a>
           <button class="primary" type="button" onclick="window.print()">인쇄</button>
         </nav>
@@ -573,9 +573,9 @@
     <main>
       <section class="hero">
         <div class="wrap">
-          <span class="badge">WLC 2급 수강생용</span>
-          <h1>한 주에 한 장씩 쓰며 완성하는 나의 엔딩노트</h1>
-          <p class="lead">수업을 들으며 질문에 답하고, 가족과 나눌 문장을 정리하면 마지막 주에는 나만의 엔딩노트가 완성됨.</p>
+          <span class="badge">작성형 엔딩노트</span>
+          <h1>한 장씩 쓰며 완성하는 나의 엔딩노트</h1>
+          <p class="lead">삶의 의미를 돌아보고, 가족과 나눌 말을 정리하며, 오늘의 실천까지 기록하는 아하소풍 엔딩노트임.</p>
           <div class="actions">
             <a class="btn primary" href="#chapters">1장부터 작성하기</a>
             <a class="btn secondary" href="#my-note">저장된 기록 보기</a>
@@ -587,30 +587,30 @@
       <section id="guide">
         <div class="wrap">
           <div class="section-title">
-            <p class="label">How To Write</p>
-            <h2>이 사이트는 자료실이 아니라 작성 공간임.</h2>
-            <p>수업이 끝날 때마다 해당 장을 열고 직접 작성함. 작성한 내용은 이 브라우저에 저장되며, 마지막에 모아 보기와 인쇄가 가능함.</p>
+            <p class="label">Overview</p>
+            <h2>엔딩노트 개요</h2>
+            <p>이 엔딩노트는 삶을 정리하고 가족에게 마음을 전하기 위한 작성 공간임. 법적 문서를 대신하기보다, 나의 생각을 쉽게 남기고 대화를 시작하도록 돕는 자료임.</p>
           </div>
           <div class="grid four">
             <article class="card">
               <span>01</span>
-              <h3>수업 듣기</h3>
-              <p>각 주차의 핵심 내용을 듣고 오늘의 장을 엶.</p>
+              <h3>삶의 의미</h3>
+              <p>지나온 삶과 고마운 순간을 돌아보고 나를 이해함.</p>
             </article>
             <article class="card">
               <span>02</span>
-              <h3>질문에 답하기</h3>
-              <p>정답을 쓰려 하지 말고 지금 떠오르는 마음을 적음.</p>
+              <h3>존엄한 선택</h3>
+              <p>돌봄, 의료, 장례에 대한 나의 기준을 예비로 정리함.</p>
             </article>
             <article class="card">
               <span>03</span>
-              <h3>가족 문장 쓰기</h3>
-              <p>가족에게 나눌 수 있는 짧은 문장을 한 개 남김.</p>
+              <h3>가족 배려</h3>
+              <p>가족이 덜 혼란스럽도록 나의 뜻과 부탁을 남김.</p>
             </article>
             <article class="card">
               <span>04</span>
-              <h3>마지막에 인쇄</h3>
-              <p>11장까지 쓴 뒤 나의 노트에서 전체 내용을 확인함.</p>
+              <h3>오늘의 실천</h3>
+              <p>후회 없는 삶을 위해 지금 할 수 있는 작은 행동을 정함.</p>
             </article>
           </div>
           <div class="notice">사진은 이 브라우저 안에만 저장됨. PDF·한글·워드 자료는 파일명과 설명을 기록하는 방식으로 남김.</div>
@@ -621,9 +621,9 @@
       <section class="alt" id="roadmap">
         <div class="wrap">
           <div class="section-title">
-            <p class="label">11 Week Roadmap</p>
-            <h2>11주 작성 흐름</h2>
-            <p>아래 순서대로 작성하면 삶의 기록, 가족 배려, 의료·장례 예비 생각, 오늘의 실천까지 자연스럽게 이어짐.</p>
+            <p class="label">Contents</p>
+            <h2>11장 작성 목차</h2>
+            <p>아래 순서대로 한 장씩 작성하면 삶의 기록, 가족 배려, 의료·장례 예비 생각, 오늘의 실천까지 자연스럽게 이어짐.</p>
           </div>
           <div class="roadmap" id="roadmapList"></div>
         </div>
@@ -633,8 +633,8 @@
         <div class="wrap">
           <div class="section-title">
             <p class="label">Write</p>
-            <h2>주차별 작성하기</h2>
-            <p>각 장을 열어 작성하고 저장을 누름. 다음 수업 때 다시 열어 이어서 쓸 수 있음.</p>
+            <h2>장별 작성하기</h2>
+            <p>각 장을 열어 작성하고 저장을 누름. 다음에 다시 열어 이어서 쓸 수 있음.</p>
           </div>
           <div class="chapter-list" id="chapterList"></div>
         </div>
@@ -663,7 +663,7 @@
     <script>
       const chapters = [
         {
-          week: "1주차",
+          chapter: "1장",
           title: "나의 삶을 바라보는 첫 기록",
           result: "내 삶을 소개하는 첫 문장",
           purpose: "내 삶을 한 문장으로 바라보고, 고마웠던 시간과 앞으로의 다짐을 적어 봄.",
@@ -676,7 +676,7 @@
           family: "내 삶에는 부족함도 있었지만, 가족과 함께한 시간 덕분에 고마운 순간이 많았음."
         },
         {
-          week: "2주차",
+          chapter: "2장",
           title: "내가 소중히 여기는 가치",
           result: "나의 결정 기준",
           purpose: "내가 중요하게 여기는 삶의 기준을 찾고, 가족이 나의 선택을 이해할 수 있도록 정리함.",
@@ -689,7 +689,7 @@
           family: "내가 바라는 선택의 기준은 오래 버티는 것만이 아니라, 나답게 존엄을 지키고 가족의 마음도 덜 무겁게 하는 것임."
         },
         {
-          week: "3주차",
+          chapter: "3장",
           title: "나의 관계 지도와 감사 인사",
           result: "감사와 화해의 대상",
           purpose: "내 삶에 중요한 사람을 떠올리고, 감사와 미안함을 짧은 말로 준비함.",
@@ -702,7 +702,7 @@
           family: "나는 가족에게 완벽한 사람은 아니었지만, 함께한 시간을 고맙게 기억하고 있음."
         },
         {
-          week: "4주차",
+          chapter: "4장",
           title: "가족에게 전하고 싶은 말",
           result: "가족 편지 초안",
           purpose: "가족에게 남기고 싶은 고마움, 부탁, 응원의 말을 편지처럼 정리함.",
@@ -715,7 +715,7 @@
           family: "내가 가족에게 가장 바라는 것은 서로 죄책감보다 고마움을 기억하며 살아가는 것임."
         },
         {
-          week: "5주차",
+          chapter: "5장",
           title: "나의 건강과 돌봄 희망",
           result: "돌봄 희망 기록",
           purpose: "아플 때 내가 바라는 돌봄과 가족이 알아주었으면 하는 생활 정보를 정리함.",
@@ -729,7 +729,7 @@
           notice: true
         },
         {
-          week: "6주차",
+          chapter: "6장",
           title: "사전연명의료의향서 예비 작성",
           result: "의료 결정 예비 생각",
           purpose: "정식 작성 전에 나의 의료 결정 기준과 가족에게 전할 말을 예비로 정리함.",
@@ -743,7 +743,7 @@
           notice: true
         },
         {
-          week: "7주차",
+          chapter: "7장",
           title: "나의 장례 희망",
           result: "장례 희망 체크",
           purpose: "가족이 장례를 준비할 때 겪는 혼란과 부담을 줄이기 위해 나의 희망을 정리함.",
@@ -757,7 +757,7 @@
           notice: true
         },
         {
-          week: "8주차",
+          chapter: "8장",
           title: "생전 장례식과 마지막 인사",
           result: "살아 있을 때 전할 인사",
           purpose: "살아 있을 때 고마운 사람에게 감사와 인사를 전할 방법을 준비함.",
@@ -770,7 +770,7 @@
           family: "나는 이별을 기다리기보다, 살아 있는 동안 서로 고맙다고 말하는 시간을 갖고 싶음."
         },
         {
-          week: "9주차",
+          chapter: "9장",
           title: "유언과 재산 정리 예비 점검",
           result: "유언·재산 상담 전 점검",
           purpose: "가족의 혼란과 다툼을 줄이기 위해 정식 상담 전에 재산, 물건, 디지털 정보를 예비로 정리함.",
@@ -784,7 +784,7 @@
           notice: true
         },
         {
-          week: "10주차",
+          chapter: "10장",
           title: "나의 묘비명과 기억될 문장",
           result: "나를 기억할 한 문장",
           purpose: "내가 남기고 싶은 삶의 의미를 짧은 문장으로 정리함.",
@@ -797,7 +797,7 @@
           family: "나를 거창하게 기억하기보다, 함께 웃고 견디며 살아온 사람으로 기억해 주면 좋겠음."
         },
         {
-          week: "11주차",
+          chapter: "11장",
           title: "후회 없는 삶을 위한 오늘의 실천",
           result: "이번 주 실천 1가지",
           purpose: "지금 하지 않으면 후회할 일을 떠올리고, 오늘 할 수 있는 작은 실천을 정함.",
@@ -835,7 +835,7 @@
           const done = data[index]?.saved ? "작성 중" : "미작성";
           return `
             <div class="road">
-              <strong>${chapter.week}</strong>
+              <strong>${chapter.chapter}</strong>
               <b>${chapter.title}</b>
               <span>${chapter.result}</span>
               <a class="btn secondary" href="#chapter-${index + 1}">${done}</a>
@@ -858,7 +858,7 @@
           return `
             <details class="chapter" id="chapter-${index + 1}" ${index === 0 ? "open" : ""}>
               <summary>
-                <div class="chapter-kicker">${chapter.week}</div>
+                <div class="chapter-kicker">${chapter.chapter}</div>
                 <div class="chapter-title">
                   <h3>${chapter.title}</h3>
                   <p>${chapter.purpose}</p>
@@ -1000,7 +1000,7 @@
             : "";
           return `
             <article>
-              <h3>${chapter.week} ${chapter.title}</h3>
+              <h3>${chapter.chapter} ${chapter.title}</h3>
               ${answers}
               <p><strong>가족과 공유할 문장</strong><br>${escapeHtml(saved.family || chapter.family)}</p>
               ${attachment}
