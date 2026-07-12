@@ -9,7 +9,6 @@
 - `content/ending-note-wlc2-plan.md`: 콘텐츠 구조 기획 문서
 - `domain-setup-note-salmitta.md`: 최종 도메인 연결 안내
 - `assets/qr-wlc-note-current.png`: 현재 주소 QR코드
-- `assets/qr-note-salmitta.png`: 최종 도메인 연결 후 사용할 예비 QR코드
 
 ## 배포 주소
 
@@ -30,7 +29,7 @@
 DNS 연결 전에는 현재 주소를 사용함.
 
 인쇄물과 수강생 안내에는 현재 주소 QR코드만 사용함.
-`note.salmitta.net` QR코드는 DNS 연결 후 교체용으로만 보관함.
+짧은 도메인 QR코드는 DNS 연결 후 새로 생성함.
 
 ## 운영 원칙
 
