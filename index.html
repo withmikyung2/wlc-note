@@ -411,6 +411,13 @@
         min-height: 128px;
         padding: 16px;
         resize: vertical;
+        scroll-margin-top: 24px;
+      }
+
+      textarea:focus {
+        outline: 3px solid rgba(47, 107, 79, 0.28);
+        border-color: var(--green);
+        background: #fff;
       }
 
       input[type="text"] {
@@ -523,6 +530,10 @@
         text-align: center;
       }
 
+      .writing-mode-bar {
+        display: none;
+      }
+
       @media (max-width: 900px) {
         .topbar .wrap {
           align-items: flex-start;
@@ -542,8 +553,12 @@
       }
 
       @media (max-width: 520px) {
+        .topbar {
+          position: static;
+        }
+
         .wrap {
-          width: calc(100vw - 28px);
+          width: calc(100% - 28px);
           max-width: 1160px;
         }
 
@@ -590,23 +605,23 @@
         h1 {
           font-size: 29px;
           line-height: 1.24;
-          width: calc(100vw - 28px);
-          max-width: calc(100vw - 28px);
+          width: 100%;
+          max-width: 100%;
           word-break: break-all;
           overflow-wrap: anywhere;
         }
 
         .lead {
           font-size: 19px;
-          width: calc(100vw - 28px);
-          max-width: calc(100vw - 28px);
+          width: 100%;
+          max-width: 100%;
           word-break: break-all;
           overflow-wrap: anywhere;
         }
 
         .hero-note {
-          width: calc(100vw - 28px);
-          max-width: calc(100vw - 28px);
+          width: 100%;
+          max-width: 100%;
         }
 
         .hero-note,
@@ -622,6 +637,49 @@
         .actions {
           display: grid;
           grid-template-columns: 1fr;
+        }
+
+        textarea {
+          min-height: 170px;
+          font-size: 18px;
+          line-height: 1.7;
+        }
+
+        body.mobile-writing .topbar,
+        body.mobile-writing .hero,
+        body.mobile-writing #guide,
+        body.mobile-writing #use,
+        body.mobile-writing #resources,
+        body.mobile-writing #roadmap {
+          display: none;
+        }
+
+        body.mobile-writing #chapters {
+          padding-top: 18px;
+        }
+
+        body.mobile-writing .section-title {
+          margin-bottom: 12px;
+        }
+
+        body.mobile-writing .section-title p {
+          display: none;
+        }
+
+        body.mobile-writing .writing-mode-bar {
+          position: sticky;
+          top: 0;
+          z-index: 30;
+          display: block;
+          margin-bottom: 14px;
+          padding: 12px 14px;
+          border: 1px solid rgba(47, 107, 79, 0.25);
+          border-radius: 8px;
+          background: #fffdf8;
+          color: var(--green-dark);
+          font-size: 16px;
+          font-weight: 900;
+          box-shadow: var(--shadow);
         }
       }
 
@@ -820,6 +878,7 @@
 
       <section id="chapters">
         <div class="wrap">
+          <div class="writing-mode-bar">작성 중입니다. 위 안내 영역은 잠시 접어 두었습니다.</div>
           <div class="section-title">
             <p class="label">Write</p>
             <h2>장별 작성하기</h2>
@@ -1221,6 +1280,41 @@
         if (size < 1024 * 1024) return `${Math.round(size / 1024)}KB`;
         return `${(size / 1024 / 1024).toFixed(1)}MB`;
       }
+
+      function isMobileWidth() {
+        return window.matchMedia("(max-width: 520px)").matches;
+      }
+
+      function enterMobileWritingMode(target) {
+        if (!isMobileWidth() || !target.closest("#chapters")) return;
+        document.body.classList.add("mobile-writing");
+        const chapter = target.closest("details.chapter");
+        if (chapter) chapter.open = true;
+
+        window.setTimeout(() => {
+          target.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 260);
+      }
+
+      function leaveMobileWritingMode() {
+        window.setTimeout(() => {
+          if (!document.activeElement || !document.activeElement.closest("#chapters textarea")) {
+            document.body.classList.remove("mobile-writing");
+          }
+        }, 180);
+      }
+
+      document.addEventListener("focusin", (event) => {
+        if (event.target.matches("#chapters textarea")) {
+          enterMobileWritingMode(event.target);
+        }
+      });
+
+      document.addEventListener("focusout", (event) => {
+        if (event.target.matches("#chapters textarea")) {
+          leaveMobileWritingMode();
+        }
+      });
 
       renderRoadmap();
       renderChapters();
