@@ -29,6 +29,12 @@
         background: var(--paper);
         font-family: "Noto Serif KR", "Malgun Gothic", serif;
         line-height: 1.65;
+        overflow-x: hidden;
+      }
+
+      html,
+      body {
+        max-width: 100%;
       }
 
       a { color: inherit; }
@@ -65,6 +71,8 @@
       }
 
       .brand span {
+        flex: 1 1 auto;
+        min-width: 0;
         overflow-wrap: anywhere;
       }
 
@@ -92,6 +100,7 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        min-width: 0;
         min-height: 48px;
         padding: 0 18px;
         border: 1px solid var(--line);
@@ -144,6 +153,20 @@
         color: #33483f;
         font-size: clamp(22px, 2.5vw, 30px);
         font-weight: 800;
+        word-break: keep-all;
+        overflow-wrap: anywhere;
+      }
+
+      .hero-note {
+        max-width: 760px;
+        margin-top: 22px;
+        padding: 18px 22px;
+        border-left: 6px solid var(--green);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.72);
+        color: #33483f;
+        font-size: 20px;
+        font-weight: 800;
       }
 
       .actions {
@@ -193,6 +216,8 @@
 
       .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
+      .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
       .card,
       .chapter,
       .note-output {
@@ -226,6 +251,64 @@
       }
 
       .card p { margin: 0; }
+
+      .card ul {
+        margin: 10px 0 0;
+        padding-left: 22px;
+      }
+
+      .process {
+        display: grid;
+        gap: 14px;
+      }
+
+      .process-step {
+        display: grid;
+        grid-template-columns: 78px 1fr;
+        gap: 18px;
+        align-items: start;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: var(--shadow);
+      }
+
+      .process-step strong {
+        display: grid;
+        place-items: center;
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        background: var(--green);
+        color: #fff;
+        font-size: 21px;
+        font-weight: 900;
+      }
+
+      .process-step h3 {
+        margin: 0 0 8px;
+        font-size: 26px;
+        line-height: 1.3;
+      }
+
+      .process-step p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 20px;
+        font-weight: 700;
+      }
+
+      .resource-card {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+      }
+
+      .resource-card .btn {
+        align-self: flex-start;
+        margin-top: auto;
+      }
 
       .roadmap {
         display: grid;
@@ -449,16 +532,19 @@
 
         .grid,
         .grid.four,
+        .grid.two,
         .road,
         .chapter summary,
-        .preview {
+        .preview,
+        .process-step {
           grid-template-columns: 1fr;
         }
       }
 
       @media (max-width: 520px) {
         .wrap {
-          width: min(100% - 28px, 1160px);
+          width: calc(100vw - 28px);
+          max-width: 1160px;
         }
 
         .topbar .wrap {
@@ -469,6 +555,7 @@
           align-items: flex-start;
           font-size: 18px;
           line-height: 1.35;
+          width: 100%;
         }
 
         .brand-mark {
@@ -487,7 +574,7 @@
 
         .nav {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 1fr;
           width: 100%;
         }
 
@@ -501,12 +588,35 @@
         }
 
         h1 {
-          font-size: 34px;
+          font-size: 29px;
           line-height: 1.24;
+          width: calc(100vw - 28px);
+          max-width: calc(100vw - 28px);
+          word-break: break-all;
+          overflow-wrap: anywhere;
         }
 
         .lead {
-          font-size: 20px;
+          font-size: 19px;
+          width: calc(100vw - 28px);
+          max-width: calc(100vw - 28px);
+          word-break: break-all;
+          overflow-wrap: anywhere;
+        }
+
+        .hero-note {
+          width: calc(100vw - 28px);
+          max-width: calc(100vw - 28px);
+        }
+
+        .hero-note,
+        .section-title p,
+        .card p,
+        .process-step p,
+        .chapter-title p {
+          max-width: 100%;
+          word-break: break-all;
+          overflow-wrap: anywhere;
         }
 
         .actions {
@@ -563,6 +673,7 @@
         </div>
         <nav class="nav" aria-label="주요 메뉴">
           <a href="#guide">작성 안내</a>
+          <a href="#use">활용 방식</a>
           <a href="#chapters">장별 작성</a>
           <a href="#my-note">나의 노트</a>
           <button class="primary" type="button" onclick="window.print()">인쇄</button>
@@ -576,8 +687,10 @@
           <span class="badge">작성형 엔딩노트</span>
           <h1>한 장씩 쓰며 완성하는 나의 엔딩노트</h1>
           <p class="lead">삶의 의미를 돌아보고, 가족과 나눌 말을 정리하며, 오늘의 실천까지 기록하는 아하소풍 엔딩노트입니다.</p>
+          <div class="hero-note">이 사이트는 강의장에서 바로 열어 쓰고, 수강생에게 따로 배포할 수 있도록 만든 독립형 작성 공간입니다.</div>
           <div class="actions">
             <a class="btn primary" href="#chapters">1장부터 작성하기</a>
+            <a class="btn secondary" href="#use">활용 방식 보기</a>
             <a class="btn secondary" href="#my-note">저장된 기록 보기</a>
             <button class="btn secondary" type="button" onclick="clearNotebook()">새로 시작하기</button>
           </div>
@@ -618,12 +731,88 @@
         </div>
       </section>
 
+      <section class="alt" id="use">
+        <div class="wrap">
+          <div class="section-title">
+            <p class="label">How to Use</p>
+            <h2>자료 운영 방식</h2>
+            <p>아하소풍 엔딩노트는 수강생 작성 사이트를 중심으로 두고, 소개 페이지·PDF 워크북·강사용 PPT로 확장합니다.</p>
+          </div>
+          <div class="process">
+            <article class="process-step">
+              <strong>1</strong>
+              <div>
+                <h3>독립 작성 사이트</h3>
+                <p>이곳에서 수강생이 1장부터 11장까지 직접 작성합니다. 강의 중에 열어 쓰고, 수료 후에도 이어서 정리할 수 있습니다.</p>
+              </div>
+            </article>
+            <article class="process-step">
+              <strong>2</strong>
+              <div>
+                <h3>salmitta.net 연결</h3>
+                <p>기존 홈페이지에는 전체 작성 기능을 넣기보다 엔딩노트 소개, 교육 문의, 작성 사이트 바로가기만 연결합니다.</p>
+              </div>
+            </article>
+            <article class="process-step">
+              <strong>3</strong>
+              <div>
+                <h3>수강생용 PDF 워크북</h3>
+                <p>온라인 사용이 어려운 분을 위해 같은 11장 흐름을 인쇄용 워크북으로 정리합니다. 빈칸과 체크박스를 충분히 둡니다.</p>
+              </div>
+            </article>
+            <article class="process-step">
+              <strong>4</strong>
+              <div>
+                <h3>강사용 HTML PPT</h3>
+                <p>강사는 별도 발표 자료로 각 장의 의미, 작성 시간, 나눔 질문, 주의 문구를 안내합니다.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="resources">
+        <div class="wrap">
+          <div class="section-title">
+            <p class="label">Materials</p>
+            <h2>함께 준비할 자료</h2>
+            <p>작성 사이트를 중심으로 두고, 필요한 자료를 하나씩 더해 강의장·가정·기관 배포에 맞게 사용합니다.</p>
+          </div>
+          <div class="grid two">
+            <article class="card resource-card">
+              <span>작성 사이트</span>
+              <h3>수강생이 직접 쓰는 공간</h3>
+              <p>1장씩 작성하고 저장한 뒤, 마지막에 나의 엔딩노트로 모아볼 수 있습니다.</p>
+              <a class="btn primary" href="#chapters">작성 시작</a>
+            </article>
+            <article class="card resource-card">
+              <span>소개 연결</span>
+              <h3>salmitta.net 안내 페이지</h3>
+              <p>홈페이지에는 엔딩노트의 목적, 교육 대상, 문의 안내, 작성 사이트 링크를 담습니다.</p>
+              <a class="btn secondary" href="https://salmitta.net/" target="_blank" rel="noopener">salmitta.net 보기</a>
+            </article>
+            <article class="card resource-card">
+              <span>PDF 워크북</span>
+              <h3>인쇄해서 쓰는 자료</h3>
+              <p>온라인 작성이 어려운 수강생을 위해 빈칸, 체크박스, 가족 공유 문장을 넣은 인쇄본으로 확장합니다.</p>
+              <a class="btn secondary" href="workbook-ending-note-wlc2.md">워크북 원문</a>
+            </article>
+            <article class="card resource-card">
+              <span>강사용 PPT</span>
+              <h3>수업 진행용 화면</h3>
+              <p>각 장의 핵심 질문을 설명하고, 작성 시간을 안내하는 발표용 HTML PPT로 분리합니다.</p>
+              <a class="btn secondary" href="#roadmap">11장 목차 보기</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="alt" id="roadmap">
         <div class="wrap">
           <div class="section-title">
             <p class="label">Contents</p>
             <h2>11장 작성 목차</h2>
-            <p>아래 순서대로 한 장씩 작성하면 삶의 기록, 가족 배려, 의료·장례 예비 생각, 오늘의 실천까지 자연스럽게 이어짐.</p>
+            <p>아래 순서대로 한 장씩 작성하면 삶의 기록, 가족 배려, 의료·장례 예비 생각, 오늘의 실천까지 자연스럽게 이어집니다.</p>
           </div>
           <div class="roadmap" id="roadmapList"></div>
         </div>
@@ -634,7 +823,7 @@
           <div class="section-title">
             <p class="label">Write</p>
             <h2>장별 작성하기</h2>
-            <p>각 장을 열어 작성하고 저장을 누름. 다음에 다시 열어 이어서 쓸 수 있음.</p>
+            <p>각 장을 열어 작성하고 저장을 눌러 주세요. 다음에 다시 열어 이어서 쓸 수 있습니다.</p>
           </div>
           <div class="chapter-list" id="chapterList"></div>
         </div>
