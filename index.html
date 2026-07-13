@@ -1017,13 +1017,15 @@
           <div class="section-title">
             <p class="label">My Ending Note</p>
             <h2>나의 엔딩노트 모아보기</h2>
-            <p>저장된 내용을 한 번에 확인합니다. 강의 마지막에는 이 화면을 인쇄하거나 PDF로 저장할 수 있습니다.</p>
+            <p>저장된 내용을 한 번에 확인합니다. 강의 마지막에는 PDF로 저장한 뒤 메일로 보내 개인 보관을 할 수 있습니다.</p>
           </div>
           <div class="actions">
             <button class="btn primary" type="button" onclick="renderNotebook()">모아보기 새로고침</button>
+            <button class="btn primary" type="button" onclick="printThenMail()">PDF 저장 후 메일 보내기</button>
             <button class="btn secondary" type="button" onclick="clearNotebook()">테스트 내용 비우기</button>
             <button class="btn secondary" type="button" onclick="window.print()">인쇄 또는 PDF 저장</button>
           </div>
+          <div class="notice">PDF는 브라우저 인쇄 화면에서 'PDF로 저장'을 선택해 만듭니다. 메일창이 열리면 저장한 PDF 파일을 첨부해 본인에게 보내 주세요.</div>
           <div class="note-output" id="noteOutput" aria-live="polite"></div>
         </div>
       </section>
@@ -1562,6 +1564,17 @@
           "이 양식은 법적 효력이 없으며, 정식 작성은 관련 기관 또는 전문가 상담이 필요합니다."
         );
         window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+      }
+
+      function printThenMail() {
+        const profile = readProfile();
+        if (!isProfileReady(profile) && !saveProfile()) return;
+        renderNotebook();
+        alert("곧 인쇄 화면이 열립니다. 대상에서 'PDF로 저장'을 선택해 파일을 저장해 주세요. 저장 후 확인을 누르면 메일 작성창이 열립니다.");
+        window.print();
+        if (confirm("PDF 파일을 저장하셨나요? 확인을 누르면 메일 작성창을 엽니다. 저장한 PDF를 메일에 첨부해 보내 주세요.")) {
+          openMailDraft();
+        }
       }
 
       function importBackupFile(file) {
