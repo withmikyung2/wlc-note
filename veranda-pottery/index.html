@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Veranda Pottery — Khmer Pottery Workshops</title>
+  <meta name="description" content="Hands-on Khmer pottery workshops in Phnom Penh. Book a class, invite Veranda to your space and follow your own piece from clay to kiln.">
+  <meta property="og:title" content="Veranda Pottery — Khmer Pottery Workshops">
+  <meta property="og:description" content="Make something with your hands, then follow your piece from clay to kiln.">
+  <meta property="og:image" content="assets/hero-farm-to-table.webp">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="Veranda Pottery home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>veranda pottery</span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Primary">
+        <a href="#workshops" data-i18n="nav.workshops">Workshops</a>
+        <a href="#track" data-i18n="nav.track">My piece</a>
+        <a href="#invite" data-i18n="nav.invite">Invite us</a>
+        <a href="#news" data-i18n="nav.news">News</a>
+        <a href="#visit" data-i18n="nav.visit">Visit</a>
+      </nav>
+      <div class="header-tools">
+        <div class="lang" role="group" aria-label="Language">
+          <button type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="ko">한국어</button>
+        </div>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav" data-i18n="nav.menu">Menu</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <p class="kicker" data-i18n="hero.kicker">Khmer pottery · Workshops · Phnom Penh</p>
+        <h1 data-i18n-html="hero.title">Make something<br><em>with your hands.</em></h1>
+        <p class="lead" data-i18n="hero.lead">Veranda brings traditional Khmer pottery into hands-on workshops — at our studio, and at schools, cafés and community spaces across Phnom Penh. After class, follow your own piece as it dries, fires and waits for you.</p>
+        <div class="actions">
+          <a class="btn btn-dark" href="#workshops" data-i18n="hero.cta1">Find a workshop</a>
+          <a class="btn btn-line" href="#track" data-i18n="hero.cta2">Track my piece</a>
+        </div>
+        <dl class="facts">
+          <div><dt>2,000+</dt><dd data-i18n="hero.fact1">makers joined in our first 7 months</dd></div>
+          <div><dt data-i18n="hero.fact2t">Traditional firing</dt><dd data-i18n="hero.fact2">Cambodian methods, real local clay</dd></div>
+          <div><dt>Tonle Bassac</dt><dd>#13A, Street 312</dd></div>
+        </dl>
+      </div>
+      <figure class="hero-photo">
+        <img src="assets/hero-farm-to-table.webp" alt="Guests shaping clay at a Veranda workshop" width="1086" height="1448">
+      </figure>
+    </section>
+
+    <!-- JOURNEY STRIP -->
+    <section class="journey" aria-labelledby="journey-title">
+      <div class="wrap">
+        <h2 class="sr-only" id="journey-title" data-i18n="journey.title">The journey of your piece</h2>
+        <ol class="journey-steps" id="journeySteps"></ol>
+      </div>
+    </section>
+
+    <!-- WORKSHOPS -->
+    <section class="section wrap" id="workshops">
+      <div class="section-head">
+        <div>
+          <p class="kicker" data-i18n="ws.kicker">Workshops</p>
+          <h2 data-i18n="ws.title">Find your next session.</h2>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Workshop list">
+          <button type="button" role="tab" aria-selected="true" data-tab="upcoming" data-i18n="ws.upcoming">At the studio</button>
+          <button type="button" role="tab" aria-selected="false" data-tab="previous" data-i18n="ws.previous">Past pop-ups</button>
+        </div>
+      </div>
+      <div class="ws-grid" id="wsGrid"></div>
+      <p class="fine" data-i18n="ws.note">Photos and posters come from Veranda's own workshop posts. New dates are announced first on Facebook.</p>
+    </section>
+
+    <!-- TRACKER -->
+    <section class="section tracker-section" id="track">
+      <div class="wrap tracker-wrap">
+        <div class="tracker-intro">
+          <p class="kicker" data-i18n="tr.kicker">My piece</p>
+          <h2 data-i18n="tr.title">Where is my pottery now?</h2>
+          <p data-i18n="tr.lead">Every piece made at Veranda gets a piece code on your pickup card (for example VP-2610-A7K3). Enter it to see which stage your work is in, the photos we took along the way, and when it will be ready.</p>
+          <form class="track-form" id="trackForm" autocomplete="off">
+            <label for="codeInput" data-i18n="tr.label">Piece code</label>
+            <div class="track-row">
+              <input id="codeInput" name="code" inputmode="text" placeholder="VP-2610-A7K3" spellcheck="false" required>
+              <button class="btn btn-dark" type="submit" data-i18n="tr.button">Check</button>
+            </div>
+            <p class="fine" data-i18n-html="tr.demo">Try the sample codes: <button type="button" class="chip" data-demo="VP-DEMO-0001">VP-DEMO-0001</button> <button type="button" class="chip" data-demo="VP-DEMO-0002">VP-DEMO-0002</button></p>
+          </form>
+        </div>
+        <div class="tracker-result" id="trackResult" aria-live="polite">
+          <div class="tracker-empty">
+            <span class="pot-icon" aria-hidden="true"></span>
+            <p data-i18n="tr.empty">Your piece's timeline will appear here.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INVITE -->
+    <section class="section wrap invite" id="invite">
+      <figure class="invite-photo">
+        <img src="assets/invite-group.webp" alt="A group visiting Veranda Pottery" width="1254" height="1254" loading="lazy">
+      </figure>
+      <div>
+        <p class="kicker" data-i18n="inv.kicker">Invite us</p>
+        <h2 data-i18n="inv.title">Bring the workshop to your space.</h2>
+        <p class="lead" data-i18n="inv.lead">Planning a school day, café event, cultural program or team gathering? We bring the clay, the tools and the know-how — every participant still gets a piece code to follow their work afterwards.</p>
+        <ul class="invite-list">
+          <li><strong data-i18n="inv.a">Schools</strong><span data-i18n="inv.ad">Creative learning days and camps for young makers.</span></li>
+          <li><strong data-i18n="inv.b">Cafés & spaces</strong><span data-i18n="inv.bd">Limited pop-up sessions that bring your community together.</span></li>
+          <li><strong data-i18n="inv.c">Groups & NGOs</strong><span data-i18n="inv.cd">Team days, cultural visits, volunteer and study-tour groups.</span></li>
+        </ul>
+        <div class="actions">
+          <a class="btn btn-dark" data-fb="messenger" href="#" target="_blank" rel="noopener" data-i18n="inv.cta">Message us on Facebook</a>
+          <a class="btn btn-line" href="tel:+85516783083" data-i18n="inv.call">Call +855 16 783 083</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWS / FACEBOOK -->
+    <section class="section news-section" id="news">
+      <div class="wrap news-wrap">
+        <div>
+          <p class="kicker" data-i18n="news.kicker">From our Facebook</p>
+          <h2 data-i18n="news.title">Latest from the studio.</h2>
+          <p data-i18n="news.lead">New workshop dates, kiln days and photos are posted on Facebook first. This feed updates on its own whenever we post.</p>
+          <div class="actions">
+            <a class="btn btn-dark" data-fb="page" href="#" target="_blank" rel="noopener" data-i18n="news.follow">Follow on Facebook</a>
+            <a class="btn btn-line" href="https://instagram.com/veranda_pottery" target="_blank" rel="noopener">Instagram ↗</a>
+          </div>
+        </div>
+        <div class="fb-frame" id="fbFrame">
+          <a class="fb-fallback" data-fb="page" href="#" target="_blank" rel="noopener">
+            <img src="assets/studio-shelf.webp" alt="" loading="lazy">
+            <span data-i18n="news.fallback">Open Veranda Pottery on Facebook ↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISIT -->
+    <section class="section wrap visit" id="visit">
+      <div>
+        <p class="kicker" data-i18n="visit.kicker">Visit</p>
+        <h2 data-i18n="visit.title">Come by and get your hands in clay.</h2>
+        <dl class="contact">
+          <div><dt data-i18n="visit.addr">Address</dt><dd>#13A, Street 312<br>Tonle Bassac, Phnom Penh</dd></div>
+          <div><dt data-i18n="visit.phone">Phone</dt><dd><a href="tel:+85516783083">+855 16 783 083</a></dd></div>
+          <div><dt>Facebook</dt><dd><a data-fb="page" href="#" target="_blank" rel="noopener">Veranda Pottery ↗</a></dd></div>
+          <div><dt>Instagram</dt><dd><a href="https://instagram.com/veranda_pottery" target="_blank" rel="noopener">@veranda_pottery ↗</a></dd></div>
+        </dl>
+        <a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&query=13A%20Street%20312%20Tonle%20Bassac%20Phnom%20Penh" target="_blank" rel="noopener" data-i18n="visit.map">Open in Google Maps ↗</a>
+      </div>
+      <div class="map">
+        <iframe title="Veranda Pottery on the map" src="https://www.google.com/maps?q=13A%20Street%20312%20Tonle%20Bassac%20Phnom%20Penh%20Cambodia&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <span class="brand"><span class="brand-mark" aria-hidden="true"></span>veranda pottery</span>
+      <span data-i18n="foot.line">Khmer pottery · workshops · Phnom Penh</span>
+      <a href="studio.html" class="footer-staff" data-i18n="foot.staff">Studio tools</a>
+    </div>
+  </footer>
+
+  <script src="pottery-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Veranda Studio Tools</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .studio { padding: 40px 0 80px; }
+    .studio h1 { font-size: clamp(32px, 4vw, 46px); }
+    .panel { background: var(--cream); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; margin-top: 22px; }
+    .panel h2 { font-size: 24px; margin-bottom: 12px; }
+    .steps-guide { margin: 0; padding-left: 20px; color: var(--muted); font-size: 14px; }
+    .form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .form-grid label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 700; }
+    .form-grid .wide { grid-column: span 3; }
+    .form-grid input, .form-grid select, .form-grid textarea {
+      padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); background: #fff; font-weight: 400; font-size: 15px;
+    }
+    .form-grid small { font-weight: 400; color: var(--muted); }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 720px; }
+    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+    th { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+    td .btn { padding: 6px 12px; font-size: 12px; }
+    td.code { font-weight: 700; letter-spacing: .05em; white-space: nowrap; }
+    .row-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+    .notice { padding: 12px 16px; border-radius: 12px; background: #f1dfd3; color: var(--clay-dark); font-size: 14px; margin-top: 14px; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .toolbar input[type=search] { flex: 1; min-width: 180px; padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line); background: #fff; }
+
+    /* Printable pickup card */
+    .card-dialog { border: 0; border-radius: var(--radius); padding: 0; max-width: 420px; width: calc(100% - 32px); }
+    .card-dialog::backdrop { background: rgba(38, 34, 29, .5); }
+    .pickup-card { padding: 28px; text-align: center; background: #fff; }
+    .pickup-card .brand { justify-content: center; margin-bottom: 14px; }
+    .pickup-card .code-big { font-family: var(--serif); font-size: 32px; letter-spacing: .06em; margin: 6px 0; }
+    .pickup-card #qrBox { display: grid; place-items: center; margin: 14px auto; }
+    .pickup-card #qrBox img, .pickup-card #qrBox svg { width: 180px; height: 180px; }
+    .pickup-card p { margin: 4px 0; font-size: 13px; color: var(--muted); }
+    .card-actions { display: flex; gap: 8px; justify-content: center; padding: 0 28px 24px; background: #fff; }
+    @media (max-width: 760px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .form-grid .wide { grid-column: auto; }
+    }
+    @media print {
+      body * { visibility: hidden; }
+      .card-dialog, .card-dialog .pickup-card, .card-dialog .pickup-card * { visibility: visible; }
+      .card-dialog { position: fixed; inset: 0; margin: 0; max-width: none; box-shadow: none; }
+      .card-actions { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span><span>veranda pottery</span></a>
+      <span class="fine" style="margin-left:auto">Studio tools · 공방 관리</span>
+    </div>
+  </header>
+
+  <main class="wrap studio">
+    <p class="kicker">Piece tracker · 작품 진행 관리</p>
+    <h1>작품 진행 단계 관리</h1>
+    <p class="lead">수업에서 만든 작품을 등록하고, 건조·소성·수령 단계를 갱신합니다. 참가자는 홈페이지의 ‘내 작품’ 메뉴에서 작품 번호로 진행 상황을 확인합니다.</p>
+
+    <section class="panel">
+      <h2>사용 순서</h2>
+      <ol class="steps-guide">
+        <li>수업이 끝나면 <strong>새 작품 등록</strong>으로 작품을 추가하고, <strong>수령 카드</strong>를 인쇄해 참가자에게 줍니다(QR 포함).</li>
+        <li>단계가 바뀔 때마다 목록에서 <strong>다음 단계 ▶</strong>를 누릅니다. 사진·메모가 있으면 <strong>수정</strong>에서 넣습니다.</li>
+        <li><strong>pieces.json 내려받기</strong>를 누른 뒤, GitHub 저장소의 <code>veranda-pottery/data/pieces.json</code>에 덮어 올리면 홈페이지에 반영됩니다.</li>
+        <li>Google 시트로 관리하려면 <strong>시트용 CSV 복사</strong>를 사용하세요(README 참고).</li>
+      </ol>
+      <p class="notice" id="sourceNote">이 화면의 변경 내용은 이 기기 브라우저에 임시 저장됩니다. 홈페이지에 반영하려면 반드시 파일을 내려받아 올려야 합니다. 참가자의 전체 이름·전화번호는 적지 마세요(공개 파일입니다).</p>
+    </section>
+
+    <section class="panel" id="editor">
+      <h2 id="formTitle">새 작품 등록</h2>
+      <form id="pieceForm" class="form-grid" autocomplete="off">
+        <label>작품 번호 Code
+          <input name="code" required pattern="[A-Za-z0-9-]+">
+          <small>자동 생성됩니다. 필요하면 바꿔도 됩니다.</small>
+        </label>
+        <label>만든 사람 Maker <input name="maker" placeholder="예: S. / Sophea K."><small>이니셜 또는 이름만</small></label>
+        <label>작품 이름 Title <input name="title" placeholder="예: Small bowl / 작은 그릇"></label>
+        <label>수업 종류 Class <select name="class"></select></label>
+        <label>현재 단계 Stage <select name="stage"></select></label>
+        <label>단계 날짜 Date <input name="date" type="date" required></label>
+        <label>완성 예정일 Ready by <input name="pickupEstimate" type="date"><small>비워두면 자동 계산</small></label>
+        <label class="wide">메모 Note (참가자에게 보임) <textarea name="note" rows="2" placeholder="예: 이번 주 가마에 들어갑니다. / In the kiln this week."></textarea></label>
+        <label class="wide">사진 주소 Photo URL <input name="photo" type="url" placeholder="https://… (Facebook·Google Drive 공개 사진 주소 또는 assets/파일명)"></label>
+        <div class="wide toolbar">
+          <button class="btn btn-dark" type="submit" id="saveBtn">저장 Save</button>
+          <button class="btn btn-line" type="button" id="resetBtn">새로 작성 New</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="toolbar">
+        <h2 style="margin:0 auto 0 0">작품 목록 <span id="count" class="fine"></span></h2>
+        <input type="search" id="filter" placeholder="번호·이름 검색 Search">
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Code</th><th>Maker</th><th>Title</th><th>Class</th><th>Stage</th><th>Updated</th><th></th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <div class="toolbar" style="margin-top:18px">
+        <button class="btn btn-dark" type="button" id="downloadBtn">pieces.json 내려받기</button>
+        <button class="btn btn-line" type="button" id="csvBtn">시트용 CSV 복사</button>
+        <label class="btn btn-line" style="cursor:pointer">JSON 불러오기<input type="file" id="importFile" accept="application/json,.json" hidden></label>
+        <button class="btn btn-line" type="button" id="reloadBtn">공개 데이터 다시 불러오기</button>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="card-dialog" id="cardDialog">
+    <div class="pickup-card">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"></span><span>veranda pottery</span></div>
+      <p>Your piece code · 작품 번호</p>
+      <div class="code-big" id="cardCode"></div>
+      <div id="qrBox"></div>
+      <p id="cardClass"></p>
+      <p id="cardReady"></p>
+      <p>Scan to follow your piece from clay to kiln.<br>QR을 찍으면 내 작품의 진행 과정을 볼 수 있어요.</p>
+      <p id="cardUrl" style="word-break:break-all;font-size:11px"></p>
+    </div>
+    <div class="card-actions">
+      <button class="btn btn-dark" type="button" onclick="window.print()">인쇄 Print</button>
+      <button class="btn btn-line" type="button" onclick="this.closest('dialog').close()">닫기 Close</button>
+    </div>
+  </dialog>
+
+  <script src="vendor/qrcode.js"></script>
+  <script src="pottery-data.js"></script>
+  <script src="studio.js"></script>
+</body>
+</html>
