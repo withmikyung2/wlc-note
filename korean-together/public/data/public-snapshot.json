@@ -1,0 +1,787 @@
+{
+  "settings": {
+    "site_name_ko": "한국어로 잇다",
+    "site_name_en": "Korean Together",
+    "tagline_ko": "한국어로 대화하고, 새로운 일상을 연결하세요.",
+    "tagline_en": "Talk in Korean, connect to a new everyday life.",
+    "intro_ko": "자격을 갖춘 한국어 선생님과 함께, 나의 속도에 맞춰 배우는 온라인 한국어 수업.",
+    "intro_en": "Online Korean classes with a qualified Korean teacher, at your own pace.",
+    "org_name": "",
+    "representative": "",
+    "business_reg_no": "",
+    "mail_order_reg_no": "",
+    "address": "",
+    "contact_email": "",
+    "phone": "",
+    "privacy_officer": "",
+    "terms_ko": "",
+    "terms_en": "",
+    "privacy_ko": "",
+    "privacy_en": "",
+    "refund_general_ko": "",
+    "refund_general_en": "",
+    "reference_rates": {}
+  },
+  "courses": [
+    {
+      "id": 1,
+      "slug": "hangul-first-steps",
+      "sort": 1,
+      "category": "foundation",
+      "status": "published",
+      "title": {
+        "ko": "한글 첫걸음",
+        "en": "Hangul First Steps"
+      },
+      "summary": {
+        "ko": "한글 자음과 모음을 익히고, 소리 내어 읽고, 내 이름을 한국어로 씁니다.",
+        "en": "Learn Korean consonants and vowels, read aloud, and write your name in Korean."
+      },
+      "level": {
+        "ko": "입문 (한글을 처음 배우는 분)",
+        "en": "Absolute beginner"
+      },
+      "prerequisites": {
+        "ko": "필요 없음",
+        "en": "None"
+      },
+      "goals": {
+        "ko": [
+          "한글 자모를 읽고 쓸 수 있다",
+          "받침이 있는 글자를 소리 내어 읽을 수 있다",
+          "간단한 인사와 자기소개를 할 수 있다"
+        ],
+        "en": [
+          "Read and write Hangul letters",
+          "Read syllables with final consonants aloud",
+          "Give simple greetings and introduce yourself"
+        ]
+      },
+      "formats": [
+        "group",
+        "private",
+        "recorded"
+      ],
+      "purposes": [
+        "study",
+        "daily",
+        "work",
+        "friends",
+        "travel",
+        "family",
+        "culture",
+        "hobby"
+      ],
+      "levelMin": 0,
+      "levelMax": 0,
+      "sessionCount": null,
+      "minutesPerSession": null,
+      "materials": {
+        "ko": "교재는 수업 전 안내합니다. 필기도구, 이어폰(마이크 포함).",
+        "en": "Materials announced before class. Notebook, earphones with microphone."
+      },
+      "refundPolicy": {
+        "ko": "",
+        "en": ""
+      },
+      "price": null,
+      "currency": "KRW",
+      "instructor": null,
+      "lessons": [
+        {
+          "no": 1,
+          "title": {
+            "ko": "기본 모음",
+            "en": "Basic vowels"
+          }
+        },
+        {
+          "no": 2,
+          "title": {
+            "ko": "기본 자음",
+            "en": "Basic consonants"
+          }
+        },
+        {
+          "no": 3,
+          "title": {
+            "ko": "글자 만들기",
+            "en": "Building syllables"
+          }
+        },
+        {
+          "no": 4,
+          "title": {
+            "ko": "받침",
+            "en": "Final consonants"
+          }
+        },
+        {
+          "no": 5,
+          "title": {
+            "ko": "겹모음",
+            "en": "Compound vowels"
+          }
+        },
+        {
+          "no": 6,
+          "title": {
+            "ko": "된소리·거센소리",
+            "en": "Tense and aspirated sounds"
+          }
+        },
+        {
+          "no": 7,
+          "title": {
+            "ko": "인사와 자기소개",
+            "en": "Greetings and self-introduction"
+          }
+        },
+        {
+          "no": 8,
+          "title": {
+            "ko": "읽기 연습과 정리",
+            "en": "Reading practice and review"
+          }
+        }
+      ],
+      "sections": []
+    },
+    {
+      "id": 2,
+      "slug": "everyday-korean",
+      "sort": 2,
+      "category": "general",
+      "status": "published",
+      "title": {
+        "ko": "생활 한국어",
+        "en": "Everyday Korean"
+      },
+      "summary": {
+        "ko": "장보기, 길 묻기, 약속 잡기처럼 매일 쓰는 표현을 대화로 익힙니다.",
+        "en": "Practise the phrases you use every day: shopping, directions, making plans."
+      },
+      "level": {
+        "ko": "초급 (한글을 읽을 수 있는 분)",
+        "en": "Beginner (can read Hangul)"
+      },
+      "prerequisites": {
+        "ko": "한글을 천천히 읽을 수 있어야 합니다.",
+        "en": "You can read Hangul slowly."
+      },
+      "goals": {
+        "ko": [
+          "일상 상황에서 필요한 것을 요청할 수 있다",
+          "시간·숫자·가격을 말하고 이해할 수 있다",
+          "과거와 미래의 일을 짧게 말할 수 있다"
+        ],
+        "en": [
+          "Ask for what you need in daily situations",
+          "Say and understand time, numbers and prices",
+          "Talk briefly about past and future events"
+        ]
+      },
+      "formats": [
+        "group",
+        "private"
+      ],
+      "purposes": [
+        "daily",
+        "friends",
+        "travel",
+        "family"
+      ],
+      "levelMin": 1,
+      "levelMax": 2,
+      "sessionCount": null,
+      "minutesPerSession": null,
+      "materials": {
+        "ko": "교재는 수업 전 안내합니다.",
+        "en": "Materials announced before class."
+      },
+      "refundPolicy": {
+        "ko": "",
+        "en": ""
+      },
+      "price": null,
+      "currency": "KRW",
+      "instructor": null,
+      "lessons": [
+        {
+          "no": 1,
+          "title": {
+            "ko": "숫자와 시간",
+            "en": "Numbers and time"
+          }
+        },
+        {
+          "no": 2,
+          "title": {
+            "ko": "가게에서",
+            "en": "At the shop"
+          }
+        },
+        {
+          "no": 3,
+          "title": {
+            "ko": "식당에서",
+            "en": "At a restaurant"
+          }
+        },
+        {
+          "no": 4,
+          "title": {
+            "ko": "길 묻기",
+            "en": "Asking directions"
+          }
+        },
+        {
+          "no": 5,
+          "title": {
+            "ko": "약속 잡기",
+            "en": "Making plans"
+          }
+        },
+        {
+          "no": 6,
+          "title": {
+            "ko": "하루 일과",
+            "en": "My daily routine"
+          }
+        },
+        {
+          "no": 7,
+          "title": {
+            "ko": "지난 주말",
+            "en": "Last weekend"
+          }
+        },
+        {
+          "no": 8,
+          "title": {
+            "ko": "종합 대화 연습",
+            "en": "Conversation review"
+          }
+        }
+      ],
+      "sections": []
+    },
+    {
+      "id": 3,
+      "slug": "campus-work-life",
+      "sort": 3,
+      "category": "youth",
+      "status": "published",
+      "title": {
+        "ko": "청년 생활·학교·직장 한국어",
+        "en": "Korean for Campus, Work & Life"
+      },
+      "summary": {
+        "ko": "유학 생활, 수업 참여, 아르바이트·직장, 친구 관계에 필요한 실용 한국어를 배웁니다.",
+        "en": "Practical Korean for studying abroad, classes, part-time jobs and work, and friendships."
+      },
+      "level": {
+        "ko": "초급~중급 (수준 확인 후 반 배정)",
+        "en": "Beginner–intermediate (placement after level check)"
+      },
+      "prerequisites": {
+        "ko": "한글 읽기와 기본 인사가 가능해야 합니다.",
+        "en": "You can read Hangul and give basic greetings."
+      },
+      "goals": {
+        "ko": [
+          "학교·직장에서 쓰는 높임말을 상황에 맞게 쓸 수 있다",
+          "자기소개서·이메일·메시지를 짧게 쓸 수 있다",
+          "친구·동료와 자연스럽게 대화할 수 있다"
+        ],
+        "en": [
+          "Use honorifics appropriately at school and work",
+          "Write a short self-introduction, email and messages",
+          "Chat naturally with friends and colleagues"
+        ]
+      },
+      "formats": [
+        "group",
+        "private"
+      ],
+      "purposes": [
+        "study",
+        "work",
+        "friends",
+        "daily"
+      ],
+      "levelMin": 1,
+      "levelMax": 4,
+      "sessionCount": null,
+      "minutesPerSession": null,
+      "materials": {
+        "ko": "",
+        "en": ""
+      },
+      "refundPolicy": {
+        "ko": "",
+        "en": ""
+      },
+      "price": null,
+      "currency": "KRW",
+      "instructor": null,
+      "lessons": [
+        {
+          "no": 1,
+          "title": {
+            "ko": "캠퍼스 생활",
+            "en": "Campus life"
+          }
+        },
+        {
+          "no": 2,
+          "title": {
+            "ko": "수업과 과제",
+            "en": "Classes and assignments"
+          }
+        },
+        {
+          "no": 3,
+          "title": {
+            "ko": "친구 사귀기",
+            "en": "Making friends"
+          }
+        },
+        {
+          "no": 4,
+          "title": {
+            "ko": "아르바이트 면접",
+            "en": "Part-time job interviews"
+          }
+        },
+        {
+          "no": 5,
+          "title": {
+            "ko": "직장 높임말",
+            "en": "Workplace honorifics"
+          }
+        },
+        {
+          "no": 6,
+          "title": {
+            "ko": "이메일과 메시지",
+            "en": "Emails and messages"
+          }
+        },
+        {
+          "no": 7,
+          "title": {
+            "ko": "발표하기",
+            "en": "Giving a presentation"
+          }
+        },
+        {
+          "no": 8,
+          "title": {
+            "ko": "나의 계획 말하기",
+            "en": "Talking about my plans"
+          }
+        }
+      ],
+      "sections": []
+    },
+    {
+      "id": 4,
+      "slug": "travel-family-hobby",
+      "sort": 4,
+      "category": "senior",
+      "status": "published",
+      "title": {
+        "ko": "시니어 여행·가족·취미 한국어",
+        "en": "Korean for Travel, Family & Hobbies"
+      },
+      "summary": {
+        "ko": "여행, 가족과의 대화, 문화와 취미를 주제로 천천히 반복하며 배웁니다. 나이와 상관없이 같은 목적을 가진 분이라면 누구나 참여할 수 있습니다.",
+        "en": "Learn slowly with repetition around travel, family conversation, culture and hobbies. Open to anyone with these goals, whatever their age."
+      },
+      "level": {
+        "ko": "입문~초중급 (수준 확인 후 반 배정)",
+        "en": "Beginner–lower intermediate (placement after level check)"
+      },
+      "prerequisites": {
+        "ko": "필요 없음 (한글을 모르면 한글 첫걸음과 함께 추천)",
+        "en": "None (Hangul First Steps recommended alongside if new to Hangul)"
+      },
+      "goals": {
+        "ko": [
+          "여행지에서 필요한 표현을 말할 수 있다",
+          "가족에게 안부를 묻고 내 소식을 전할 수 있다",
+          "좋아하는 취미와 문화를 한국어로 소개할 수 있다"
+        ],
+        "en": [
+          "Use key phrases while travelling",
+          "Ask after family members and share your news",
+          "Introduce your hobbies and favourite culture in Korean"
+        ]
+      },
+      "formats": [
+        "group",
+        "private"
+      ],
+      "purposes": [
+        "travel",
+        "family",
+        "hobby",
+        "culture"
+      ],
+      "levelMin": 0,
+      "levelMax": 3,
+      "sessionCount": null,
+      "minutesPerSession": null,
+      "materials": {
+        "ko": "",
+        "en": ""
+      },
+      "refundPolicy": {
+        "ko": "",
+        "en": ""
+      },
+      "price": null,
+      "currency": "KRW",
+      "instructor": null,
+      "lessons": [
+        {
+          "no": 1,
+          "title": {
+            "ko": "반가운 인사",
+            "en": "Warm greetings"
+          }
+        },
+        {
+          "no": 2,
+          "title": {
+            "ko": "가족 소개",
+            "en": "Introducing family"
+          }
+        },
+        {
+          "no": 3,
+          "title": {
+            "ko": "안부 묻기",
+            "en": "Asking how someone is"
+          }
+        },
+        {
+          "no": 4,
+          "title": {
+            "ko": "공항과 호텔",
+            "en": "Airport and hotel"
+          }
+        },
+        {
+          "no": 5,
+          "title": {
+            "ko": "교통과 길 찾기",
+            "en": "Transport and directions"
+          }
+        },
+        {
+          "no": 6,
+          "title": {
+            "ko": "음식 주문",
+            "en": "Ordering food"
+          }
+        },
+        {
+          "no": 7,
+          "title": {
+            "ko": "나의 취미",
+            "en": "My hobbies"
+          }
+        },
+        {
+          "no": 8,
+          "title": {
+            "ko": "사진으로 이야기하기",
+            "en": "Telling stories with photos"
+          }
+        }
+      ],
+      "sections": []
+    },
+    {
+      "id": 5,
+      "slug": "culture-conversation",
+      "sort": 5,
+      "category": "culture",
+      "status": "published",
+      "title": {
+        "ko": "한국 문화와 대화",
+        "en": "Korean Culture & Conversation"
+      },
+      "summary": {
+        "ko": "명절, 음식, 드라마·음악, 예절 등 한국 문화를 주제로 생각을 나누는 대화 수업입니다.",
+        "en": "Conversation classes on Korean holidays, food, dramas and music, and etiquette."
+      },
+      "level": {
+        "ko": "초중급 이상",
+        "en": "Lower intermediate and above"
+      },
+      "prerequisites": {
+        "ko": "간단한 생활 대화가 가능해야 합니다.",
+        "en": "You can hold a simple everyday conversation."
+      },
+      "goals": {
+        "ko": [
+          "문화 주제에 대해 내 생각을 말할 수 있다",
+          "상황에 맞는 예절 표현을 쓸 수 있다",
+          "짧은 글과 영상을 이해하고 요약할 수 있다"
+        ],
+        "en": [
+          "Share your views on cultural topics",
+          "Use polite expressions that suit the situation",
+          "Understand and summarise short texts and videos"
+        ]
+      },
+      "formats": [
+        "group",
+        "private"
+      ],
+      "purposes": [
+        "culture",
+        "friends",
+        "hobby",
+        "daily"
+      ],
+      "levelMin": 2,
+      "levelMax": 4,
+      "sessionCount": null,
+      "minutesPerSession": null,
+      "materials": {
+        "ko": "",
+        "en": ""
+      },
+      "refundPolicy": {
+        "ko": "",
+        "en": ""
+      },
+      "price": null,
+      "currency": "KRW",
+      "instructor": null,
+      "lessons": [
+        {
+          "no": 1,
+          "title": {
+            "ko": "설날과 추석",
+            "en": "Seollal and Chuseok"
+          }
+        },
+        {
+          "no": 2,
+          "title": {
+            "ko": "한국의 음식 문화",
+            "en": "Food culture"
+          }
+        },
+        {
+          "no": 3,
+          "title": {
+            "ko": "드라마와 음악",
+            "en": "Dramas and music"
+          }
+        },
+        {
+          "no": 4,
+          "title": {
+            "ko": "예절과 높임말",
+            "en": "Etiquette and honorifics"
+          }
+        },
+        {
+          "no": 5,
+          "title": {
+            "ko": "한국의 도시와 여행지",
+            "en": "Cities and destinations"
+          }
+        },
+        {
+          "no": 6,
+          "title": {
+            "ko": "세대와 가족",
+            "en": "Generations and family"
+          }
+        },
+        {
+          "no": 7,
+          "title": {
+            "ko": "요즘 한국",
+            "en": "Korea today"
+          }
+        },
+        {
+          "no": 8,
+          "title": {
+            "ko": "나의 문화 소개 발표",
+            "en": "Presenting my own culture"
+          }
+        }
+      ],
+      "sections": []
+    },
+    {
+      "id": 6,
+      "slug": "private-tailored",
+      "sort": 6,
+      "category": "private",
+      "status": "published",
+      "title": {
+        "ko": "1:1 맞춤 한국어",
+        "en": "1:1 Tailored Korean"
+      },
+      "summary": {
+        "ko": "수준 확인과 상담을 바탕으로 학습 목표와 속도를 함께 정하는 개인 수업입니다.",
+        "en": "Private lessons where goals and pace are set together after a level check and consultation."
+      },
+      "level": {
+        "ko": "모든 수준",
+        "en": "All levels"
+      },
+      "prerequisites": {
+        "ko": "필요 없음 (상담 후 시작)",
+        "en": "None (starts after consultation)"
+      },
+      "goals": {
+        "ko": [
+          "나에게 필요한 목표를 정하고 단계별로 달성한다",
+          "원하는 일정과 속도로 학습한다"
+        ],
+        "en": [
+          "Set personal goals and reach them step by step",
+          "Learn on your own schedule and pace"
+        ]
+      },
+      "formats": [
+        "private"
+      ],
+      "purposes": [
+        "study",
+        "daily",
+        "work",
+        "friends",
+        "travel",
+        "family",
+        "culture",
+        "hobby"
+      ],
+      "levelMin": 0,
+      "levelMax": 4,
+      "sessionCount": null,
+      "minutesPerSession": null,
+      "materials": {
+        "ko": "",
+        "en": ""
+      },
+      "refundPolicy": {
+        "ko": "",
+        "en": ""
+      },
+      "price": null,
+      "currency": "KRW",
+      "instructor": null,
+      "lessons": [
+        {
+          "no": 1,
+          "title": {
+            "ko": "상담과 수준 확인",
+            "en": "Consultation and level check"
+          }
+        },
+        {
+          "no": 2,
+          "title": {
+            "ko": "목표별 맞춤 학습",
+            "en": "Goal-based lessons"
+          }
+        },
+        {
+          "no": 3,
+          "title": {
+            "ko": "중간 점검",
+            "en": "Progress check"
+          }
+        },
+        {
+          "no": 4,
+          "title": {
+            "ko": "다음 단계 계획",
+            "en": "Planning the next step"
+          }
+        }
+      ],
+      "sections": []
+    }
+  ],
+  "instructors": [],
+  "faqs": [
+    {
+      "id": 1,
+      "q": {
+        "ko": "수준 확인 결과는 공식 성적인가요?",
+        "en": "Is the level check an official score?"
+      },
+      "a": {
+        "ko": "아닙니다. 사이트의 수준 확인은 과정 선택을 돕는 학습 안내용이며, 공식 한국어 능력 인증이나 시험 성적이 아닙니다.",
+        "en": "No. The level check only helps you choose a course. It is not an official Korean proficiency certificate or test score."
+      }
+    },
+    {
+      "id": 2,
+      "q": {
+        "ko": "나이에 따라 반이 정해지나요?",
+        "en": "Are classes grouped by age?"
+      },
+      "a": {
+        "ko": "아닙니다. 한국어 수준, 학습 목적, 희망 속도를 기준으로 과정을 추천합니다.",
+        "en": "No. Courses are recommended by your Korean level, learning goal and preferred pace."
+      }
+    },
+    {
+      "id": 3,
+      "q": {
+        "ko": "수업 시간은 어느 시간대 기준인가요?",
+        "en": "Which time zone are class times in?"
+      },
+      "a": {
+        "ko": "각 과정의 기준 시간대와 함께, 내 기기에 설정된 현지 시간으로도 표시합니다.",
+        "en": "Each class shows its base time zone together with your local time."
+      }
+    },
+    {
+      "id": 4,
+      "q": {
+        "ko": "화상수업 링크는 어디에서 보나요?",
+        "en": "Where do I find the video class link?"
+      },
+      "a": {
+        "ko": "결제와 수강 등록이 끝나면 '나의 학습'에서 '수업 참여하기' 버튼으로 확인할 수 있습니다. 링크는 등록한 학습자에게만 보입니다.",
+        "en": "After payment and enrolment, use \"Join class\" in My Learning. Links are shown only to enrolled learners."
+      }
+    },
+    {
+      "id": 5,
+      "q": {
+        "ko": "수강료와 일정은 언제 알 수 있나요?",
+        "en": "When will fees and schedules be announced?"
+      },
+      "a": {
+        "ko": "확정되지 않은 수강료와 일정은 '추후 안내'로 표시되며, 확정 전에는 결제할 수 없습니다.",
+        "en": "Unconfirmed fees and schedules show as \"To be announced\" and cannot be paid for until confirmed."
+      }
+    }
+  ],
+  "notices": [],
+  "payment": {
+    "mode": "none",
+    "live": false,
+    "configured": false
+  },
+  "email": {
+    "configured": false
+  },
+  "serverConnected": false
+}

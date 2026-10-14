@@ -1,0 +1,15 @@
+{
+  "name": "korean-together",
+  "version": "0.1.0",
+  "private": true,
+  "description": "한국어로 잇다 · Korean Together — 온라인 한국어 교육 운영 사이트",
+  "type": "module",
+  "engines": { "node": ">=22.5" },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server/index.js",
+    "dev": "node --disable-warning=ExperimentalWarning --watch server/index.js",
+    "test": "node --disable-warning=ExperimentalWarning --test test/*.test.js",
+    "create-admin": "node --disable-warning=ExperimentalWarning server/cli.js create-admin",
+    "export-static": "node --disable-warning=ExperimentalWarning scripts/export-static.js"
+  }
+}

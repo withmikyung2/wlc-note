@@ -9,7 +9,8 @@
 - `content/ending-note-wlc2-plan.md`: 콘텐츠 구조 기획 문서
 - `domain-setup-note-salmitta.md`: 최종 도메인 연결 안내
 - `assets/qr-wlc-note-current.png`: 현재 주소 QR코드
-- `korean/index.html`: 해외 거주 청년·시니어 대상 유료 온라인 한국어 교육 사이트 (`/wlc-note/korean/`)
+- `korean-together/`: 외국인 청년·시니어 대상 온라인 한국어 교육 운영 사이트 (서버 + 관리자 화면, 자세한 내용은 `korean-together/README.md`)
+- `korean/index.html`: 위 사이트의 정적 미리보기로 이동하는 주소
 
 ## 배포 주소
 
