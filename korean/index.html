@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>살미따 온라인 한국어</title>
+    <meta name="description" content="해외에 사는 청년과 시니어를 위한 유료 온라인 한국어 수업. 레벨 진단, 소그룹·1:1 라이브 수업, 생활·문화 중심 커리큘럼.">
+    <style>
+      :root {
+        --ink: #1d2433;
+        --muted: #586174;
+        --blue: #2b5fa8;
+        --blue-dark: #1e4580;
+        --red: #c8463d;
+        --gold: #d39a3a;
+        --paper: #fffdf8;
+        --soft: #eef3fa;
+        --warm: #fbf1e3;
+        --card: #ffffff;
+        --line: rgba(29, 36, 51, 0.14);
+        --shadow: 0 16px 40px rgba(29, 36, 51, 0.09);
+        --base: 17px;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --ink: #e8ecf4;
+          --muted: #a7b0c2;
+          --blue: #7fa8e6;
+          --blue-dark: #a9c4ef;
+          --red: #ec7d74;
+          --gold: #e8b863;
+          --paper: #141821;
+          --soft: #1c2330;
+          --warm: #2a2419;
+          --card: #1a1f2a;
+          --line: rgba(232, 236, 244, 0.14);
+          --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+        }
+      }
+
+      :root[data-theme="dark"] {
+        --ink: #e8ecf4;
+        --muted: #a7b0c2;
+        --blue: #7fa8e6;
+        --blue-dark: #a9c4ef;
+        --red: #ec7d74;
+        --gold: #e8b863;
+        --paper: #141821;
+        --soft: #1c2330;
+        --warm: #2a2419;
+        --card: #1a1f2a;
+        --line: rgba(232, 236, 244, 0.14);
+        --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      }
+
+      :root.large { --base: 20px; }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; font-size: var(--base); }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+        line-height: 1.7;
+        overflow-x: hidden;
+      }
+
+      a { color: inherit; }
+      .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+
+      .topbar {
+        position: sticky; top: 0; z-index: 20;
+        border-bottom: 1px solid var(--line);
+        background: color-mix(in srgb, var(--paper) 94%, transparent);
+        backdrop-filter: blur(10px);
+      }
+      .topbar .wrap {
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 12px; min-height: 66px; flex-wrap: wrap;
+      }
+      .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.05rem; text-decoration: none; }
+      .brand-mark {
+        display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px;
+        background: var(--blue); color: #fff; font-weight: 900;
+      }
+      nav.links { display: flex; gap: 18px; font-size: 0.9rem; }
+      nav.links a { text-decoration: none; color: var(--muted); }
+      nav.links a:hover { color: var(--ink); }
+      .tools { display: flex; gap: 6px; }
+      .tool {
+        border: 1px solid var(--line); background: var(--card); color: var(--ink);
+        border-radius: 999px; padding: 6px 12px; font: inherit; font-size: 0.82rem; cursor: pointer;
+      }
+      .tool[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        border: 0; border-radius: 12px; padding: 13px 22px; font: inherit; font-weight: 700;
+        text-decoration: none; cursor: pointer; background: var(--blue); color: #fff;
+      }
+      .btn:hover { background: var(--blue-dark); }
+      .btn.secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+      .btn.secondary:hover { background: var(--soft); }
+
+      section { padding: 72px 0; }
+      section.alt { background: var(--soft); }
+      .eyebrow { color: var(--red); font-weight: 800; font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; margin: 0 0 8px; }
+      h1 { font-size: clamp(2rem, 5vw, 3.1rem); line-height: 1.25; margin: 0 0 18px; letter-spacing: -0.02em; }
+      h2 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); line-height: 1.3; margin: 0 0 14px; letter-spacing: -0.01em; }
+      h3 { font-size: 1.1rem; margin: 0 0 8px; }
+      .lead { font-size: 1.12rem; color: var(--muted); max-width: 640px; }
+      .muted { color: var(--muted); }
+
+      .hero { padding: 64px 0 56px; background: linear-gradient(180deg, var(--warm), var(--paper)); }
+      .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; }
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+      .hero-card {
+        background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 26px; box-shadow: var(--shadow);
+      }
+      .hero-card .big { font-size: 3.6rem; font-weight: 900; line-height: 1; color: var(--blue); }
+      .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+      .stat { background: var(--soft); border-radius: 12px; padding: 12px; text-align: center; }
+      .stat b { display: block; font-size: 1.2rem; }
+      .stat span { font-size: 0.78rem; color: var(--muted); }
+
+      .grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+      .card {
+        background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px;
+      }
+      .card ul { margin: 10px 0 0; padding-left: 20px; }
+      .card li { margin: 4px 0; }
+      .tag {
+        display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+        background: var(--soft); color: var(--blue); margin-bottom: 10px;
+      }
+      .tag.red { color: var(--red); background: var(--warm); }
+
+      .levels { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+      .level { border-top: 4px solid var(--blue); }
+      .level:nth-child(2) { border-top-color: var(--gold); }
+      .level:nth-child(3) { border-top-color: var(--red); }
+      .level:nth-child(4) { border-top-color: var(--ink); }
+      .level small { color: var(--muted); display: block; margin-bottom: 6px; }
+
+      /* Hangul mini lesson */
+      .hangul { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 18px; }
+      .jamo {
+        aspect-ratio: 1; border: 1px solid var(--line); border-radius: 14px; background: var(--card);
+        font: inherit; font-size: 1.8rem; font-weight: 800; color: var(--ink); cursor: pointer;
+        display: grid; place-items: center; line-height: 1;
+      }
+      .jamo span { display: block; font-size: 0.7rem; font-weight: 500; color: var(--muted); margin-top: 4px; }
+      .jamo:hover, .jamo.active { border-color: var(--blue); background: var(--soft); }
+      .builder {
+        margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
+        background: var(--card); border: 1px dashed var(--line); border-radius: 16px; padding: 18px;
+      }
+      .builder .syll { font-size: 3rem; font-weight: 900; min-width: 80px; text-align: center; color: var(--blue); }
+
+      /* Quiz */
+      .quiz { max-width: 720px; }
+      .q { margin-bottom: 18px; }
+      .q p { font-weight: 700; margin: 0 0 8px; }
+      .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+      .opts label {
+        border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; cursor: pointer; background: var(--card);
+      }
+      .opts input { margin-right: 6px; }
+      .opts label:has(input:checked) { border-color: var(--blue); background: var(--soft); }
+      .result {
+        margin-top: 18px; padding: 20px; border-radius: 16px; background: var(--warm); display: none;
+      }
+      .result.show { display: block; }
+
+      /* Pricing */
+      .price { display: flex; flex-direction: column; }
+      .price .amount { font-size: 2.2rem; font-weight: 900; margin: 6px 0 2px; }
+      .price .amount small { font-size: 0.9rem; font-weight: 500; color: var(--muted); }
+      .price ul { flex: 1; }
+      .price .btn { margin-top: 18px; }
+      .price.featured { border: 2px solid var(--blue); box-shadow: var(--shadow); }
+
+      .steps { counter-reset: s; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+      .step { position: relative; padding-top: 52px; }
+      .step::before {
+        counter-increment: s; content: counter(s); position: absolute; top: 20px; left: 24px;
+        width: 26px; height: 26px; border-radius: 50%; background: var(--blue); color: #fff;
+        display: grid; place-items: center; font-weight: 800; font-size: 0.85rem;
+      }
+
+      details { border-bottom: 1px solid var(--line); padding: 14px 0; }
+      summary { cursor: pointer; font-weight: 700; }
+      details p { margin: 8px 0 0; color: var(--muted); }
+
+      form.apply { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      form.apply .full { grid-column: 1 / -1; }
+      form.apply label { display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
+      form.apply input, form.apply select, form.apply textarea {
+        width: 100%; padding: 11px 12px; border-radius: 10px; border: 1px solid var(--line);
+        background: var(--card); color: var(--ink); font: inherit;
+      }
+      textarea { min-height: 90px; resize: vertical; }
+      .notice { font-size: 0.85rem; color: var(--muted); }
+      #applyOut {
+        display: none; white-space: pre-wrap; background: var(--soft); border-radius: 12px; padding: 16px;
+        font-size: 0.9rem; margin-top: 14px;
+      }
+
+      footer { padding: 36px 0; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); }
+
+      [data-en] { display: none; }
+      :root[lang="en"] [data-ko] { display: none; }
+      :root[lang="en"] [data-en] { display: revert; }
+
+      @media (max-width: 900px) {
+        nav.links { display: none; }
+        .hero-grid, .grid2, .grid3 { grid-template-columns: 1fr; }
+        .levels, .steps { grid-template-columns: repeat(2, 1fr); }
+        .hangul { grid-template-columns: repeat(5, 1fr); }
+      }
+      @media (max-width: 560px) {
+        section { padding: 52px 0; }
+        .levels, .steps { grid-template-columns: 1fr; }
+        form.apply { grid-template-columns: 1fr; }
+        .hangul { grid-template-columns: repeat(4, 1fr); }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap">
+        <a class="brand" href="#top"><span class="brand-mark">한</span><span data-ko>살미따 온라인 한국어</span><span data-en>Salmitta Korean Online</span></a>
+        <nav class="links">
+          <a href="#tracks"><span data-ko>과정</span><span data-en>Tracks</span></a>
+          <a href="#try"><span data-ko>한글 체험</span><span data-en>Try Hangul</span></a>
+          <a href="#test"><span data-ko>레벨 진단</span><span data-en>Level check</span></a>
+          <a href="#pricing"><span data-ko>수강료</span><span data-en>Pricing</span></a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <div class="tools">
+          <button class="tool" id="langBtn" type="button" aria-label="Language">EN</button>
+          <button class="tool" id="sizeBtn" type="button" aria-pressed="false" aria-label="Larger text">A+</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="wrap hero-grid">
+          <div>
+            <p class="eyebrow"><span data-ko>해외 거주 청년 · 시니어를 위한</span><span data-en>For youth &amp; seniors living abroad</span></p>
+            <h1>
+              <span data-ko>한국어로, 내 삶의 이야기를<br>다시 이어 갑니다</span>
+              <span data-en>Keep your life story going —<br>in Korean</span>
+            </h1>
+            <p class="lead">
+              <span data-ko>K-콘텐츠를 자막 없이 즐기고 싶은 청년, 한국의 가족·뿌리와 다시 연결되고 싶은 시니어를 위한 라이브 온라인 수업입니다. 생활 속 대화부터 TOPIK까지, 내 속도에 맞춰 배웁니다.</span>
+              <span data-en>Live online classes for young adults who want to enjoy K-content without subtitles, and seniors reconnecting with family and heritage. From everyday conversation to TOPIK — at your own pace.</span>
+            </p>
+            <div class="hero-actions">
+              <a class="btn" href="#test"><span data-ko>무료 레벨 진단</span><span data-en>Free level check</span></a>
+              <a class="btn secondary" href="#apply"><span data-ko>체험 수업 신청</span><span data-en>Book a trial class</span></a>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="big">가나다</div>
+            <p class="muted"><span data-ko>첫 수업에서 한글 24자를 읽고, 내 이름을 한국어로 씁니다.</span><span data-en>In your first class you'll read all 24 Hangul letters and write your name in Korean.</span></p>
+            <div class="stats">
+              <div class="stat"><b>50<span data-ko>분</span><span data-en>min</span></b><span data-ko>1회 수업</span><span data-en>per class</span></div>
+              <div class="stat"><b>≤6</b><span data-ko>소그룹 정원</span><span data-en>group size</span></div>
+              <div class="stat"><b>4</b><span data-ko>단계 레벨</span><span data-en>levels</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tracks">
+        <div class="wrap">
+          <p class="eyebrow"><span data-ko>두 개의 트랙</span><span data-en>Two tracks</span></p>
+          <h2><span data-ko>같은 한국어, 다른 목적</span><span data-en>Same language, different goals</span></h2>
+          <p class="lead"><span data-ko>나이가 아니라 목적과 속도로 반을 나눕니다. 두 트랙 모두 레벨 진단 후 배정됩니다.</span><span data-en>Classes are grouped by goal and pace, not age. Both tracks start with a level check.</span></p>
+          <div class="grid2" style="margin-top:28px">
+            <article class="card">
+              <span class="tag">Youth 20–39</span>
+              <h3><span data-ko>청년 트랙 · K-라이프 한국어</span><span data-en>Youth Track · K-Life Korean</span></h3>
+              <p class="muted"><span data-ko>드라마·음악·웹툰 표현으로 배우고, 유학·취업·워킹홀리데이를 준비합니다.</span><span data-en>Learn through dramas, music and webtoons; prepare for study, work or a working holiday in Korea.</span></p>
+              <ul>
+                <li><span data-ko>K-콘텐츠 대사로 배우는 회화</span><span data-en>Conversation from real K-content lines</span></li>
+                <li><span data-ko>TOPIK I·II 대비 모듈</span><span data-en>TOPIK I &amp; II prep modules</span></li>
+                <li><span data-ko>면접·자기소개·이메일 한국어</span><span data-en>Interview, self-introduction &amp; email Korean</span></li>
+                <li><span data-ko>저녁·주말 시간대 운영</span><span data-en>Evening &amp; weekend time slots</span></li>
+              </ul>
+            </article>
+            <article class="card">
+              <span class="tag red">Senior 55+</span>
+              <h3><span data-ko>시니어 트랙 · 뿌리와 이야기 한국어</span><span data-en>Senior Track · Roots &amp; Stories Korean</span></h3>
+              <p class="muted"><span data-ko>천천히, 반복하며, 큰 글씨로. 가족과 대화하고, 한국 여행을 하고, 내 이야기를 한국어로 남깁니다.</span><span data-en>Slow, repeated, large print. Talk with family, travel in Korea, and write your own story in Korean.</span></p>
+              <ul>
+                <li><span data-ko>가족·손주와 나누는 생활 대화</span><span data-en>Everyday talk with family and grandchildren</span></li>
+                <li><span data-ko>여행·병원·관공서 필수 표현</span><span data-en>Essentials for travel, clinics and offices</span></li>
+                <li><span data-ko>"나의 한국어 자서전" 1페이지 쓰기</span><span data-en>Write a one-page "My Korean memoir"</span></li>
+                <li><span data-ko>녹화본 제공 · 접속 도우미 안내</span><span data-en>Recordings provided · tech-help onboarding</span></li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="alt" id="levels">
+        <div class="wrap">
+          <p class="eyebrow"><span data-ko>커리큘럼</span><span data-en>Curriculum</span></p>
+          <h2><span data-ko>4단계 · 단계당 12주</span><span data-en>4 levels · 12 weeks each</span></h2>
+          <div class="levels" style="margin-top:24px">
+            <div class="card level">
+              <small>Level 1</small>
+              <h3><span data-ko>한글 · 첫 대화</span><span data-en>Hangul · First words</span></h3>
+              <p class="muted"><span data-ko>자모 읽기·쓰기, 인사, 자기소개, 숫자와 시간.</span><span data-en>Reading &amp; writing letters, greetings, self-intro, numbers and time.</span></p>
+            </div>
+            <div class="card level">
+              <small>Level 2</small>
+              <h3><span data-ko>생활 회화</span><span data-en>Everyday talk</span></h3>
+              <p class="muted"><span data-ko>주문, 길 묻기, 쇼핑, 과거·미래 표현.</span><span data-en>Ordering, directions, shopping, past and future tense.</span></p>
+            </div>
+            <div class="card level">
+              <small>Level 3</small>
+              <h3><span data-ko>이야기 한국어</span><span data-en>Storytelling</span></h3>
+              <p class="muted"><span data-ko>경험 말하기, 의견 표현, 높임말, TOPIK I.</span><span data-en>Sharing experiences, opinions, honorifics, TOPIK I.</span></p>
+            </div>
+            <div class="card level">
+              <small>Level 4</small>
+              <h3><span data-ko>사회 · 문화 한국어</span><span data-en>Society &amp; culture</span></h3>
+              <p class="muted"><span data-ko>뉴스·칼럼 읽기, 발표, 글쓰기, TOPIK II.</span><span data-en>News and columns, presentations, writing, TOPIK II.</span></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="try">
+        <div class="wrap">
+          <p class="eyebrow"><span data-ko>1분 체험</span><span data-en>1-minute try</span></p>
+          <h2><span data-ko>한글, 직접 눌러 보세요</span><span data-en>Tap and hear Hangul</span></h2>
+          <p class="lead"><span data-ko>자음 하나와 모음 하나를 고르면 글자가 만들어지고 소리가 납니다. (소리는 기기의 한국어 음성을 사용합니다.)</span><span data-en>Pick one consonant and one vowel to build a syllable and hear it. (Uses your device's Korean voice.)</span></p>
+          <h3 style="margin-top:22px"><span data-ko>자음</span><span data-en>Consonants</span></h3>
+          <div class="hangul" id="cons"></div>
+          <h3 style="margin-top:22px"><span data-ko>모음</span><span data-en>Vowels</span></h3>
+          <div class="hangul" id="vows"></div>
+          <div class="builder">
+            <div class="syll" id="syll">가</div>
+            <div>
+              <div><b id="roman">ga</b></div>
+              <div class="muted" style="font-size:.88rem"><span data-ko>예: 가방(가방, bag) · 나무(tree) · 바다(sea)</span><span data-en>e.g. 가방 (bag) · 나무 (tree) · 바다 (sea)</span></div>
+            </div>
+            <button class="btn secondary" id="speak" type="button">🔊 <span data-ko>듣기</span><span data-en>Listen</span></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="alt" id="test">
+        <div class="wrap">
+          <p class="eyebrow"><span data-ko>무료 레벨 진단</span><span data-en>Free level check</span></p>
+          <h2><span data-ko>5문항으로 내 시작 단계 찾기</span><span data-en>Find your starting level in 5 questions</span></h2>
+          <form class="quiz" id="quiz">
+            <div class="q">
+              <p>1. <span data-ko>한글을 읽을 수 있나요?</span><span data-en>Can you read Hangul?</span></p>
+              <div class="opts">
+                <label><input type="radio" name="q1" value="0" required><span data-ko>전혀 못 읽어요</span><span data-en>Not at all</span></label>
+                <label><input type="radio" name="q1" value="1"><span data-ko>천천히 읽어요</span><span data-en>Slowly</span></label>
+                <label><input type="radio" name="q1" value="2"><span data-ko>잘 읽어요</span><span data-en>Fluently</span></label>
+              </div>
+            </div>
+            <div class="q">
+              <p>2. "안녕하세요. 저는 마리아예요." — <span data-ko>뜻을 아나요?</span><span data-en>Do you understand this?</span></p>
+              <div class="opts">
+                <label><input type="radio" name="q2" value="0" required><span data-ko>모르겠어요</span><span data-en>No</span></label>
+                <label><input type="radio" name="q2" value="1"><span data-ko>일부만</span><span data-en>Partly</span></label>
+                <label><input type="radio" name="q2" value="2"><span data-ko>완전히</span><span data-en>Completely</span></label>
+              </div>
+            </div>
+            <div class="q">
+              <p>3. "어제 친구랑 영화를 봤어요." — <span data-ko>이 문장의 시제는?</span><span data-en>What tense is this?</span></p>
+              <div class="opts">
+                <label><input type="radio" name="q3" value="0" required><span data-ko>모르겠어요</span><span data-en>Not sure</span></label>
+                <label><input type="radio" name="q3" value="0"><span data-ko>현재</span><span data-en>Present</span></label>
+                <label><input type="radio" name="q3" value="2"><span data-ko>과거</span><span data-en>Past</span></label>
+                <label><input type="radio" name="q3" value="0"><span data-ko>미래</span><span data-en>Future</span></label>
+              </div>
+            </div>
+            <div class="q">
+              <p>4. <span data-ko>"할머니께서 진지를 드십니다"에서 높임 표현을 이해하나요?</span><span data-en>Do you understand the honorifics in "할머니께서 진지를 드십니다"?</span></p>
+              <div class="opts">
+                <label><input type="radio" name="q4" value="0" required><span data-ko>아니요</span><span data-en>No</span></label>
+                <label><input type="radio" name="q4" value="1"><span data-ko>대충요</span><span data-en>Roughly</span></label>
+                <label><input type="radio" name="q4" value="2"><span data-ko>네, 설명할 수 있어요</span><span data-en>Yes, I can explain</span></label>
+              </div>
+            </div>
+            <div class="q">
+              <p>5. <span data-ko>한국어 뉴스나 드라마를 자막 없이…</span><span data-en>Korean news or dramas without subtitles…</span></p>
+              <div class="opts">
+                <label><input type="radio" name="q5" value="0" required><span data-ko>거의 못 알아들어요</span><span data-en>Barely understand</span></label>
+                <label><input type="radio" name="q5" value="1"><span data-ko>절반 정도</span><span data-en>About half</span></label>
+                <label><input type="radio" name="q5" value="2"><span data-ko>대부분 이해해요</span><span data-en>Mostly understand</span></label>
+              </div>
+            </div>
+            <button class="btn" type="submit"><span data-ko>결과 보기</span><span data-en>See my level</span></button>
+            <div class="result" id="result" aria-live="polite"></div>
+          </form>
+        </div>
+      </section>
+
+      <section id="pricing">
+        <div class="wrap">
+          <p class="eyebrow"><span data-ko>수강료</span><span data-en>Pricing</span></p>
+          <h2><span data-ko>목적에 맞게 고르는 3가지 방식</span><span data-en>Three ways to learn</span></h2>
+          <p class="lead"><span data-ko>모든 과정은 첫 체험 수업(25분)이 무료입니다. 금액은 미국 달러 기준이며 월 단위로 결제합니다.</span><span data-en>Every plan starts with a free 25-minute trial. Prices in USD, billed monthly.</span></p>
+          <div class="grid3" style="margin-top:28px">
+            <article class="card price">
+              <span class="tag"><span data-ko>소그룹</span><span data-en>Group</span></span>
+              <h3><span data-ko>라이브 소그룹</span><span data-en>Live Group</span></h3>
+              <div class="amount">$69<small> / <span data-ko>월</span><span data-en>month</span></small></div>
+              <ul>
+                <li><span data-ko>주 2회 · 월 8회 (50분)</span><span data-en>2× a week · 8 classes (50 min)</span></li>
+                <li><span data-ko>최대 6명, 같은 트랙·레벨</span><span data-en>Up to 6, same track &amp; level</span></li>
+                <li><span data-ko>수업 녹화본 · 학습지 PDF</span><span data-en>Recordings · PDF worksheets</span></li>
+              </ul>
+              <a class="btn secondary" href="#apply" data-plan="group"><span data-ko>신청하기</span><span data-en>Apply</span></a>
+            </article>
+            <article class="card price featured">
+              <span class="tag red"><span data-ko>추천</span><span data-en>Popular</span></span>
+              <h3><span data-ko>1:1 맞춤 수업</span><span data-en>1:1 Private</span></h3>
+              <div class="amount">$189<small> / <span data-ko>월</span><span data-en>month</span></small></div>
+              <ul>
+                <li><span data-ko>월 8회 (50분), 시간 자유 예약</span><span data-en>8 classes (50 min), flexible booking</span></li>
+                <li><span data-ko>개인 목표 커리큘럼 설계</span><span data-en>Personal goal-based curriculum</span></li>
+                <li><span data-ko>TOPIK·면접·자서전 집중 가능</span><span data-en>TOPIK, interview or memoir focus</span></li>
+              </ul>
+              <a class="btn" href="#apply" data-plan="private"><span data-ko>신청하기</span><span data-en>Apply</span></a>
+            </article>
+            <article class="card price">
+              <span class="tag"><span data-ko>자기주도</span><span data-en>Self-paced</span></span>
+              <h3><span data-ko>녹화 강의 + 월 1회 코칭</span><span data-en>Video + Monthly Coaching</span></h3>
+              <div class="amount">$29<small> / <span data-ko>월</span><span data-en>month</span></small></div>
+              <ul>
+                <li><span data-ko>레벨별 녹화 강의 무제한</span><span data-en>Unlimited level videos</span></li>
+                <li><span data-ko>월 1회 25분 1:1 말하기 점검</span><span data-en>One 25-min 1:1 speaking check</span></li>
+                <li><span data-ko>주간 과제 피드백</span><span data-en>Weekly homework feedback</span></li>
+              </ul>
+              <a class="btn secondary" href="#apply" data-plan="self"><span data-ko>신청하기</span><span data-en>Apply</span></a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="alt">
+        <div class="wrap">
+          <p class="eyebrow"><span data-ko>수강 절차</span><span data-en>How it works</span></p>
+          <h2><span data-ko>신청부터 첫 수업까지</span><span data-en>From sign-up to first class</span></h2>
+          <div class="steps" style="margin-top:24px">
+            <div class="card step"><h3><span data-ko>레벨 진단</span><span data-en>Level check</span></h3><p class="muted"><span data-ko>위 5문항으로 시작 단계를 확인합니다.</span><span data-en>Use the 5-question check above.</span></p></div>
+            <div class="card step"><h3><span data-ko>체험 신청</span><span data-en>Book a trial</span></h3><p class="muted"><span data-ko>희망 시간대와 거주 국가를 알려 주세요.</span><span data-en>Tell us your country and preferred time.</span></p></div>
+            <div class="card step"><h3><span data-ko>무료 체험</span><span data-en>Free trial</span></h3><p class="muted"><span data-ko>25분 화상 수업으로 목표와 반을 정합니다.</span><span data-en>A 25-min video call to set goals and placement.</span></p></div>
+            <div class="card step"><h3><span data-ko>등록 · 시작</span><span data-en>Enroll &amp; start</span></h3><p class="muted"><span data-ko>결제 안내를 받고 첫 수업에 참여합니다.</span><span data-en>Receive payment details and join class.</span></p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq">
+        <div class="wrap" style="max-width:820px">
+          <p class="eyebrow">FAQ</p>
+          <h2><span data-ko>자주 묻는 질문</span><span data-en>Frequently asked questions</span></h2>
+          <details><summary><span data-ko>시차가 큰데 수업을 들을 수 있나요?</span><span data-en>I'm in a very different time zone. Can I join?</span></summary><p><span data-ko>네. 아시아·유럽·미주 시간대별로 반을 운영하며, 1:1 수업은 원하는 시간에 예약할 수 있습니다. 모든 소그룹 수업은 녹화본을 제공합니다.</span><span data-en>Yes. Group classes run in Asia, Europe and Americas time bands, 1:1 classes are booked at your convenience, and every group class is recorded.</span></p></details>
+          <details><summary><span data-ko>컴퓨터가 서툰 시니어도 괜찮을까요?</span><span data-en>Is it OK for seniors who aren't tech-savvy?</span></summary><p><span data-ko>첫 체험 전에 화상 수업 접속을 1:1로 함께 연습합니다. 휴대폰이나 태블릿으로도 참여할 수 있고, 화면 상단의 A+ 버튼으로 글씨를 키울 수 있습니다.</span><span data-en>We practise joining the video call with you 1:1 before your trial. Phones and tablets work, and the A+ button above enlarges text.</span></p></details>
+          <details><summary><span data-ko>결제는 어떻게 하나요?</span><span data-en>How do I pay?</span></summary><p><span data-ko>체험 수업 후 해외 카드 결제 또는 송금 안내를 개별로 보내 드립니다. 월 단위 결제이며 다음 달 시작 7일 전까지 해지할 수 있습니다.</span><span data-en>After your trial we send card or transfer payment details. Billing is monthly and you can cancel up to 7 days before the next month.</span></p></details>
+          <details><summary><span data-ko>환불 규정은요?</span><span data-en>What is the refund policy?</span></summary><p><span data-ko>첫 수업 전 전액 환불, 이후에는 남은 수업 횟수만큼 환불합니다.</span><span data-en>Full refund before the first class; afterwards, refunds for remaining classes.</span></p></details>
+          <details><summary><span data-ko>교포 2세·3세도 들을 수 있나요?</span><span data-en>Can heritage learners join?</span></summary><p><span data-ko>물론입니다. 말하기는 되지만 읽기·쓰기가 어려운 분을 위한 맞춤 반 배정을 레벨 진단 후 안내합니다.</span><span data-en>Of course. If you speak but struggle to read or write, we place you in a matching class after the level check.</span></p></details>
+        </div>
+      </section>
+
+      <section class="alt" id="apply">
+        <div class="wrap" style="max-width:820px">
+          <p class="eyebrow"><span data-ko>무료 체험 신청</span><span data-en>Free trial</span></p>
+          <h2><span data-ko>25분 무료 체험 수업 신청</span><span data-en>Book your free 25-minute trial</span></h2>
+          <p class="notice"><span data-ko>입력 내용은 서버로 전송되지 않습니다. '신청서 만들기'를 누르면 메일 앱이 열리거나, 신청서를 복사해 보낼 수 있습니다.</span><span data-en>Nothing is sent to a server. "Create application" opens your mail app, or lets you copy the text to send.</span></p>
+          <form class="apply" id="applyForm" style="margin-top:18px">
+            <div><label for="aName"><span data-ko>이름</span><span data-en>Name</span></label><input id="aName" name="name" required autocomplete="name"></div>
+            <div><label for="aCountry"><span data-ko>거주 국가 · 도시</span><span data-en>Country · City</span></label><input id="aCountry" name="country" required></div>
+            <div><label for="aContact"><span data-ko>연락처 (이메일/메신저)</span><span data-en>Contact (email/messenger)</span></label><input id="aContact" name="contact" required></div>
+            <div><label for="aTrack"><span data-ko>트랙</span><span data-en>Track</span></label>
+              <select id="aTrack" name="track"><option value="Youth">청년 / Youth</option><option value="Senior">시니어 / Senior</option></select></div>
+            <div><label for="aPlan"><span data-ko>희망 방식</span><span data-en>Plan</span></label>
+              <select id="aPlan" name="plan">
+                <option value="group">라이브 소그룹 / Live Group ($69)</option>
+                <option value="private">1:1 맞춤 / 1:1 Private ($189)</option>
+                <option value="self">녹화+코칭 / Video+Coaching ($29)</option>
+              </select></div>
+            <div><label for="aLevel"><span data-ko>진단 레벨</span><span data-en>Level</span></label>
+              <select id="aLevel" name="level"><option>Level 1</option><option>Level 2</option><option>Level 3</option><option>Level 4</option></select></div>
+            <div class="full"><label for="aTime"><span data-ko>희망 요일 · 시간 (현지 시간)</span><span data-en>Preferred days · times (local time)</span></label><input id="aTime" name="time"></div>
+            <div class="full"><label for="aGoal"><span data-ko>한국어를 배우고 싶은 이유</span><span data-en>Why do you want to learn Korean?</span></label><textarea id="aGoal" name="goal"></textarea></div>
+            <div class="full"><button class="btn" type="submit"><span data-ko>신청서 만들기</span><span data-en>Create application</span></button>
+              <button class="btn secondary" type="button" id="copyBtn" style="display:none"><span data-ko>복사하기</span><span data-en>Copy</span></button></div>
+          </form>
+          <div id="applyOut"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <span data-ko>살미따 온라인 한국어 · 해외 거주 청년과 시니어를 위한 라이브 한국어 수업</span>
+        <span data-en>Salmitta Korean Online · Live Korean classes for youth and seniors abroad</span>
+      </div>
+    </footer>
+
+    <script>
+      // 신청서를 받을 운영자 이메일. 비워 두면 '복사하기' 방식만 안내함.
+      const CONTACT_EMAIL = "";
+
+      const root = document.documentElement;
+      const store = {
+        get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+        set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+      };
+      const isEn = () => root.lang === "en";
+      const t = (ko, en) => (isEn() ? en : ko);
+
+      // Language & text size
+      const langBtn = document.getElementById("langBtn");
+      const sizeBtn = document.getElementById("sizeBtn");
+      function setLang(l) {
+        root.lang = l;
+        langBtn.textContent = l === "en" ? "한국어" : "EN";
+        store.set("kr-lang", l);
+      }
+      function setSize(on) {
+        root.classList.toggle("large", on);
+        sizeBtn.setAttribute("aria-pressed", String(on));
+        store.set("kr-large", on ? "1" : "0");
+      }
+      const savedLang = store.get("kr-lang");
+      setLang(savedLang || ((navigator.language || "").toLowerCase().startsWith("ko") ? "ko" : "en"));
+      setSize(store.get("kr-large") === "1");
+      langBtn.addEventListener("click", () => setLang(isEn() ? "ko" : "en"));
+      sizeBtn.addEventListener("click", () => setSize(!root.classList.contains("large")));
+
+      // Hangul builder
+      const CONS = [["ㄱ","g",0],["ㄴ","n",2],["ㄷ","d",3],["ㄹ","r",5],["ㅁ","m",6],["ㅂ","b",7],["ㅅ","s",9],
+                    ["ㅇ","",11],["ㅈ","j",12],["ㅊ","ch",14],["ㅋ","k",15],["ㅌ","t",16],["ㅍ","p",17],["ㅎ","h",18]];
+      const VOWS = [["ㅏ","a",0],["ㅑ","ya",2],["ㅓ","eo",4],["ㅕ","yeo",6],["ㅗ","o",8],
+                    ["ㅛ","yo",12],["ㅜ","u",13],["ㅠ","yu",17],["ㅡ","eu",18],["ㅣ","i",20]];
+      let ci = 0, vi = 0;
+      const consEl = document.getElementById("cons");
+      const vowsEl = document.getElementById("vows");
+      const syllEl = document.getElementById("syll");
+      const romanEl = document.getElementById("roman");
+
+      function speak(text) {
+        if (!("speechSynthesis" in window)) return;
+        speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = "ko-KR";
+        u.rate = root.classList.contains("large") ? 0.7 : 0.85;
+        speechSynthesis.speak(u);
+      }
+      function render() {
+        const ch = String.fromCharCode(0xAC00 + (CONS[ci][2] * 21 + VOWS[vi][2]) * 28);
+        syllEl.textContent = ch;
+        romanEl.textContent = CONS[ci][1] + VOWS[vi][1];
+        [...consEl.children].forEach((b, i) => b.classList.toggle("active", i === ci));
+        [...vowsEl.children].forEach((b, i) => b.classList.toggle("active", i === vi));
+        return ch;
+      }
+      function makeKeys(list, el, onPick) {
+        list.forEach(([j, r], i) => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.className = "jamo";
+          b.innerHTML = `<div>${j}<span>${r || "-"}</span></div>`;
+          b.addEventListener("click", () => onPick(i));
+          el.appendChild(b);
+        });
+      }
+      makeKeys(CONS, consEl, (i) => { ci = i; speak(render()); });
+      makeKeys(VOWS, vowsEl, (i) => { vi = i; speak(render()); });
+      document.getElementById("speak").addEventListener("click", () => speak(render()));
+      render();
+
+      // Level quiz
+      const LEVELS = [
+        { lv: 1, ko: "Level 1 · 한글 · 첫 대화", en: "Level 1 · Hangul · First words",
+          dko: "한글 자모부터 차근차근 시작합니다. 첫 달에 한글을 읽고 자기소개를 할 수 있게 됩니다.",
+          den: "Start from the alphabet. In your first month you'll read Hangul and introduce yourself." },
+        { lv: 2, ko: "Level 2 · 생활 회화", en: "Level 2 · Everyday talk",
+          dko: "읽기는 가능하니, 주문·길 묻기·쇼핑 등 실제 상황 대화를 늘려 갑니다.",
+          den: "You can read — now build real-life conversation: ordering, directions, shopping." },
+        { lv: 3, ko: "Level 3 · 이야기 한국어", en: "Level 3 · Storytelling",
+          dko: "경험과 의견을 말하고 높임말을 익히며 TOPIK I을 준비합니다.",
+          den: "Share experiences and opinions, master honorifics and prepare for TOPIK I." },
+        { lv: 4, ko: "Level 4 · 사회 · 문화 한국어", en: "Level 4 · Society & culture",
+          dko: "뉴스·칼럼·발표로 깊이 있는 한국어를 다지고 TOPIK II에 도전합니다.",
+          den: "Deepen your Korean with news, columns and presentations; aim for TOPIK II." }
+      ];
+      let lastLevel = null;
+      function showResult() {
+        if (!lastLevel) return;
+        const r = document.getElementById("result");
+        r.innerHTML = `<h3>${t("추천 시작 단계", "Recommended start")}: ${t(lastLevel.ko, lastLevel.en)}</h3>
+          <p>${t(lastLevel.dko, lastLevel.den)}</p>
+          <a class="btn" href="#apply">${t("이 레벨로 체험 신청", "Book a trial at this level")}</a>`;
+        r.classList.add("show");
+      }
+      document.getElementById("quiz").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        let score = 0;
+        for (let i = 1; i <= 5; i++) score += Number(fd.get("q" + i) || 0);
+        const idx = score <= 2 ? 0 : score <= 5 ? 1 : score <= 8 ? 2 : 3;
+        lastLevel = LEVELS[idx];
+        document.getElementById("aLevel").selectedIndex = idx;
+        showResult();
+      });
+      langBtn.addEventListener("click", showResult);
+
+      // Plan buttons preselect the form
+      document.querySelectorAll("[data-plan]").forEach((a) =>
+        a.addEventListener("click", () => { document.getElementById("aPlan").value = a.dataset.plan; })
+      );
+
+      // Application
+      const out = document.getElementById("applyOut");
+      const copyBtn = document.getElementById("copyBtn");
+      document.getElementById("applyForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const f = e.target;
+        const planText = f.plan.options[f.plan.selectedIndex].text;
+        const text = [
+          "[Salmitta Korean Online · Trial application]",
+          `Name: ${f.name.value}`,
+          `Country/City: ${f.country.value}`,
+          `Contact: ${f.contact.value}`,
+          `Track: ${f.track.value}`,
+          `Plan: ${planText}`,
+          `Level: ${f.level.value}`,
+          `Preferred time (local): ${f.time.value}`,
+          `Goal: ${f.goal.value}`
+        ].join("\n");
+        out.textContent = text;
+        out.style.display = "block";
+        copyBtn.style.display = "inline-flex";
+        if (CONTACT_EMAIL) {
+          const subject = encodeURIComponent("Korean trial class - " + f.name.value);
+          location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${encodeURIComponent(text)}`;
+        }
+      });
+      copyBtn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(out.textContent);
+          copyBtn.lastElementChild.textContent = "Copied";
+          copyBtn.firstElementChild.textContent = "복사됨";
+        } catch (e) {
+          const range = document.createRange();
+          range.selectNodeContents(out);
+          const sel = getSelection(); sel.removeAllRanges(); sel.addRange(range);
+        }
+      });
+    </script>
+  </body>
+</html>
