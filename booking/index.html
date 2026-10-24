@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>with.study 예약센터</title>
+<meta name="description" content="강의 의뢰, 1:1 코칭, 기업 컨설팅, 교육과정 신청을 한 곳에서 받는 with.study 예약센터입니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* fixed brand tokens: same navy identity in both themes */
+    --navy:#1F3864;
+    --blue:#2E75B6;
+    --brand-ink:#ffffff;
+
+    /* adaptive tokens */
+    --accent:#1F3864;
+    --point:#2E75B6;
+    --bg:#F2F7FC;
+    --card:#ffffff;
+    --tint:#DEEAF6;
+    --ink:#1b1f27;
+    --muted:#4f5866;
+    --line:#cfd9e6;
+    --notice-bg:#fff6e0;
+    --notice-line:#ecd29a;
+    --notice-ink:#5e4a12;
+    --error:#b3261e;
+    --ok-bg:#e5f3ea;
+    --ok-ink:#1d5c33;
+    --disabled-bg:#e3e7ec;
+    --disabled-ink:#7a838f;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --accent:#a9c8ef;
+      --point:#7fb3e6;
+      --bg:#0f1622;
+      --card:#17202e;
+      --tint:#1f2c40;
+      --ink:#e8edf4;
+      --muted:#a8b3c2;
+      --line:#2c3a50;
+      --notice-bg:#2a2414;
+      --notice-line:#53451f;
+      --notice-ink:#ecd59a;
+      --error:#ff8a80;
+      --ok-bg:#16301f;
+      --ok-ink:#9ee0b4;
+      --disabled-bg:#232d3b;
+      --disabled-ink:#6f7a89;
+    }
+  }
+  :root[data-theme="dark"]{
+    --accent:#a9c8ef;
+    --point:#7fb3e6;
+    --bg:#0f1622;
+    --card:#17202e;
+    --tint:#1f2c40;
+    --ink:#e8edf4;
+    --muted:#a8b3c2;
+    --line:#2c3a50;
+    --notice-bg:#2a2414;
+    --notice-line:#53451f;
+    --notice-ink:#ecd59a;
+    --error:#ff8a80;
+    --ok-bg:#16301f;
+    --ok-ink:#9ee0b4;
+    --disabled-bg:#232d3b;
+    --disabled-ink:#6f7a89;
+  }
+  *{box-sizing:border-box;}
+  [hidden]{display:none !important;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    font-family:"Nanum Gothic","Malgun Gothic","Apple SD Gothic Neo",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:17px;
+    line-height:1.7;
+    background:var(--bg);
+    color:var(--ink);
+    word-break:keep-all;
+    overflow-wrap:break-word;
+  }
+  a{color:var(--point);}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 16px;}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+  :focus-visible{outline:3px solid var(--point);outline-offset:2px;}
+
+  /* header */
+  .topbar{background:var(--navy);color:var(--brand-ink);position:sticky;top:0;z-index:20;}
+  .topbar .wrap{display:flex;align-items:center;gap:12px;min-height:64px;}
+  .brand{color:#fff;text-decoration:none;font-weight:800;font-size:19px;letter-spacing:-.01em;margin-right:auto;min-width:0;overflow:hidden;text-overflow:ellipsis;}
+  .brand small{display:block;font-size:12px;font-weight:400;opacity:.8;letter-spacing:.02em;}
+  .nav{display:flex;gap:2px;}
+  .nav a{color:#fff;text-decoration:none;padding:10px 12px;border-radius:8px;font-size:15.5px;min-height:44px;display:flex;align-items:center;}
+  .nav a[aria-current="page"]{background:rgba(255,255,255,.16);font-weight:700;}
+  .nav a:hover{background:rgba(255,255,255,.1);}
+  .tools{display:flex;gap:6px;align-items:center;}
+  .chip-btn{
+    appearance:none;border:1px solid rgba(255,255,255,.45);background:transparent;color:#fff;
+    font:inherit;font-size:14px;font-weight:700;min-height:40px;min-width:44px;padding:0 12px;border-radius:999px;cursor:pointer;
+  }
+  .chip-btn:hover{background:rgba(255,255,255,.12);}
+  .menu-btn{display:none;}
+  .chip-btn svg{width:18px;height:18px;vertical-align:-3px;}
+  @media (max-width:520px){
+    .brand{font-size:17px;white-space:nowrap;}
+    .brand small{display:none;}
+    .chip-btn{padding:0 10px;}
+  }
+  @media (max-width:860px){
+    .menu-btn{display:inline-block;}
+    .nav{display:none;position:absolute;left:0;right:0;top:64px;background:var(--navy);flex-direction:column;padding:8px 16px 16px;box-shadow:0 8px 16px rgba(0,0,0,.25);}
+    .nav.open{display:flex;}
+    .nav a{font-size:17px;min-height:48px;}
+  }
+
+  .demo-banner{background:var(--notice-bg);border-bottom:1px solid var(--notice-line);color:var(--notice-ink);font-size:15px;}
+  .demo-banner .wrap{padding-top:10px;padding-bottom:10px;}
+
+  /* page layout */
+  main{min-height:60vh;}
+  .page{display:none;padding:36px 0 56px;}
+  .page.active{display:block;}
+  h1,h2,h3{line-height:1.35;text-wrap:balance;}
+  h1{font-size:clamp(26px,5vw,36px);margin:0 0 12px;color:var(--accent);}
+  h2{font-size:22px;margin:40px 0 8px;color:var(--accent);}
+  h3{font-size:18.5px;margin:0 0 6px;}
+  .lead{font-size:18px;color:var(--muted);margin:0 0 24px;max-width:680px;}
+  .section-desc{color:var(--muted);margin:0 0 20px;}
+
+  .hero{background:var(--navy);color:#fff;padding:48px 0 52px;}
+  .hero .tag{display:inline-block;font-size:14px;border:1px solid rgba(255,255,255,.4);padding:3px 12px;border-radius:999px;margin-bottom:14px;}
+  .hero h1{color:#fff;}
+  .hero .lead{color:#dfe8f4;}
+  #page-home{padding-top:0;}
+
+  .btn{
+    appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    min-height:48px;padding:0 22px;border-radius:10px;border:2px solid var(--point);
+    background:var(--point);color:#fff;font:inherit;font-size:17px;font-weight:700;text-decoration:none;cursor:pointer;
+  }
+  .btn:hover{filter:brightness(1.08);}
+  .btn.ghost{background:transparent;color:var(--point);}
+  .hero .btn.ghost{color:#fff;border-color:#fff;}
+  .btn[disabled]{background:var(--disabled-bg);border-color:var(--disabled-bg);color:var(--disabled-ink);cursor:not-allowed;filter:none;}
+  .btn-row{display:flex;flex-wrap:wrap;gap:10px;}
+
+  /* cards */
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;}
+  .badge{display:inline-block;align-self:flex-start;background:var(--tint);color:var(--accent);font-size:13.5px;font-weight:700;padding:2px 10px;border-radius:999px;margin-bottom:10px;}
+  .card p{margin:0 0 12px;color:var(--muted);}
+  .meta{list-style:none;margin:0 0 16px;padding:0;font-size:15.5px;border-top:1px solid var(--line);}
+  .meta li{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);}
+  .meta li b{min-width:64px;color:var(--accent);}
+  .card .btn-row{margin-top:auto;}
+  .card .btn{flex:1 1 120px;padding:0 14px;}
+
+  .steps{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));}
+  .steps li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 16px 60px;position:relative;}
+  .steps li::before{counter-increment:s;content:counter(s);position:absolute;left:16px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--navy);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;}
+  .steps b{display:block;}
+  .steps span{color:var(--muted);font-size:15.5px;}
+
+  .checklist{list-style:none;padding:0;margin:0;display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));}
+  .checklist li{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--point);border-radius:10px;padding:14px 16px;}
+
+  /* service detail */
+  .detail{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:16px;}
+  .detail-lines{margin:0 0 16px;padding:0;list-style:none;}
+  .detail-lines li{padding:6px 0;border-bottom:1px dashed var(--line);}
+
+  /* wizard */
+  .progress{display:flex;gap:6px;list-style:none;padding:0;margin:0 0 24px;}
+  .progress li{flex:1;text-align:center;font-size:14px;color:var(--muted);padding-top:10px;border-top:5px solid var(--line);}
+  .progress li.done,.progress li.current{border-top-color:var(--point);color:var(--ink);}
+  .progress li.current{font-weight:800;}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;}
+  .panel h2{margin-top:0;}
+  .opt-list{display:grid;gap:10px;}
+  .opt{display:flex;gap:14px;align-items:flex-start;border:2px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;background:var(--card);}
+  .opt:has(input:checked){border-color:var(--point);background:var(--tint);}
+  .opt input{width:22px;height:22px;margin-top:4px;flex:none;accent-color:var(--point);}
+  .opt .t{font-weight:700;display:block;}
+  .opt .s{color:var(--muted);font-size:15.5px;}
+
+  .date-chips,.time-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px;}
+  .chip{
+    appearance:none;font:inherit;font-size:16px;min-height:48px;min-width:96px;padding:6px 14px;border-radius:10px;
+    border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;
+  }
+  .chip[aria-pressed="true"]{border-color:var(--point);background:var(--point);color:#fff;font-weight:700;}
+  .chip[disabled]{background:var(--disabled-bg);color:var(--disabled-ink);border-color:var(--disabled-bg);cursor:not-allowed;text-decoration:line-through;}
+  .chip small{display:block;font-size:12.5px;}
+
+  .field{margin-bottom:18px;}
+  .field label,.field .label{display:block;font-weight:700;margin-bottom:6px;}
+  .req{color:var(--error);margin-left:3px;}
+  .field input[type=text],.field input[type=tel],.field input[type=email],.field input[type=number],.field input[type=date],.field textarea{
+    width:100%;font:inherit;font-size:17px;min-height:50px;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);
+    background:var(--card);color:var(--ink);
+  }
+  .field textarea{min-height:110px;resize:vertical;}
+  .field input:focus,.field textarea:focus{border-color:var(--point);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--point) 30%,transparent);}
+  .field .hint{font-size:14.5px;color:var(--muted);margin-top:4px;}
+  .field .err{display:none;color:var(--error);font-size:15px;font-weight:700;margin-top:6px;}
+  .field.invalid .err{display:block;}
+  .field.invalid input,.field.invalid textarea{border-color:var(--error);}
+  .two{display:grid;gap:0 16px;grid-template-columns:1fr 1fr;}
+  @media (max-width:600px){.two{grid-template-columns:1fr;}}
+  .consent{display:flex;gap:12px;align-items:flex-start;background:var(--tint);border-radius:10px;padding:14px;}
+  .consent input{width:24px;height:24px;flex:none;margin-top:2px;accent-color:var(--point);}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+
+  .review{margin:0 0 20px;display:grid;grid-template-columns:max-content 1fr;border-top:1px solid var(--line);}
+  .review dt,.review dd{padding:10px 0;border-bottom:1px solid var(--line);margin:0;}
+  .review dt{font-weight:700;color:var(--accent);padding-right:18px;}
+  @media (max-width:480px){.review{grid-template-columns:1fr;}.review dt{border-bottom:none;padding-bottom:0;}}
+
+  .wizard-nav{display:flex;justify-content:space-between;gap:10px;margin-top:24px;flex-wrap:wrap;}
+  .alert{border-radius:10px;padding:14px 16px;margin:0 0 16px;font-weight:700;}
+  .alert.error{background:color-mix(in srgb,var(--error) 12%,var(--card));color:var(--error);border:1px solid var(--error);}
+  .alert.ok{background:var(--ok-bg);color:var(--ok-ink);}
+  .empty{color:var(--muted);padding:12px 0;}
+
+  .done-box{text-align:center;padding:36px 24px;}
+  .done-id{font-size:clamp(24px,6vw,34px);font-weight:800;color:var(--accent);letter-spacing:.02em;margin:8px 0 6px;user-select:all;}
+
+  .status{display:inline-block;padding:3px 12px;border-radius:999px;font-weight:800;font-size:15px;background:var(--tint);color:var(--accent);}
+  .status.s-확정{background:var(--ok-bg);color:var(--ok-ink);}
+  .status.s-취소{background:var(--disabled-bg);color:var(--disabled-ink);}
+  .status.s-변경요청{background:var(--notice-bg);color:var(--notice-ink);}
+
+  details.faq{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;}
+  details.faq summary{cursor:pointer;padding:16px 18px;font-weight:700;min-height:48px;}
+  details.faq p{margin:0;padding:0 18px 18px;color:var(--muted);}
+
+  .profile{display:grid;gap:20px;grid-template-columns:1fr 2fr;}
+  @media (max-width:760px){.profile{grid-template-columns:1fr;}}
+  .table-wrap{overflow-x:auto;}
+  table.simple{width:100%;border-collapse:collapse;background:var(--card);font-size:15.5px;}
+  table.simple th,table.simple td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;}
+  table.simple th{background:var(--navy);color:#fff;}
+  table.simple td:first-child{background:var(--tint);font-weight:700;white-space:nowrap;}
+
+  footer{background:var(--navy);color:#cfdbea;font-size:14.5px;padding:28px 0;}
+  footer a{color:#fff;}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;}
+</style>
+</head>
+<body>
+<a class="sr-only" href="#main" data-i18n="skip">본문 바로가기</a>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#home"><span data-i18n="brand">with.study 예약센터</span><small>booking.with.study</small></a>
+    <nav class="nav" id="nav" aria-label="주 메뉴">
+      <a href="#home" data-route="home" data-i18n="nav.home">홈</a>
+      <a href="#services" data-route="services" data-i18n="nav.services">서비스</a>
+      <a href="#book" data-route="book" data-i18n="nav.book">예약하기</a>
+      <a href="#lookup" data-route="lookup" data-i18n="nav.lookup">예약 조회</a>
+      <a href="#about" data-route="about" data-i18n="nav.about">소개</a>
+      <a href="#faq" data-route="faq" data-i18n="nav.faq">자주 묻는 질문</a>
+    </nav>
+    <div class="tools">
+      <button class="chip-btn" type="button" id="langBtn" aria-label="Change language">EN</button>
+      <button class="chip-btn" type="button" id="themeBtn" aria-label="화면 밝기 전환"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+      <button class="chip-btn menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="nav" data-i18n="menu">메뉴</button>
+    </div>
+  </div>
+</header>
+
+<div class="demo-banner" id="demoBanner" hidden>
+  <div class="wrap" data-i18n="demo.banner">준비 중: 예약 시스템을 연결하기 전입니다. 지금은 화면 체험만 할 수 있고, 입력한 정보는 어디에도 전송되지 않습니다.</div>
+</div>
+
+<main id="main">
+
+  <!-- 홈 -->
+  <section class="page" id="page-home" data-page="home">
+    <div class="hero">
+      <div class="wrap">
+        <span class="tag" data-i18n="home.tag">강의 · 코칭 · 컨설팅 · 교육과정</span>
+        <h1 data-i18n="home.title">배움과 상담을, 한 곳에서 예약하세요</h1>
+        <p class="lead" data-i18n="home.lead">기관 강의 의뢰부터 1:1 웰다잉 코칭, 창업·사회적기업 컨설팅까지. 원하는 서비스를 고르고 시간을 신청하면 운영자가 직접 확인해 확정해 드립니다.</p>
+        <div class="btn-row">
+          <a class="btn" href="#book" data-i18n="cta.book">예약하기</a>
+          <a class="btn ghost" href="#services" data-i18n="cta.services">서비스 둘러보기</a>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <h2 data-i18n="home.servicesH">서비스</h2>
+      <p class="section-desc" data-i18n="home.servicesD">필요한 서비스를 고르세요. 비용은 서비스마다 안내합니다.</p>
+      <div class="grid" id="homeCards"></div>
+
+      <h2 data-i18n="home.flowH">예약은 이렇게 진행됩니다</h2>
+      <ol class="steps">
+        <li><b data-i18n="flow.1t">서비스 선택</b><span data-i18n="flow.1d">강의, 코칭, 컨설팅 중 하나를 고릅니다.</span></li>
+        <li><b data-i18n="flow.2t">일정 선택</b><span data-i18n="flow.2d">비어 있는 시간을 고르거나, 희망일을 적습니다.</span></li>
+        <li><b data-i18n="flow.3t">정보 입력</b><span data-i18n="flow.3d">이름과 연락처, 요청사항을 남깁니다.</span></li>
+        <li><b data-i18n="flow.4t">운영자 확정</b><span data-i18n="flow.4d">운영자가 확인한 뒤 확정 메일을 보내 드립니다.</span></li>
+      </ol>
+
+      <h2 data-i18n="home.trustH">운영자</h2>
+      <ul class="checklist">
+        <li data-i18n="trust.1">창업학 석사·박사, 시니어산업 석사</li>
+        <li data-i18n="trust.2">웰다잉 연구·교육, 엔딩코디네이터·웰다잉라이프코치 과정 기획</li>
+        <li data-i18n="trust.3">중소·벤처·여성기업, 사회적경제조직 경영 컨설팅</li>
+        <li data-i18n="trust.4">캄보디아 무상영어교실 설립·운영 (비영리단체 대표)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 서비스 -->
+  <section class="page" id="page-services" data-page="services">
+    <div class="wrap">
+      <h1 data-i18n="services.title">서비스 안내</h1>
+      <p class="lead" data-i18n="services.lead">대상, 진행 방식, 준비할 것을 확인하고 예약하세요.</p>
+      <div id="serviceDetails"></div>
+    </div>
+  </section>
+
+  <!-- 예약하기 -->
+  <section class="page" id="page-book" data-page="book">
+    <div class="wrap">
+      <h1 data-i18n="book.title">예약하기</h1>
+      <ol class="progress" id="progress" aria-label="예약 단계">
+        <li data-i18n="step.1">서비스</li>
+        <li data-i18n="step.2">일정</li>
+        <li data-i18n="step.3">정보 입력</li>
+        <li data-i18n="step.4">확인</li>
+      </ol>
+      <div id="wizardAlert"></div>
+
+      <form id="bookForm" novalidate>
+        <!-- 1. 서비스 -->
+        <div class="panel step" data-step="1">
+          <h2 data-i18n="s1.h">어떤 서비스를 예약하시나요?</h2>
+          <div class="opt-list" id="serviceOptions"></div>
+          <div class="field" id="f-service"><div class="err" data-i18n="err.service">서비스를 하나 골라 주세요.</div></div>
+        </div>
+
+        <!-- 2. 일정 (시간대형) -->
+        <div class="panel step" data-step="2" hidden>
+          <div id="slotMode">
+            <h2 data-i18n="s2.h">날짜와 시간을 고르세요</h2>
+            <p class="section-desc" data-i18n="s2.d">운영자가 열어 둔 시간만 보입니다. 회색 시간은 이미 마감되었습니다.</p>
+            <div class="label" style="font-weight:700;margin-bottom:6px" data-i18n="s2.date">날짜</div>
+            <div class="date-chips" id="dateChips"></div>
+            <div class="label" style="font-weight:700;margin-bottom:6px" data-i18n="s2.time">시간</div>
+            <div class="time-chips" id="timeChips"><p class="empty" data-i18n="s2.pickDate">먼저 날짜를 고르세요.</p></div>
+            <div class="field" id="f-slot"><div class="err" data-i18n="err.slot">시간을 하나 골라 주세요.</div></div>
+          </div>
+
+          <!-- 2. 일정 (의뢰서형) -->
+          <div id="requestMode" hidden>
+            <h2 data-i18n="r.h">희망 일정과 내용을 알려 주세요</h2>
+            <p class="section-desc" data-i18n="r.d">기관 강의와 교육과정은 의뢰서로 받습니다. 희망일을 3개까지 적어 주시면 일정을 조율해 연락드립니다.</p>
+            <div class="two">
+              <div class="field" id="f-pref1"><label for="pref1"><span data-i18n="r.pref1">1순위 희망일</span><span class="req">*</span></label><input type="date" id="pref1" name="pref1"><div class="err" data-i18n="err.pref1">1순위 희망일을 골라 주세요. (오늘 이후 날짜)</div></div>
+              <div class="field"><label for="prefTime" data-i18n="r.time">희망 시간대</label><input type="text" id="prefTime" name="prefTime" maxlength="60" data-i18n-ph="r.timePh" placeholder="예: 오후 2시~4시"></div>
+              <div class="field" id="f-pref2"><label for="pref2" data-i18n="r.pref2">2순위 희망일</label><input type="date" id="pref2" name="pref2"><div class="err" data-i18n="err.prefPast">오늘 이후 날짜를 골라 주세요.</div></div>
+              <div class="field" id="f-pref3"><label for="pref3" data-i18n="r.pref3">3순위 희망일</label><input type="date" id="pref3" name="pref3"><div class="err" data-i18n="err.prefPast">오늘 이후 날짜를 골라 주세요.</div></div>
+              <div class="field" id="f-headcount"><label for="headcount"><span data-i18n="r.headcount">예상 인원</span><span class="req">*</span></label><input type="number" id="headcount" name="headcount" min="1" max="2000" inputmode="numeric"><div class="err" data-i18n="err.headcount">예상 인원을 숫자로 적어 주세요.</div></div>
+              <div class="field" id="f-venue"><label for="venue"><span data-i18n="r.venue">장소</span><span class="req">*</span></label><input type="text" id="venue" name="venue" maxlength="120" data-i18n-ph="r.venuePh" placeholder="예: ○○복지관 3층 강당 / 온라인"><div class="err" data-i18n="err.venue">장소를 적어 주세요.</div></div>
+            </div>
+            <div class="field" id="f-topic"><label for="topic"><span data-i18n="r.topic">주제와 요청사항</span><span class="req">*</span></label><textarea id="topic" name="topic" maxlength="1500" data-i18n-ph="r.topicPh" placeholder="예: 중장년 대상 엔딩노트 작성 실습 위주로 2시간"></textarea><div class="err" data-i18n="err.topic">주제를 적어 주세요.</div></div>
+          </div>
+        </div>
+
+        <!-- 3. 정보 입력 -->
+        <div class="panel step" data-step="3" hidden>
+          <h2 data-i18n="s3.h">신청하시는 분 정보</h2>
+          <div class="two">
+            <div class="field" id="f-name"><label for="name"><span data-i18n="f.name">이름</span><span class="req">*</span></label><input type="text" id="name" name="name" autocomplete="name" maxlength="40"><div class="err" data-i18n="err.name">이름을 적어 주세요.</div></div>
+            <div class="field" id="f-phone"><label for="phone"><span data-i18n="f.phone">연락처</span><span class="req">*</span></label><input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="010-0000-0000"><div class="hint" data-i18n="f.phoneHint">예약 조회 때 뒷자리 4개를 씁니다.</div><div class="err" data-i18n="err.phone">연락처를 숫자 9~15자리로 적어 주세요.</div></div>
+            <div class="field" id="f-email"><label for="email"><span data-i18n="f.email">이메일</span><span class="req">*</span></label><input type="email" id="email" name="email" autocomplete="email" maxlength="120"><div class="hint" data-i18n="f.emailHint">접수·확정 안내 메일을 이 주소로 보냅니다.</div><div class="err" data-i18n="err.email">이메일 주소를 확인해 주세요.</div></div>
+            <div class="field" id="f-org"><label for="org"><span data-i18n="f.org">소속</span><span class="req" id="orgReq" hidden>*</span></label><input type="text" id="org" name="org" autocomplete="organization" maxlength="80" data-i18n-ph="f.orgPh" placeholder="기관·회사명 (개인은 비워 두세요)"><div class="err" data-i18n="err.org">기관명을 적어 주세요.</div></div>
+          </div>
+          <div class="field"><label for="message" data-i18n="f.message">요청사항</label><textarea id="message" name="message" maxlength="1500" data-i18n-ph="f.messagePh" placeholder="미리 알려 주실 내용이 있으면 적어 주세요."></textarea><div class="hint" data-i18n="f.sensitive">건강 상태처럼 민감한 정보는 적지 말아 주세요.</div></div>
+          <div class="hp" aria-hidden="true"><label for="website">website</label><input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></div>
+          <div class="field" id="f-consent">
+            <label class="consent"><input type="checkbox" id="consent" name="consent"><span><b data-i18n="f.consent">[필수] 개인정보 수집·이용에 동의합니다.</b><br><span data-i18n="f.consentD">수집 항목: 이름, 연락처, 이메일, 소속, 요청사항 / 목적: 예약 확인과 연락 / 보관: 1년 후 삭제</span> <a href="#privacy" data-i18n="f.consentLink">자세히 보기</a></span></label>
+            <div class="err" data-i18n="err.consent">개인정보 수집·이용에 동의해야 신청할 수 있습니다.</div>
+          </div>
+        </div>
+
+        <!-- 4. 확인 -->
+        <div class="panel step" data-step="4" hidden>
+          <h2 data-i18n="s4.h">신청 내용을 확인해 주세요</h2>
+          <dl class="review" id="review"></dl>
+          <p class="section-desc" data-i18n="s4.d">제출하면 "접수" 상태로 저장됩니다. 운영자가 확인한 뒤 확정 메일을 보내 드립니다.</p>
+        </div>
+
+        <div class="wizard-nav" id="wizardNav">
+          <button class="btn ghost" type="button" id="prevBtn" data-i18n="btn.prev">이전</button>
+          <button class="btn" type="button" id="nextBtn" data-i18n="btn.next">다음</button>
+          <button class="btn" type="submit" id="submitBtn" hidden data-i18n="btn.submit">신청하기</button>
+        </div>
+      </form>
+
+      <!-- 완료 -->
+      <div class="panel done-box" id="doneBox" hidden>
+        <p class="alert ok" data-i18n="done.ok">신청이 접수되었습니다.</p>
+        <div data-i18n="done.idLabel">예약번호</div>
+        <div class="done-id" id="doneId"></div>
+        <p data-i18n="done.save">예약번호를 저장하거나 캡처해 두세요. 예약 조회에 필요합니다.</p>
+        <p class="section-desc" id="doneNext"></p>
+        <div class="btn-row" style="justify-content:center">
+          <a class="btn" href="#lookup" id="doneLookup" data-i18n="done.lookup">예약 조회</a>
+          <a class="btn ghost" href="#home" data-i18n="done.home">처음으로</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 예약 조회 -->
+  <section class="page" id="page-lookup" data-page="lookup">
+    <div class="wrap" style="max-width:640px">
+      <h1 data-i18n="lookup.title">예약 조회</h1>
+      <p class="lead" data-i18n="lookup.lead">예약번호와 연락처 뒷자리 4개를 입력하면 진행 상태를 볼 수 있습니다.</p>
+      <form class="panel" id="lookupForm" novalidate>
+        <div class="field" id="f-lid"><label for="lid"><span data-i18n="lookup.id">예약번호</span><span class="req">*</span></label><input type="text" id="lid" name="lid" placeholder="WS-20261024-001" autocapitalize="characters" maxlength="20"><div class="err" data-i18n="err.lid">예약번호 형식을 확인해 주세요. (예: WS-20261024-001)</div></div>
+        <div class="field" id="f-last4"><label for="last4"><span data-i18n="lookup.last4">연락처 뒷자리 4개</span><span class="req">*</span></label><input type="text" id="last4" name="last4" inputmode="numeric" maxlength="4" placeholder="1234"><div class="err" data-i18n="err.last4">숫자 4개를 입력해 주세요.</div></div>
+        <button class="btn" type="submit" id="lookupBtn" data-i18n="lookup.btn">조회하기</button>
+      </form>
+      <div id="lookupResult" style="margin-top:20px"></div>
+    </div>
+  </section>
+
+  <!-- 소개 -->
+  <section class="page" id="page-about" data-page="about">
+    <div class="wrap">
+      <h1 data-i18n="about.title">운영자 소개</h1>
+      <p class="lead" data-i18n="about.lead">삶과 일, 그리고 마무리까지. 사람의 생애 전체를 함께 설계합니다.</p>
+      <div class="profile">
+        <div class="card">
+          <span class="badge" data-i18n="about.badge">with.study 대표</span>
+          <h3 data-i18n="about.name">창업 기획자 · 교육자 · 컨설턴트</h3>
+          <p data-i18n="about.intro">창업학 박사이자 웰다잉 교육자로서, 기업에는 지속 가능한 구조를, 개인에게는 의미 있는 인생 후반기를 함께 설계합니다.</p>
+        </div>
+        <div>
+          <div class="table-wrap">
+            <table class="simple">
+              <thead><tr><th data-i18n="about.th1">분야</th><th data-i18n="about.th2">내용</th></tr></thead>
+              <tbody>
+                <tr><td data-i18n="about.r1a">학위</td><td data-i18n="about.r1b">창업학 석사·박사, 시니어산업 석사</td></tr>
+                <tr><td data-i18n="about.r2a">컨설팅</td><td data-i18n="about.r2b">중소기업, 벤처기업, 여성기업, 사회적경제조직(사회적기업·소셜벤처·마을기업), 국제개발협력</td></tr>
+                <tr><td data-i18n="about.r3a">웰다잉</td><td data-i18n="about.r3b">웰다잉 연구·교육, 엔딩코디네이터·웰다잉라이프코치 과정 기획</td></tr>
+                <tr><td data-i18n="about.r4a">교육</td><td data-i18n="about.r4b">창업 기획 및 창업 교육, 생애설계 교육</td></tr>
+                <tr><td data-i18n="about.r5a">사회공헌</td><td data-i18n="about.r5b">비영리단체 대표, 캄보디아 무상영어교실 설립·운영</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="page" id="page-faq" data-page="faq">
+    <div class="wrap" style="max-width:760px">
+      <h1 data-i18n="faq.title">자주 묻는 질문</h1>
+      <details class="faq"><summary data-i18n="faq.q1">신청하면 바로 확정되나요?</summary><p data-i18n="faq.a1">아니요. 신청하면 "접수" 상태가 되고, 운영자가 일정을 확인한 뒤 "확정"으로 바꿉니다. 확정되면 이메일로 알려 드립니다.</p></details>
+      <details class="faq"><summary data-i18n="faq.q2">기관 강의는 어떻게 의뢰하나요?</summary><p data-i18n="faq.a2">예약하기에서 강의를 고르고, 희망일 3개와 인원·장소·주제를 적어 주세요. 일정과 비용을 협의한 뒤 확정합니다.</p></details>
+      <details class="faq"><summary data-i18n="faq.q3">일정을 바꾸거나 취소하고 싶어요.</summary><p data-i18n="faq.a3">안내 메일에 답장해 예약번호와 함께 알려 주세요. 운영자가 "변경요청" 또는 "취소"로 처리합니다.</p></details>
+      <details class="faq"><summary data-i18n="faq.q4">온라인으로도 진행하나요?</summary><p data-i18n="faq.a4">코칭·컨설팅·상담은 온라인으로 진행할 수 있습니다. 확정 메일에 접속 방법을 안내합니다.</p></details>
+      <details class="faq"><summary data-i18n="faq.q5">예약번호를 잃어버렸어요.</summary><p data-i18n="faq.a5">접수 안내 메일에 예약번호가 있습니다. 메일을 찾지 못하면 같은 서비스로 다시 신청하면서 요청사항에 사정을 적어 주세요.</p></details>
+    </div>
+  </section>
+
+  <!-- 개인정보 -->
+  <section class="page" id="page-privacy" data-page="privacy">
+    <div class="wrap" style="max-width:760px">
+      <h1 data-i18n="privacy.title">개인정보 처리방침</h1>
+      <div class="table-wrap">
+        <table class="simple">
+          <tbody>
+            <tr><td data-i18n="pv.r1a">수집 항목</td><td data-i18n="pv.r1b">이름, 연락처, 이메일, 소속(선택), 요청사항(선택), 기관 의뢰 시 희망일·인원·장소·주제</td></tr>
+            <tr><td data-i18n="pv.r2a">수집 목적</td><td data-i18n="pv.r2b">예약 접수, 일정 확인, 확정·변경 안내 연락</td></tr>
+            <tr><td data-i18n="pv.r3a">보관 기간</td><td data-i18n="pv.r3b">신청일로부터 1년. 기간이 지나면 자동으로 삭제합니다.</td></tr>
+            <tr><td data-i18n="pv.r4a">수집하지 않는 정보</td><td data-i18n="pv.r4b">주민등록번호, 건강정보 등 민감정보</td></tr>
+            <tr><td data-i18n="pv.r5a">보관 장소</td><td data-i18n="pv.r5b">운영자만 접근할 수 있는 비공개 Google 스프레드시트</td></tr>
+            <tr><td data-i18n="pv.r6a">동의 거부</td><td data-i18n="pv.r6b">동의하지 않을 수 있으나, 이 경우 온라인 예약은 할 수 없습니다.</td></tr>
+            <tr><td data-i18n="pv.r7a">문의·삭제 요청</td><td><span data-i18n="pv.r7b">접수·확정 안내 메일에 답장해 예약번호와 함께 요청해 주세요.</span> <a class="contactLink" href="#"></a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b data-i18n="brand">with.study 예약센터</b><span id="footerContact"> · <span data-i18n="footer.contact">문의</span> <a class="contactLink" href="#"></a></span></div>
+    <div><a href="#privacy" data-i18n="footer.privacy">개인정보 처리방침</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ===== 설정: 운영 전에 여기만 바꾸면 됩니다 ===== */
+  var CONFIG = {
+    API_URL: '',                       // Apps Script 웹앱 URL (비워 두면 체험 모드)
+    CONTACT_EMAIL: ''                  // 사이트에 공개할 문의 이메일 (비우면 문의 링크를 숨깁니다)
+  };
+
+  /* ===== 체험 모드용 예시 서비스 (실제 운영 시 Services 시트에서 불러옵니다) ===== */
+  var DEMO_SERVICES = [
+    {service_id:'lecture-wd', category_ko:'강의', category_en:'Lecture', type:'request',
+      name_ko:'웰다잉·엔딩노트 특강', name_en:'Well-Dying & Ending Note Lecture',
+      duration_ko:'2시간', duration_en:'2 hours', mode_ko:'방문 강의', mode_en:'On-site', price_ko:'협의', price_en:'By agreement',
+      summary_ko:'복지관·지자체·기관을 위한 웰다잉 특강. 엔딩노트 작성 실습을 함께 진행합니다.',
+      summary_en:'Well-dying lecture for welfare centers and public institutions, with an ending-note workshop.',
+      detail_ko:'대상: 중장년·시니어, 기관 종사자\n내용: 웰다잉의 의미, 엔딩노트 작성 실습, 사전의향서 안내\n준비: 강의실, 빔프로젝터, 필기도구\n취소·변경: 확정 후 일정 변경은 운영자와 협의합니다.',
+      detail_en:'For: middle-aged and senior adults, institution staff\nContent: meaning of well-dying, ending-note practice, advance directive overview\nPrepare: room, projector, pens\nChanges: discuss with the operator after confirmation.'},
+    {service_id:'coach-wl', category_ko:'코칭', category_en:'Coaching', type:'slot',
+      name_ko:'웰다잉라이프 1:1 코칭', name_en:'Well-Dying Life 1:1 Coaching',
+      duration_ko:'60분', duration_en:'60 min', mode_ko:'온라인 / 대면', mode_en:'Online / In person', price_ko:'상담 후 안내', price_en:'Shared after inquiry',
+      summary_ko:'관계 정리, 남기고 싶은 말, 인생 후반기 설계를 1:1로 함께 정리합니다.',
+      summary_en:'One-on-one coaching on relationships, legacy messages and later-life design.',
+      detail_ko:'대상: 인생 후반기를 정리하고 싶은 개인\n내용: 삶의 가치 3개 찾기, 관계 정리, 남기고 싶은 말 1페이지\n준비: 조용한 공간, 필기도구\n취소·변경: 예약일 2일 전까지 알려 주세요.',
+      detail_en:'For: individuals planning their later life\nContent: three core values, relationships, a one-page legacy message\nPrepare: a quiet space and a pen\nChanges: please tell us at least 2 days ahead.'},
+    {service_id:'consult-biz', category_ko:'컨설팅', category_en:'Consulting', type:'slot',
+      name_ko:'창업·사회적기업 경영진단', name_en:'Startup & Social Enterprise Diagnosis',
+      duration_ko:'90분', duration_en:'90 min', mode_ko:'온라인 / 대면', mode_en:'Online / In person', price_ko:'상담 후 안내', price_en:'Shared after inquiry',
+      summary_ko:'매출·고객·수익모델·조직 중 막힌 곳을 진단하고 다음 단계를 정리합니다.',
+      summary_en:'Find where sales, customers, revenue model or team is stuck and set the next steps.',
+      detail_ko:'대상: 예비창업자, 중소·벤처·여성기업, 사회적기업·소셜벤처·마을기업\n내용: 현황 진단, 수익모델 점검, 실행 과제 3가지 도출\n준비: 사업계획서 또는 회사 소개 자료(있으면)\n취소·변경: 예약일 2일 전까지 알려 주세요.',
+      detail_en:'For: founders, SMEs, women-led businesses, social enterprises\nContent: diagnosis, revenue model review, three action items\nPrepare: business plan or company profile if available\nChanges: please tell us at least 2 days ahead.'},
+    {service_id:'course-wlc', category_ko:'교육과정', category_en:'Course', type:'request',
+      name_ko:'웰다잉라이프코치(WLC) 2급 과정', name_en:'Well-Dying Life Coach (WLC) Level 2',
+      duration_ko:'회차별 운영', duration_en:'Multi-session', mode_ko:'오프라인', mode_en:'Offline', price_ko:'과정별 안내', price_en:'Per course',
+      summary_ko:'엔딩노트 실습 중심의 자격 과정. 기관 단체 개설 신청을 받습니다.',
+      summary_en:'Ending-note based certificate course. Group openings for institutions.',
+      detail_ko:'대상: 웰다잉 강사·코치를 준비하는 분, 기관 단체\n내용: 엔딩노트 작성, 관계 정리, 의향서 실습, 코칭 실습\n준비: 과정 확정 후 안내\n취소·변경: 개설 확정 전까지 자유롭게 조정할 수 있습니다.',
+      detail_en:'For: aspiring well-dying coaches, institution groups\nContent: ending note, relationships, directives, coaching practice\nPrepare: shared after confirmation\nChanges: flexible until the course is confirmed.'},
+    {service_id:'consult-gya', category_ko:'상담', category_en:'Consultation', type:'slot',
+      name_ko:'국제개발협력·캄보디아 교실 후원 상담', name_en:'Cambodia Classroom Support Consultation',
+      duration_ko:'30분', duration_en:'30 min', mode_ko:'온라인', mode_en:'Online', price_ko:'무료', price_en:'Free',
+      summary_ko:'캄보디아 무상영어교실 방문·후원·봉사 참여를 안내합니다.',
+      summary_en:'Visiting, sponsoring or volunteering at our free English classrooms in Cambodia.',
+      detail_ko:'대상: 후원자, 봉사자, 협력 기관\n내용: 교실 운영 현황, 후원 방법, 방문·봉사 일정\n준비: 없음\n취소·변경: 언제든 알려 주세요.',
+      detail_en:'For: sponsors, volunteers, partner organizations\nContent: classroom status, how to give, visit and volunteer schedules\nPrepare: nothing\nChanges: anytime.'}
+  ];
+
+  /* ===== 화면 문구 ===== */
+  var I18N = {
+    ko: {
+      'status.접수':'접수','status.확정':'확정','status.변경요청':'변경요청','status.취소':'취소',
+      'card.detail':'자세히','card.book':'예약','meta.dur':'시간','meta.mode':'방식','meta.price':'비용',
+      'type.slot':'시간 선택','type.request':'의뢰서',
+      'rv.service':'서비스','rv.when':'일정','rv.pref':'희망일','rv.prefTime':'희망 시간대','rv.headcount':'예상 인원','rv.venue':'장소','rv.topic':'주제·요청',
+      'rv.name':'이름','rv.phone':'연락처','rv.email':'이메일','rv.org':'소속','rv.message':'요청사항','rv.people':'명',
+      'lk.status':'상태','lk.created':'신청일','lk.notFound':'일치하는 예약이 없습니다. 예약번호와 연락처 뒷자리를 다시 확인해 주세요.',
+      'err.network':'서버에 연결하지 못했습니다. 잠시 뒤 다시 시도해 주세요.',
+      'err.slotTaken':'방금 다른 분이 이 시간을 예약했습니다. 다른 시간을 골라 주세요.',
+      'err.server':'신청을 저장하지 못했습니다. 잠시 뒤 다시 시도하거나 이메일로 문의해 주세요.',
+      'err.fix':'빨간색으로 표시된 칸을 확인해 주세요.',
+      'loading':'불러오는 중…','noSlots':'지금 예약할 수 있는 시간이 없습니다. 이메일로 문의해 주세요.',
+      'submitting':'보내는 중…','next.slot':'운영자가 확인한 뒤 확정 메일을 보내 드립니다.','next.request':'희망일을 확인한 뒤 일정과 비용을 협의하는 연락을 드립니다.',
+      'demo.done':'[체험 모드] 실제로 전송되지 않았습니다.'
+    },
+    en: {
+      'skip':'Skip to content','brand':'with.study Booking','menu':'Menu',
+      'nav.home':'Home','nav.services':'Services','nav.book':'Book','nav.lookup':'My booking','nav.about':'About','nav.faq':'FAQ',
+      'demo.banner':'Preview: the booking system is not connected yet. You can try the screens, but nothing you enter is sent anywhere.',
+      'home.tag':'Lectures · Coaching · Consulting · Courses','home.title':'Book learning and consultations in one place',
+      'home.lead':'From lecture requests to 1:1 well-dying coaching and startup consulting. Pick a service, request a time, and the operator will confirm it personally.',
+      'cta.book':'Book now','cta.services':'See services','home.servicesH':'Services','home.servicesD':'Choose what you need. Fees are shown for each service.',
+      'home.flowH':'How booking works','flow.1t':'Choose a service','flow.1d':'Lecture, coaching, consulting and more.','flow.2t':'Pick a time','flow.2d':'Choose an open slot or suggest dates.',
+      'flow.3t':'Your details','flow.3d':'Leave your name, contact and requests.','flow.4t':'Confirmation','flow.4d':'The operator reviews and emails you a confirmation.',
+      'home.trustH':'About the operator','trust.1':'MA & PhD in Entrepreneurship, MA in Senior Industry','trust.2':'Well-dying research and education; designer of Ending Coordinator and Well-Dying Life Coach courses',
+      'trust.3':'Consulting for SMEs, ventures, women-led businesses and social economy organizations','trust.4':'Founder of a free English classroom in Cambodia (non-profit)',
+      'services.title':'Services','services.lead':'Check who it is for, how it runs and what to prepare.',
+      'book.title':'Book','step.1':'Service','step.2':'Schedule','step.3':'Details','step.4':'Review',
+      's1.h':'Which service would you like?','err.service':'Please choose a service.',
+      's2.h':'Choose a date and time','s2.d':'Only times the operator has opened are shown. Grey times are full.','s2.date':'Date','s2.time':'Time','s2.pickDate':'Choose a date first.','err.slot':'Please choose a time.',
+      'r.h':'Tell us your preferred dates','r.d':'Lectures and courses are requested by form. Suggest up to 3 dates and we will contact you to arrange.',
+      'r.pref1':'1st choice','r.pref2':'2nd choice','r.pref3':'3rd choice','r.time':'Preferred time','r.timePh':'e.g. 2–4 pm','r.headcount':'Expected attendees','r.venue':'Venue','r.venuePh':'e.g. Main hall, 3F / Online',
+      'r.topic':'Topic and requests','r.topicPh':'e.g. 2-hour ending-note workshop for older adults',
+      'err.pref1':'Please choose a first-choice date (after today).','err.prefPast':'Please choose a date after today.','err.headcount':'Please enter a number.','err.venue':'Please enter a venue.','err.topic':'Please enter a topic.',
+      's3.h':'Your details','f.name':'Name','f.phone':'Phone','f.phoneHint':'The last 4 digits are used to look up your booking.','f.email':'Email','f.emailHint':'We will send updates to this address.',
+      'f.org':'Organization','f.orgPh':'Organization (leave blank if personal)','f.message':'Requests','f.messagePh':'Anything we should know in advance.','f.sensitive':'Please do not include sensitive information such as health conditions.',
+      'f.consent':'[Required] I agree to the collection and use of my personal information.','f.consentD':'Items: name, phone, email, organization, requests / Purpose: booking and contact / Kept for 1 year, then deleted.','f.consentLink':'Details',
+      'err.name':'Please enter your name.','err.phone':'Please enter 9–15 digits.','err.email':'Please check your email address.','err.org':'Please enter your organization.','err.consent':'You need to agree before submitting.',
+      's4.h':'Please review your request','s4.d':'Your request will be saved as "Received". The operator will review it and email you a confirmation.',
+      'btn.prev':'Back','btn.next':'Next','btn.submit':'Submit',
+      'done.ok':'Your request has been received.','done.idLabel':'Booking number','done.save':'Please save or screenshot this number. You need it to look up your booking.','done.lookup':'Look up booking','done.home':'Home',
+      'lookup.title':'My booking','lookup.lead':'Enter your booking number and the last 4 digits of your phone to see the status.','lookup.id':'Booking number','lookup.last4':'Last 4 digits of phone','lookup.btn':'Look up',
+      'err.lid':'Please check the format (e.g. WS-20261024-001).','err.last4':'Please enter 4 digits.',
+      'about.title':'About','about.lead':'Life, work and its completion — designing the whole life course together.','about.badge':'Founder, with.study','about.name':'Startup planner · Educator · Consultant',
+      'about.intro':'As a PhD in entrepreneurship and a well-dying educator, I help organizations build sustainable structures and individuals design a meaningful later life.',
+      'about.th1':'Area','about.th2':'Details','about.r1a':'Degrees','about.r1b':'MA & PhD in Entrepreneurship, MA in Senior Industry','about.r2a':'Consulting','about.r2b':'SMEs, ventures, women-led businesses, social economy organizations, international development',
+      'about.r3a':'Well-dying','about.r3b':'Research and education; Ending Coordinator and Well-Dying Life Coach course design','about.r4a':'Education','about.r4b':'Startup planning and education, life-course design',
+      'about.r5a':'Social impact','about.r5b':'Non-profit founder; free English classroom in Cambodia',
+      'faq.title':'FAQ','faq.q1':'Is my booking confirmed right away?','faq.a1':'No. It is saved as "Received" and the operator changes it to "Confirmed" after checking the schedule. You will get an email.',
+      'faq.q2':'How do I request a lecture?','faq.a2':'Choose the lecture under Book and enter up to 3 dates, attendees, venue and topic. We confirm after agreeing on schedule and fee.',
+      'faq.q3':'I need to change or cancel.','faq.a3':'Reply to your booking email with your booking number. The operator will mark it as "Change requested" or "Cancelled".',
+      'faq.q4':'Can sessions be online?','faq.a4':'Coaching, consulting and consultations can be online. Joining details come with the confirmation email.',
+      'faq.q5':'I lost my booking number.','faq.a5':'It is in the confirmation email. If you cannot find it, submit a new request and explain in the Requests field.',
+      'privacy.title':'Privacy Policy','pv.r1a':'Items collected','pv.r1b':'Name, phone, email, organization (optional), requests (optional); for institution requests: preferred dates, attendees, venue, topic',
+      'pv.r2a':'Purpose','pv.r2b':'Receiving bookings, checking schedules, sending confirmations and changes','pv.r3a':'Retention','pv.r3b':'1 year from the request date, then deleted automatically.',
+      'pv.r4a':'Not collected','pv.r4b':'National ID numbers, health information or other sensitive data','pv.r5a':'Storage','pv.r5b':'A private Google Sheet only the operator can access',
+      'pv.r6a':'Refusal','pv.r6b':'You may refuse, but online booking will not be available.','pv.r7a':'Questions & deletion','pv.r7b':'Reply to your booking email with your booking number.',
+      'footer.contact':'Contact','footer.privacy':'Privacy Policy',
+      'status.접수':'Received','status.확정':'Confirmed','status.변경요청':'Change requested','status.취소':'Cancelled',
+      'card.detail':'Details','card.book':'Book','meta.dur':'Length','meta.mode':'Format','meta.price':'Fee',
+      'type.slot':'Pick a time','type.request':'Request form',
+      'rv.service':'Service','rv.when':'Schedule','rv.pref':'Preferred dates','rv.prefTime':'Preferred time','rv.headcount':'Attendees','rv.venue':'Venue','rv.topic':'Topic',
+      'rv.name':'Name','rv.phone':'Phone','rv.email':'Email','rv.org':'Organization','rv.message':'Requests','rv.people':'people',
+      'lk.status':'Status','lk.created':'Requested on','lk.notFound':'No matching booking. Please check the number and the last 4 digits.',
+      'err.network':'Could not reach the server. Please try again shortly.','err.slotTaken':'Someone just booked this time. Please choose another.',
+      'err.server':'We could not save your request. Please try again or email us.','err.fix':'Please check the fields marked in red.',
+      'loading':'Loading…','noSlots':'No times are open right now. Please contact us by email.',
+      'submitting':'Sending…','next.slot':'The operator will review and email you a confirmation.','next.request':'We will contact you to arrange the date and fee.',
+      'demo.done':'[Preview] Nothing was actually sent.'
+    }
+  };
+
+  var DEMO = !CONFIG.API_URL;
+  var lang = 'ko';
+  var services = [];
+  var state = {step:1, serviceId:'', slots:[], date:'', slotId:''};
+  var demoStore = {bookings:{}, slots:null, seq:0};
+
+  /* ===== 유틸 ===== */
+  function $(s, r){ return (r||document).querySelector(s); }
+  function $$(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
+  function el(tag, attrs, text){
+    var n = document.createElement(tag);
+    if(attrs) Object.keys(attrs).forEach(function(k){
+      if(k === 'class') n.className = attrs[k];
+      else if(k.indexOf('on') === 0) n.addEventListener(k.slice(2), attrs[k]);
+      else n.setAttribute(k, attrs[k]);
+    });
+    if(text != null) n.textContent = text;
+    return n;
+  }
+  function t(key){
+    var d = I18N[lang] || {};
+    if(d[key] != null) return d[key];
+    if(I18N.ko[key] != null) return I18N.ko[key];
+    var node = document.querySelector('[data-i18n="'+key+'"]');
+    return node ? (node.getAttribute('data-ko') || node.textContent) : key;
+  }
+  function f(svc, field){ return svc[field + '_' + lang] || svc[field + '_ko'] || ''; }
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function ymd(d){ return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()); }
+  function tomorrowStr(){ var d = new Date(); d.setDate(d.getDate()+1); return ymd(d); }
+  function parseYmd(s){ var p = String(s).split('-'); return new Date(+p[0], +p[1]-1, +p[2]); }
+  function fmtDate(s){
+    if(!s) return '';
+    var d = parseYmd(s);
+    if(isNaN(d)) return s;
+    var wk = lang === 'ko' ? ['일','월','화','수','목','금','토'] : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    return lang === 'ko'
+      ? (d.getMonth()+1) + '월 ' + d.getDate() + '일 (' + wk[d.getDay()] + ')'
+      : wk[d.getDay()] + ', ' + d.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+  }
+  function digits(s){ return String(s || '').replace(/\D/g, ''); }
+  function store(k, v){ try{ if(v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }catch(e){ return null; } }
+  function getService(id){ for(var i=0;i<services.length;i++) if(services[i].service_id === id) return services[i]; return null; }
+
+  /* ===== API (체험 모드면 메모리에서 처리) ===== */
+  function apiGet(params){
+    var q = Object.keys(params).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(params[k]); }).join('&');
+    return fetch(CONFIG.API_URL + '?' + q).then(function(r){ return r.json(); });
+  }
+  function apiPost(body){
+    // text/plain: Apps Script 웹앱이 CORS 사전요청 없이 받을 수 있는 형식
+    return fetch(CONFIG.API_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(body)})
+      .then(function(r){ return r.json(); });
+  }
+
+  function demoSlots(){
+    if(demoStore.slots) return demoStore.slots;
+    var rules = {
+      'coach-wl':   {days:[1,2,3,4,5], times:[['10:00','11:00'],['14:00','15:00']]},
+      'consult-biz':{days:[2,4],       times:[['13:00','14:30'],['15:00','16:30']]},
+      'consult-gya':{days:[3,6],       times:[['19:00','19:30'],['20:00','20:30']]}
+    };
+    var list = [], start = new Date(); start.setDate(start.getDate()+1);
+    for(var i=0;i<21;i++){
+      var d = new Date(start); d.setDate(start.getDate()+i);
+      Object.keys(rules).forEach(function(sid){
+        if(rules[sid].days.indexOf(d.getDay()) < 0) return;
+        rules[sid].times.forEach(function(tm, j){
+          var id = sid + '-' + ymd(d).replace(/-/g,'') + '-' + tm[0].replace(':','');
+          // 체험용으로 일부 시간은 마감 상태로 보여 줍니다
+          var booked = ((i + j) % 4 === 1) ? 1 : 0;
+          list.push({slot_id:id, service_id:sid, date:ymd(d), start:tm[0], end:tm[1], capacity:1, booked:booked});
+        });
+      });
+    }
+    demoStore.slots = list;
+    return list;
+  }
+
+  function loadServices(){
+    if(DEMO){ services = DEMO_SERVICES; return Promise.resolve(); }
+    return apiGet({action:'services'}).then(function(res){
+      if(!res.ok || !res.services || !res.services.length) throw new Error('services');
+      services = res.services;
+    }).catch(function(){
+      // 서버에 연결하지 못하면 예시 서비스로 화면을 유지하고 체험 모드로 전환합니다
+      services = DEMO_SERVICES; DEMO = true; $('#demoBanner').hidden = false;
+    });
+  }
+
+  function loadSlots(serviceId){
+    if(DEMO){
+      return Promise.resolve(demoSlots().filter(function(s){ return s.service_id === serviceId; }).map(function(s){
+        return {slot_id:s.slot_id, date:s.date, start:s.start, end:s.end, remaining:s.capacity - s.booked};
+      }));
+    }
+    return apiGet({action:'slots', service:serviceId}).then(function(res){
+      if(!res.ok) throw new Error(res.error || 'slots');
+      return res.slots || [];
+    });
+  }
+
+  function submitBooking(payload){
+    if(!DEMO) return apiPost(payload);
+    var svc = getService(payload.service_id);
+    if(svc.type === 'slot'){
+      var slot = demoSlots().filter(function(s){ return s.slot_id === payload.slot_id; })[0];
+      if(!slot || slot.booked >= slot.capacity) return Promise.resolve({ok:false, error:'SLOT_TAKEN'});
+      slot.booked++;
+    }
+    demoStore.seq++;
+    var id = 'WS-' + ymd(new Date()).replace(/-/g,'') + '-' + ('00' + demoStore.seq).slice(-3);
+    demoStore.bookings[id] = {booking_id:id, status:'접수', service_name:f(svc,'name'), date:payload.date || payload.pref1, time:payload.time || payload.pref_time || '', created_at:ymd(new Date()), last4:digits(payload.phone).slice(-4)};
+    return Promise.resolve({ok:true, booking_id:id});
+  }
+
+  function lookupBooking(id, last4){
+    if(!DEMO) return apiGet({action:'lookup', id:id, last4:last4});
+    var b = demoStore.bookings[id];
+    if(b && b.last4 === last4) return Promise.resolve({ok:true, booking:b});
+    return Promise.resolve({ok:false, error:'NOT_FOUND'});
+  }
+
+  /* ===== 언어 ===== */
+  function applyLang(l){
+    lang = I18N[l] ? l : 'ko';
+    document.documentElement.lang = lang;
+    $$('[data-i18n]').forEach(function(n){
+      if(!n.hasAttribute('data-ko')) n.setAttribute('data-ko', n.textContent);
+      var k = n.getAttribute('data-i18n');
+      n.textContent = lang === 'ko' ? n.getAttribute('data-ko') : (I18N.en[k] != null ? I18N.en[k] : n.getAttribute('data-ko'));
+    });
+    $$('[data-i18n-ph]').forEach(function(n){
+      if(!n.hasAttribute('data-ko-ph')) n.setAttribute('data-ko-ph', n.getAttribute('placeholder') || '');
+      var k = n.getAttribute('data-i18n-ph');
+      n.setAttribute('placeholder', lang === 'ko' ? n.getAttribute('data-ko-ph') : (I18N.en[k] || n.getAttribute('data-ko-ph')));
+    });
+    document.title = t('brand');
+    $('#langBtn').textContent = lang === 'ko' ? 'EN' : 'KO';
+    $('#langBtn').setAttribute('aria-label', lang === 'ko' ? 'Switch to English' : '한국어로 보기');
+    store('wsb.lang', lang);
+    renderServices();
+    renderServiceOptions();
+    if(state.serviceId && getService(state.serviceId) && getService(state.serviceId).type === 'slot') renderSlots();
+    if(state.step === 4) renderReview();
+  }
+
+  /* ===== 테마 ===== */
+  function applyTheme(th){
+    if(th === 'light' || th === 'dark') document.documentElement.setAttribute('data-theme', th);
+    else document.documentElement.removeAttribute('data-theme');
+  }
+  function currentTheme(){
+    var a = document.documentElement.getAttribute('data-theme');
+    if(a) return a;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  /* ===== 서비스 카드·상세 ===== */
+  function metaList(svc){
+    var ul = el('ul', {class:'meta'});
+    [['meta.dur','duration'],['meta.mode','mode'],['meta.price','price']].forEach(function(m){
+      var li = el('li'); li.appendChild(el('b', null, t(m[0]))); li.appendChild(el('span', null, f(svc, m[1]))); ul.appendChild(li);
+    });
+    return ul;
+  }
+  function renderServices(){
+    var home = $('#homeCards'), det = $('#serviceDetails');
+    home.textContent = ''; det.textContent = '';
+    services.forEach(function(svc){
+      var c = el('article', {class:'card'});
+      c.appendChild(el('span', {class:'badge'}, f(svc,'category')));
+      c.appendChild(el('h3', null, f(svc,'name')));
+      c.appendChild(el('p', null, f(svc,'summary')));
+      c.appendChild(metaList(svc));
+      var row = el('div', {class:'btn-row'});
+      row.appendChild(el('a', {class:'btn ghost', href:'#services/' + svc.service_id}, t('card.detail')));
+      row.appendChild(el('a', {class:'btn', href:'#book/' + svc.service_id}, t('card.book')));
+      c.appendChild(row);
+      home.appendChild(c);
+
+      var d = el('article', {class:'detail', id:'svc-' + svc.service_id});
+      d.appendChild(el('span', {class:'badge'}, f(svc,'category') + ' · ' + t('type.' + svc.type)));
+      d.appendChild(el('h2', {style:'margin-top:0'}, f(svc,'name')));
+      d.appendChild(el('p', {class:'section-desc'}, f(svc,'summary')));
+      d.appendChild(metaList(svc));
+      var lines = el('ul', {class:'detail-lines'});
+      f(svc,'detail').split('\n').filter(Boolean).forEach(function(line){ lines.appendChild(el('li', null, line)); });
+      d.appendChild(lines);
+      d.appendChild(el('a', {class:'btn', href:'#book/' + svc.service_id}, t('card.book')));
+      det.appendChild(d);
+    });
+  }
+
+  /* ===== 예약 마법사 ===== */
+  function renderServiceOptions(){
+    var box = $('#serviceOptions'); box.textContent = '';
+    services.forEach(function(svc){
+      var lab = el('label', {class:'opt'});
+      var inp = el('input', {type:'radio', name:'service', value:svc.service_id});
+      if(svc.service_id === state.serviceId) inp.checked = true;
+      inp.addEventListener('change', function(){ selectService(svc.service_id); });
+      lab.appendChild(inp);
+      var txt = el('span');
+      txt.appendChild(el('span', {class:'t'}, f(svc,'name')));
+      txt.appendChild(el('span', {class:'s'}, f(svc,'category') + ' · ' + f(svc,'duration') + ' · ' + f(svc,'mode') + ' · ' + f(svc,'price')));
+      lab.appendChild(txt);
+      box.appendChild(lab);
+    });
+  }
+
+  function selectService(id){
+    if(state.serviceId !== id){ state.date = ''; state.slotId = ''; state.slots = []; }
+    state.serviceId = id;
+    clearInvalid('f-service');
+    var svc = getService(id);
+    $('#orgReq').hidden = !(svc && svc.type === 'request');
+  }
+
+  function renderSlots(){
+    var dates = {}, order = [];
+    state.slots.forEach(function(s){
+      if(!dates[s.date]){ dates[s.date] = []; order.push(s.date); }
+      dates[s.date].push(s);
+    });
+    order.sort();
+    var dc = $('#dateChips'); dc.textContent = '';
+    if(!order.length){ dc.appendChild(el('p', {class:'empty'}, t('noSlots'))); $('#timeChips').textContent = ''; return; }
+    order.forEach(function(d){
+      var open = dates[d].some(function(s){ return s.remaining > 0; });
+      var b = el('button', {type:'button', class:'chip', 'aria-pressed': String(state.date === d)}, fmtDate(d));
+      if(!open) b.disabled = true;
+      b.addEventListener('click', function(){ state.date = d; state.slotId = ''; renderSlots(); });
+      dc.appendChild(b);
+    });
+    var tc = $('#timeChips'); tc.textContent = '';
+    if(!state.date){ tc.appendChild(el('p', {class:'empty'}, t('s2.pickDate'))); return; }
+    (dates[state.date] || []).sort(function(a,b){ return a.start < b.start ? -1 : 1; }).forEach(function(s){
+      var b = el('button', {type:'button', class:'chip', 'aria-pressed': String(state.slotId === s.slot_id)}, s.start + '–' + s.end);
+      if(s.remaining <= 0){ b.disabled = true; b.setAttribute('aria-label', s.start + ' ' + (lang === 'ko' ? '마감' : 'full')); }
+      b.addEventListener('click', function(){ state.slotId = s.slot_id; clearInvalid('f-slot'); renderSlots(); });
+      tc.appendChild(b);
+    });
+  }
+
+  function prepareStep2(){
+    var svc = getService(state.serviceId);
+    var isSlot = svc.type === 'slot';
+    $('#slotMode').hidden = !isSlot;
+    $('#requestMode').hidden = isSlot;
+    ['pref1','pref2','pref3'].forEach(function(id){ $('#'+id).min = tomorrowStr(); });
+    if(!isSlot) return Promise.resolve();
+    $('#dateChips').textContent = ''; $('#timeChips').textContent = '';
+    $('#dateChips').appendChild(el('p', {class:'empty'}, t('loading')));
+    return loadSlots(state.serviceId).then(function(list){
+      state.slots = list;
+      if(state.slotId && !list.some(function(s){ return s.slot_id === state.slotId && s.remaining > 0; })) state.slotId = '';
+      renderSlots();
+    }).catch(function(){
+      $('#dateChips').textContent = '';
+      $('#dateChips').appendChild(el('p', {class:'empty'}, t('err.network')));
+    });
+  }
+
+  function setInvalid(id, bad){ var n = document.getElementById(id); if(n) n.classList.toggle('invalid', !!bad); return !bad; }
+  function clearInvalid(id){ setInvalid(id, false); }
+  function val(id){ return ($('#'+id).value || '').trim(); }
+
+  function validate(step){
+    var ok = true, svc = getService(state.serviceId), tmr = tomorrowStr();
+    if(step === 1) ok = setInvalid('f-service', !svc);
+    if(step === 2){
+      if(svc.type === 'slot') ok = setInvalid('f-slot', !state.slotId);
+      else {
+        var p1 = val('pref1');
+        ok = setInvalid('f-pref1', !p1 || p1 < tmr) && ok;
+        ok = setInvalid('f-pref2', val('pref2') && val('pref2') < tmr) && ok;
+        ok = setInvalid('f-pref3', val('pref3') && val('pref3') < tmr) && ok;
+        var hc = parseInt(val('headcount'), 10);
+        ok = setInvalid('f-headcount', !(hc >= 1 && hc <= 2000)) && ok;
+        ok = setInvalid('f-venue', !val('venue')) && ok;
+        ok = setInvalid('f-topic', !val('topic')) && ok;
+      }
+    }
+    if(step === 3){
+      ok = setInvalid('f-name', !val('name')) && ok;
+      var ph = digits(val('phone'));
+      ok = setInvalid('f-phone', ph.length < 9 || ph.length > 15) && ok;
+      ok = setInvalid('f-email', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('email'))) && ok;
+      ok = setInvalid('f-org', svc.type === 'request' && !val('org')) && ok;
+      ok = setInvalid('f-consent', !$('#consent').checked) && ok;
+    }
+    if(!ok){
+      showAlert('error', t('err.fix'));
+      var first = $('.step[data-step="'+step+'"] .field.invalid input, .step[data-step="'+step+'"] .field.invalid textarea');
+      if(first) first.focus();
+    } else showAlert();
+    return ok;
+  }
+
+  function showAlert(kind, msg){
+    var a = $('#wizardAlert'); a.textContent = '';
+    if(msg){ var p = el('p', {class:'alert ' + kind, role:'alert'}, msg); a.appendChild(p); }
+  }
+
+  function chosenSlot(){ return state.slots.filter(function(s){ return s.slot_id === state.slotId; })[0]; }
+
+  function renderReview(){
+    var svc = getService(state.serviceId), dl = $('#review'); dl.textContent = '';
+    function row(k, v){ if(!v) return; dl.appendChild(el('dt', null, t(k))); dl.appendChild(el('dd', null, v)); }
+    row('rv.service', f(svc,'name') + ' (' + f(svc,'duration') + ', ' + f(svc,'mode') + ')');
+    if(svc.type === 'slot'){
+      var s = chosenSlot();
+      if(s) row('rv.when', fmtDate(s.date) + ' ' + s.start + '–' + s.end);
+    } else {
+      row('rv.pref', [val('pref1'), val('pref2'), val('pref3')].filter(Boolean).map(fmtDate).join(' / '));
+      row('rv.prefTime', val('prefTime'));
+      row('rv.headcount', val('headcount') + ' ' + t('rv.people'));
+      row('rv.venue', val('venue'));
+      row('rv.topic', val('topic'));
+    }
+    row('rv.name', val('name')); row('rv.phone', val('phone')); row('rv.email', val('email'));
+    row('rv.org', val('org')); row('rv.message', val('message'));
+  }
+
+  function goStep(n){
+    state.step = n;
+    $$('.step').forEach(function(p){ p.hidden = +p.getAttribute('data-step') !== n; });
+    $$('#progress li').forEach(function(li, i){
+      li.classList.toggle('done', i + 1 < n); li.classList.toggle('current', i + 1 === n);
+      if(i + 1 === n) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
+    });
+    $('#prevBtn').style.visibility = n === 1 ? 'hidden' : 'visible';
+    $('#nextBtn').hidden = n === 4;
+    $('#submitBtn').hidden = n !== 4;
+    if(n === 2) prepareStep2();
+    if(n === 4) renderReview();
+    var h = $('.step[data-step="'+n+'"] h2'); if(h){ h.setAttribute('tabindex','-1'); h.focus({preventScroll:true}); }
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function resetWizard(){
+    $('#bookForm').reset();
+    state = {step:1, serviceId:'', slots:[], date:'', slotId:''};
+    $$('.field.invalid').forEach(function(n){ n.classList.remove('invalid'); });
+    showAlert();
+    $('#bookForm').hidden = false; $('#doneBox').hidden = true;
+    renderServiceOptions();
+    goStep(1);
+  }
+
+  function onSubmit(e){
+    e.preventDefault();
+    if(state.step !== 4) return;
+    var svc = getService(state.serviceId), s = chosenSlot();
+    var payload = {
+      action:'book', service_id:svc.service_id, lang:lang,
+      name:val('name'), phone:val('phone'), email:val('email'), org:val('org'), message:val('message'),
+      consent:$('#consent').checked, website:val('website')
+    };
+    if(svc.type === 'slot'){ payload.slot_id = state.slotId; payload.date = s && s.date; payload.time = s && (s.start + '–' + s.end); }
+    else {
+      payload.pref1 = val('pref1'); payload.pref2 = val('pref2'); payload.pref3 = val('pref3'); payload.pref_time = val('prefTime');
+      payload.headcount = val('headcount'); payload.venue = val('venue'); payload.topic = val('topic');
+    }
+    var btn = $('#submitBtn'); btn.disabled = true; btn.textContent = t('submitting');
+    submitBooking(payload).then(function(res){
+      if(res.ok){
+        $('#bookForm').hidden = true; showAlert();
+        $('#doneBox').hidden = false;
+        $('#doneId').textContent = res.booking_id;
+        $('#doneNext').textContent = t(svc.type === 'slot' ? 'next.slot' : 'next.request') + (DEMO ? ' ' + t('demo.done') : '');
+        $('#doneLookup').setAttribute('href', '#lookup/' + res.booking_id);
+        window.scrollTo({top:0, behavior:'smooth'});
+      } else if(res.error === 'SLOT_TAKEN'){
+        state.slotId = '';
+        goStep(2);
+        showAlert('error', t('err.slotTaken'));
+      } else showAlert('error', t('err.server'));
+    }).catch(function(){ showAlert('error', t('err.network')); })
+      .then(function(){ btn.disabled = false; btn.textContent = t('btn.submit'); });
+  }
+
+  /* ===== 예약 조회 ===== */
+  function onLookup(e){
+    e.preventDefault();
+    var id = val('lid').toUpperCase(), l4 = digits(val('last4'));
+    var ok = setInvalid('f-lid', !/^WS-\d{8}-\d{3,}$/.test(id));
+    ok = setInvalid('f-last4', l4.length !== 4) && ok;
+    if(!ok) return;
+    var out = $('#lookupResult'); out.textContent = ''; out.appendChild(el('p', {class:'empty'}, t('loading')));
+    var btn = $('#lookupBtn'); btn.disabled = true;
+    lookupBooking(id, l4).then(function(res){
+      out.textContent = '';
+      if(!res.ok){ out.appendChild(el('p', {class:'alert error', role:'alert'}, res.error === 'NOT_FOUND' ? t('lk.notFound') : t('err.server'))); return; }
+      var b = res.booking, box = el('div', {class:'panel'}), dl = el('dl', {class:'review'});
+      function row(k, v, cls){ if(!v) return; dl.appendChild(el('dt', null, t(k))); var dd = el('dd'); dd.appendChild(el('span', cls ? {class:cls} : null, v)); dl.appendChild(dd); }
+      row('done.idLabel', b.booking_id);
+      row('lk.status', t('status.' + b.status), 'status s-' + b.status);
+      row('rv.service', b.service_name);
+      row('rv.when', [b.date ? fmtDate(b.date) : '', b.time].filter(Boolean).join(' '));
+      row('lk.created', b.created_at);
+      box.appendChild(dl); out.appendChild(box);
+    }).catch(function(){ out.textContent = ''; out.appendChild(el('p', {class:'alert error', role:'alert'}, t('err.network'))); })
+      .then(function(){ btn.disabled = false; });
+  }
+
+  /* ===== 화면 이동 (#home, #services/id, #book/id, #lookup/id ...) ===== */
+  var ROUTES = ['home','services','book','lookup','about','faq','privacy'];
+  function route(){
+    var parts = (location.hash || '#home').slice(1).split('/');
+    var page = ROUTES.indexOf(parts[0]) >= 0 ? parts[0] : 'home', arg = parts[1] ? decodeURIComponent(parts[1]) : '';
+    $$('.page').forEach(function(p){ p.classList.toggle('active', p.getAttribute('data-page') === page); });
+    $$('.nav a').forEach(function(a){ if(a.getAttribute('data-route') === page) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+    $('#nav').classList.remove('open'); $('#menuBtn').setAttribute('aria-expanded','false');
+    if(page === 'book'){
+      if(!$('#doneBox').hidden || arg) resetWizard();
+      if(arg && getService(arg)){ selectService(arg); renderServiceOptions(); goStep(2); }
+    }
+    if(page === 'services' && arg){
+      var target = document.getElementById('svc-' + arg);
+      if(target){ setTimeout(function(){ target.scrollIntoView({behavior:'smooth'}); }, 0); return; }
+    }
+    if(page === 'lookup' && arg){ $('#lid').value = arg; $('#last4').focus(); }
+    window.scrollTo(0, 0);
+  }
+
+  /* ===== 시작 ===== */
+  function init(){
+    $$('.contactLink').forEach(function(a){
+      if(CONFIG.CONTACT_EMAIL){ a.href = 'mailto:' + CONFIG.CONTACT_EMAIL; a.textContent = CONFIG.CONTACT_EMAIL; }
+      else a.hidden = true;
+    });
+    if(!CONFIG.CONTACT_EMAIL) $('#footerContact').hidden = true;
+    if(DEMO) $('#demoBanner').hidden = false;
+
+    var savedTheme = store('wsb.theme'); if(savedTheme) applyTheme(savedTheme);
+    $('#themeBtn').addEventListener('click', function(){
+      var next = currentTheme() === 'dark' ? 'light' : 'dark'; applyTheme(next); store('wsb.theme', next);
+    });
+    $('#langBtn').addEventListener('click', function(){ applyLang(lang === 'ko' ? 'en' : 'ko'); });
+    $('#menuBtn').addEventListener('click', function(){
+      var open = $('#nav').classList.toggle('open'); this.setAttribute('aria-expanded', String(open));
+    });
+
+    $('#nextBtn').addEventListener('click', function(){ if(validate(state.step)) goStep(state.step + 1); });
+    $('#prevBtn').addEventListener('click', function(){ showAlert(); goStep(Math.max(1, state.step - 1)); });
+    $('#bookForm').addEventListener('submit', onSubmit);
+    $('#bookForm').addEventListener('keydown', function(e){
+      // Enter 키로 단계를 건너뛰어 제출되지 않게 막습니다
+      if(e.key === 'Enter' && e.target.tagName === 'INPUT' && state.step !== 4){ e.preventDefault(); $('#nextBtn').click(); }
+    });
+    $('#bookForm').addEventListener('input', function(e){ var fld = e.target.closest('.field'); if(fld) fld.classList.remove('invalid'); });
+    $('#lookupForm').addEventListener('submit', onLookup);
+    window.addEventListener('hashchange', route);
+
+    loadServices().then(function(){
+      var savedLang = store('wsb.lang');
+      applyLang(savedLang || ((navigator.language || 'ko').toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en'));
+      goStep(1);
+      route();
+    });
+  }
+  init();
+})();
+</script>
+</body>
+</html>
