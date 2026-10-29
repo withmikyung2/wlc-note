@@ -7,8 +7,8 @@ const fa = require('react-icons/fa');
 
 const THEME = {
   name: 'WLC Teal',
-  headFontFace: 'Malgun Gothic',
-  bodyFontFace: 'Malgun Gothic',
+  headFontFace: 'Noto Serif KR Black',
+  bodyFontFace: 'Noto Serif KR Black',
   colors: { dk1: '222222', lt1: 'FFFFFF', dk2: '1F4E4A', lt2: 'EAF3F0',
     accent1: '2E7D6B', accent2: 'D98E04', accent3: '3A6EA5', accent4: 'B5452F',
     accent5: '8FB9A8', accent6: '6B6B6B', hlink: '3A6EA5', folHlink: '1F4E4A' },
