@@ -336,6 +336,37 @@ const R = {
     }
   },
   async worksheet(pres, sl, s) { await R.table(pres, sl, s); },
+  async stats(pres, sl, s) {
+    // 큰 숫자 카드 (값 · 지표명 · 의미)
+    const n = s.items.length, gap = 0.3, w = (CW - gap * (n - 1)) / n, top = 1.75, h = s.source ? 4.45 : 4.95;
+    s.items.forEach((it, j) => {
+      const x = MX + j * (w + gap);
+      card(pres, sl, x, top, w, h, j === 0 ? HEX.dk2 : TINT.key);
+      const dark = j === 0;
+      txt(sl, it.value, { x: x + 0.2, y: top + 0.3, w: w - 0.4, h: 1.1, fontSize: sized(it.value, w - 0.4, 1.1, 44, 28, 'stat'), bold: true, color: dark ? 'FFFFFF' : HEX.acc, valign: 'middle' });
+      txt(sl, it.label, { x: x + 0.2, y: top + 1.45, w: w - 0.4, h: 0.75, fontSize: sized(it.label, w - 0.4, 0.75, 18, 14, 'stat label'), bold: true, color: dark ? 'CFE3DC' : HEX.dk2 });
+      txt(sl, it.note, { x: x + 0.2, y: top + 2.3, w: w - 0.4, h: h - 2.45, fontSize: sized(it.note, w - 0.4, h - 2.45, 17, 14, 'stat note'), color: dark ? 'FFFFFF' : HEX.ink });
+    });
+    if (s.source) txt(sl, '출처: ' + s.source, { x: MX, y: 6.35, w: CW, h: 0.4, fontSize: 12, color: HEX.mute, valign: 'middle' });
+  },
+  async charts(pres, sl, s) {
+    // 막대그래프 1~2개 (네이티브 차트)
+    const n = s.charts.length, gap = 0.4, w = (CW - gap * (n - 1)) / n, top = 1.7, h = s.callout ? 3.85 : 4.6;
+    s.charts.forEach((c, j) => {
+      const x = MX + j * (w + gap);
+      card(pres, sl, x, top, w, h, 'FFFFFF', { shadow: true });
+      sl.addChart(pres.charts.BAR, [{ name: c.title, labels: c.labels, values: c.values }], {
+        x: x + 0.15, y: top + 0.1, w: w - 0.3, h: h - 0.2, barDir: 'col', barGapWidthPct: 60,
+        chartColors: c.colors || c.values.map((_, k) => k === c.values.length - 1 ? THEME.colors.accent2 : THEME.colors.accent1),
+        showTitle: true, title: c.title, titleFontSize: 16, titleColor: HEX.dk2, titleFontFace: '+mn-lt',
+        showValue: true, dataLabelPosition: 'outEnd', dataLabelFormatCode: c.fmt || '0.0"%"', dataLabelFontSize: 14, dataLabelFontFace: '+mn-lt', dataLabelColor: HEX.ink,
+        catAxisLabelColor: HEX.mute, catAxisLabelFontSize: 13, catAxisLabelFontFace: '+mn-lt', valAxisHidden: true,
+        valGridLine: { style: 'none' }, catGridLine: { style: 'none' }, showLegend: false, valAxisMinVal: 0, valAxisMaxVal: c.max || undefined,
+      });
+    });
+    if (s.source) txt(sl, '출처: ' + s.source, { x: MX, y: s.callout ? 5.6 : 6.4, w: CW, h: 0.3, fontSize: 11, color: HEX.mute });
+    if (s.callout) await calloutBar(pres, sl, s.callout, 5.95, 0.85);
+  },
   async quiz(pres, sl, s) {
     txt(sl, s.q, { x: MX, y: 1.6, w: CW, h: 0.9, fontSize: sized(s.q, CW, 0.9, 28, 18, 'quiz q'), bold: true, color: HEX.dk2, valign: 'middle' });
     const gap = 0.3, w = (CW - gap) / 2, h = 1.6;
