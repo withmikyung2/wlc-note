@@ -211,12 +211,15 @@ const R = {
     const cols = s.cols || 2, n = s.items.length, rows = Math.ceil(n / cols), gap = 0.3;
     const top = 1.7, bottom = s.callout ? 5.55 : 6.75;
     const w = (CW - gap * (cols - 1)) / cols, rh = (bottom - top) / rows;
+    // 모든 항목을 같은 크기로: 가장 긴 항목 기준
+    const flat = s.items.map(t => Array.isArray(t) ? t.join(' ') : t);
+    const fsAll = Math.min(...flat.map(t => sized(t, w - 0.75, rh - 0.12, s.max || 22, 14, 'numlist')));
     s.items.forEach((t, j) => {
       const x = MX + Math.floor(j / rows) * (w + gap), y = top + (j % rows) * rh;
       numDot(pres, sl, j + 1, x, y + 0.05, 0.48, HEX[s.color || 'acc'], 15);
       const [head, ...rest] = Array.isArray(t) ? t : [null, t];
       const body = rest.join('');
-      const fs = sized((head || '') + body, w - 0.75, rh - 0.12, s.max || 22, 14, 'numlist');
+      const fs = fsAll;
       txt(sl, [...(head ? [{ text: head + ' ', options: { bold: true, color: HEX.dk2 } }] : []), { text: body, options: {} }], { x: x + 0.68, y: y + 0.02, w: w - 0.75, h: rh - 0.08, fontSize: fs });
     });
     if (s.callout) await calloutBar(pres, sl, s.callout, 5.8, 0.95);
