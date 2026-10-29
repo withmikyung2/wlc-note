@@ -132,9 +132,11 @@ const R = {
     sl.addShape(pres.shapes.OVAL, { x: 10.4, y: 3.9, w: 4.2, h: 4.2, fill: { color: '8FB9A8', transparency: 70 }, line: { color: '8FB9A8', width: 0 } });
     txt(sl, `WLC 2급 자격과정  ·  ${L.part}`, { x: MX, y: 1.3, w: 9, h: 0.4, fontSize: 16, color: 'A8C5BC', bold: true });
     txt(sl, `제${L.no}강`, { x: MX, y: 2.0, w: 9, h: 0.8, fontSize: 32, color: 'FFFFFF', bold: true });
-    txt(sl, L.title, { x: MX, y: 2.8, w: 10, h: 1.2, fontSize: 48, color: 'FFFFFF', bold: true, fontFace: THEME.headFontFace });
-    txt(sl, L.eng, { x: MX, y: 4.05, w: 9, h: 0.45, fontSize: 18, color: 'CFE3DC', italic: true });
-    txt(sl, s.sub || '3시간 과정  ·  1교시 50분 · 2교시 50분 · 3교시 60분', { x: MX, y: 5.6, w: 9, h: 0.4, fontSize: 15, color: 'CFE3DC' });
+    // 48pt 한 줄 폭(약 11.4in)을 넘는 긴 제목은 두 줄 배치로 내려 영문 부제와 겹치지 않게 한다
+    const two = [...L.title].reduce((a, c) => a + (/[\u3131-\uD79D]/.test(c) ? 0.68 : 0.36), 0) > 11.4;
+    txt(sl, L.title, { x: MX, y: two ? 2.75 : 2.8, w: 11.6, h: two ? 2.0 : 1.2, fontSize: 48, color: 'FFFFFF', bold: true, fontFace: THEME.headFontFace, valign: 'top' });
+    txt(sl, L.eng, { x: MX, y: two ? 4.85 : 4.05, w: 9, h: 0.45, fontSize: 18, color: 'CFE3DC', italic: true });
+    txt(sl, s.sub || '3시간 과정  ·  1교시 50분 · 2교시 50분 · 3교시 60분', { x: MX, y: two ? 5.45 : 5.6, w: 9, h: 0.4, fontSize: 15, color: 'CFE3DC' });
     txt(sl, '삶잇다협동조합', { x: MX, y: 6.2, w: 6, h: 0.45, fontSize: 18, color: 'FFFFFF', bold: true });
   },
   async roadmap(pres, sl, s, { L }) {
