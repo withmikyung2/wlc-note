@@ -1,0 +1,212 @@
+{
+"logo": {
+"f": "logo.png",
+"w": 233,
+"h": 52
+},
+"bugo": {
+"f": "bugo.jpg",
+"w": 1149,
+"h": 1369
+},
+"movie_still": {
+"f": "movie_still.jpg",
+"w": 960,
+"h": 720
+},
+"movie_poster": {
+"f": "movie_poster.jpg",
+"w": 338,
+"h": 468
+},
+"profile": {
+"f": "profile.jpg",
+"w": 394,
+"h": 498
+},
+"letter4": {
+"f": "letter4.png",
+"w": 798,
+"h": 292
+},
+"body_donation": {
+"f": "body_donation.jpg",
+"w": 389,
+"h": 658
+},
+"endingnote": {
+"f": "endingnote.jpg",
+"w": 843,
+"h": 1117
+},
+"textbook": {
+"f": "textbook.jpg",
+"w": 815,
+"h": 1115
+},
+"rock": {
+"f": "rock.jpg",
+"w": 1306,
+"h": 1080
+},
+"family1": {
+"f": "family1.jpg",
+"w": 1440,
+"h": 969
+},
+"family2": {
+"f": "family2.jpg",
+"w": 1440,
+"h": 641
+},
+"why_die": {
+"f": "why_die.jpg",
+"w": 500,
+"h": 737
+},
+"jobs": {
+"f": "jobs.jpg",
+"w": 949,
+"h": 557
+},
+"lifespan": {
+"f": "lifespan.jpg",
+"w": 1703,
+"h": 924
+},
+"jellyfish": {
+"f": "jellyfish.jpg",
+"w": 663,
+"h": 645
+},
+"pyramid": {
+"f": "pyramid.jpg",
+"w": 1672,
+"h": 941
+},
+"gap18": {
+"f": "gap18.jpg",
+"w": 1268,
+"h": 608
+},
+"gladiator": {
+"f": "gladiator.jpg",
+"w": 531,
+"h": 398
+},
+"infinity": {
+"f": "infinity.jpg",
+"w": 437,
+"h": 197
+},
+"lst_gap": {
+"f": "lst_gap.jpg",
+"w": 1402,
+"h": 450
+},
+"care2026": {
+"f": "care2026.jpg",
+"w": 2661,
+"h": 1260
+},
+"ad_compare": {
+"f": "ad_compare.jpg",
+"w": 1358,
+"h": 663
+},
+"will5": {
+"f": "will5.jpg",
+"w": 1184,
+"h": 648
+},
+"holo_will": {
+"f": "holo_will.jpg",
+"w": 411,
+"h": 336
+},
+"digital": {
+"f": "digital.jpg",
+"w": 1857,
+"h": 1082
+},
+"m1": {
+"f": "m1.jpg",
+"w": 1059,
+"h": 596
+},
+"m2": {
+"f": "m2.jpg",
+"w": 640,
+"h": 485
+},
+"m3": {
+"f": "m3.jpg",
+"w": 475,
+"h": 567
+},
+"m4": {
+"f": "m4.jpg",
+"w": 700,
+"h": 564
+},
+"m5": {
+"f": "m5.jpg",
+"w": 600,
+"h": 400
+},
+"m6": {
+"f": "m6.jpg",
+"w": 500,
+"h": 324
+},
+"f1": {
+"f": "f1.jpg",
+"w": 658,
+"h": 440
+},
+"f2": {
+"f": "f2.jpg",
+"w": 312,
+"h": 228
+},
+"f3": {
+"f": "f3.jpg",
+"w": 504,
+"h": 371
+},
+"f4": {
+"f": "f4.jpg",
+"w": 860,
+"h": 485
+},
+"regrets": {
+"f": "regrets.jpg",
+"w": 389,
+"h": 630
+},
+"dust1": {
+"f": "dust1.jpg",
+"w": 816,
+"h": 504
+},
+"dust2": {
+"f": "dust2.jpg",
+"w": 816,
+"h": 504
+},
+"bugo_form": {
+"f": "bugo_form.png",
+"w": 586,
+"h": 841
+},
+"cheon": {
+"f": "cheon.jpg",
+"w": 412,
+"h": 400
+},
+"letter_img": {
+"f": "letter_img.jpg",
+"w": 1338,
+"h": 673
+}
+}
